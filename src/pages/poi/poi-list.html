@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Poi list</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+    <!--<button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)"  (press)="onHold($event, item)">-->
+    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)" >
+      <!--click + press non funziona con la scroll-->
+
+      <ion-thumbnail item-left >
+        <div *ngIf="item.thumbnail !== ''">
+          <img src="{{ item.thumbnail }}" style="height:100%">
+        </div>
+        <div *ngIf="item.thumbnail === ''">
+          <div id="profileImage" class="profileImg" [ngStyle]="{'backgroundColor': item.bgcolor}"> {{ item.title.substr(0, 1) }} </div>
+        </div>
+
+      </ion-thumbnail>
+      <h2>{{ item.title }} </h2>
+      <h4>{{ item.description.substr(0, 35) }}...</h4>
+    </button>
+  </ion-list>
+
+
+</ion-content>
+<style>
+
+  .profileImg {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 20px;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    margin: 20px 0;
+  }
+</style>
