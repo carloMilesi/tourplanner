@@ -26,8 +26,8 @@ Installare typings per il modulo PouchDB
 
 I comandi seguenti servono per la prima configurazione in locale del progetto.
 ```sh
-  $ git clone https://gitlab.com/cp2020/tourplanner2.git
-  $ cd tourplanner2
+  $ git clone https://gitlab.com/cp2020/tourplanner.git
+  $ cd tourplanner
   $ npm install
   $ typings install
   $ ionic serve -c
