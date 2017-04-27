@@ -24672,6 +24672,31 @@ ion-navbar.toolbar {
   font-size: 16px;
 }
 
+.card-background-page ion-card {
+  position: relative;
+  text-align: center;
+  background-color: #b1cdfb;
+  height: 150px;
+  border-style: inset;
+}
+
+.card-background-page .card-title {
+  position: absolute;
+  top: 36%;
+  font-size: 1.5em;
+  width: 100%;
+  font-weight: bold;
+  color: #fff;
+}
+
+.card-background-page .card-subtitle {
+  font-size: 1.0em;
+  position: absolute;
+  top: 52%;
+  width: 100%;
+  color: #fff;
+}
+
 .ios map-component #map, .md map-component #map {
   width: 100%;
   height: 100%;

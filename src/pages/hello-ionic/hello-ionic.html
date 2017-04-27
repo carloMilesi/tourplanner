@@ -8,10 +8,52 @@
 </ion-header>
 
 
-<ion-content padding class="getting-started">
+<!--ion-content padding class="getting-started"-->
+
+<ion-content class="card-background-page">
   <ion-searchbar [(ngModel)]="keyword"></ion-searchbar>
 
+  <br><br>
+
+  TEST IONIC CARDS
+
   <ion-grid>
+    <ion-row>
+      <ion-col>
+
+        <ion-card>
+          <img src="img/cp_logo.png"/>
+          <div class="card-title">{{ "PAGE_MONUMENTS" | translate }}</div>
+        </ion-card>
+
+        <ion-card>
+          <img src="img/cp_logo.png"/>
+          <div class="card-title">{{ "PAGE_MUSEUMS" | translate }}</div>
+        </ion-card>
+
+      </ion-col>
+
+      <ion-col>
+
+        <ion-card>
+          <img src="img/cp_logo.png"/>
+          <div class="card-title">{{ "PAGE_ARCHEOLOGY" | translate }}</div>
+        </ion-card>
+
+        <ion-card>
+          <img src="img/cp_logo.png"/>
+          <div class="card-title">{{ "PAGE_GARDENS" | translate }}</div>
+        </ion-card>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
+
+  <!--ion-grid>
     <ion-row>
       <ion-col width-30 style="border: 0px solid #000000">
 
@@ -21,12 +63,7 @@
         <img src="img/cp_logo.png" style="">
       </ion-col>
     </ion-row>
-    
-
-
-  </ion-grid>
-
-
+  </ion-grid-->
 
   <!--<p>-->
     <!--This starter project is our way of helping you get a functional app running in record time.-->

@@ -17,6 +17,8 @@
   "PAGE_ARCHEOLOGY": "Archeology",
   "PAGE_GARDENS": "Gardens",
 
-  "TEXT_NO_PATH": "There are no saved pathways!"
+  "TEXT_NO_PATH": "There are no saved pathways!",
+
+  "BUTTON_CLOSE": "Close"
 
 }

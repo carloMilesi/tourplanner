@@ -3,7 +3,7 @@
     <button ion-button menuToggle *ngIf="!addingNew">
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title> Percorsi </ion-title>
+    <ion-title> {{ "MENU_PATHWAYS" | translate}} </ion-title>
   
     <ion-buttons start>
       <button ion-button (click)="dismiss()" *ngIf="adding" strong>X</button>

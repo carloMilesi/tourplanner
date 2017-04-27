@@ -17,6 +17,8 @@
   "PAGE_ARCHEOLOGY": "Archeologia",
   "PAGE_GARDENS": "Giardini",
 
-  "TEXT_NO_PATH": "Non esistono percorsi salvati!"
+  "TEXT_NO_PATH": "Non esistono percorsi salvati!",
+
+  "BUTTON_CLOSE": "Chiudi"
 
 }
