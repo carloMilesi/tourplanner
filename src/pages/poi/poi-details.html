@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>POI details</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()" strong>Close</button>
+
+    </ion-buttons>
+
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-grid>
+  <ion-row>
+    <ion-col col-10 style="border: 0px solid #000">
+        <h1>{{selectedItem.title}}</h1>
+    </ion-col>
+    <ion-col col-2 style="border: 0px solid #000">
+        <button ion-button clear (click)="openPathways($event, selectedItem)"> <ion-icon name="ios-star" ></ion-icon></button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+  
+ 
+  <p>{{selectedItem.description}}</p>
+  <map-component #details style="height: 50%"></map-component>
+
+</ion-content>

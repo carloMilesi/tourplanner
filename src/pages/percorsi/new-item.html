@@ -1,0 +1,20 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Crea Percorso</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="form" (ngSubmit)="saveItem()">
+    <ion-item>
+      <ion-label>Titolo</ion-label>
+      <ion-input type="text" formControlName="title"></ion-input>
+    </ion-item>
+    <button block type="submit" [disabled]="!form.valid">Crea</button>
+  </form>
+
+</ion-content>

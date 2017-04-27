@@ -24319,38 +24319,36 @@ ion-navbar.toolbar {
   font-size: 16px;
 }
 
-.card-background-page {
-  background-color: #69717d;
-}
-
-.card-background-page ion-card {
-  background-color: cornflowerblue;
-  position: relative;
-  text-align: center;
-  height: 100px;
-  border: double cornflowerblue;
-}
-
-.card-background-page .card-title {
-  position: absolute;
-  top: 40%;
-  font-size: 1.5em;
-  width: 100%;
-  font-weight: bold;
-  color: #fff;
-}
-
-.card-background-page .card-subtitle {
-  font-size: 1.0em;
-  position: absolute;
-  top: 52%;
-  width: 100%;
-  color: #fff;
-}
-
-#map {
+.ios map-component #map, .md map-component #map {
   width: 100%;
   height: 100%;
+}
+
+.poi-details .border {
+  border: 1px solid #000;
+}
+
+@media (min-width: 300px) and (min-height: 500px) {
+  ion-modal.my-popup ion-backdrop {
+    visibility: visible;
+  }
+}
+
+ion-modal.my-popup .modal-wrapper {
+  position: absolute;
+  overflow: hidden;
+  max-width: 280px;
+  border-radius: 2px;
+  width: 80vw;
+  height: 70vh;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border: 0;
+  box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+  background-color: #fafafa;
 }
 
 .profileImg {
@@ -24362,4 +24360,24 @@ ion-navbar.toolbar {
   color: #fff;
   text-align: center;
   margin: 20px 0;
+}
+
+ion-app._gmaps_cdv_ .nav-decor {
+  background-color: transparent !important;
+}
+
+.profileImg {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 20px;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  margin: 20px 0;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
 }
