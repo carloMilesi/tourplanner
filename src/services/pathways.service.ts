@@ -52,7 +52,7 @@ export class PathwaysService {
   }
 
   remove(pathway) {
-    console.log("Removing pathways form list");
+    console.log("Removing pathway form list");
     this.pathways.splice(pathway, 1);
     if (this.serve)
       this.saveLocal();

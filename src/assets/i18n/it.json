@@ -19,6 +19,30 @@
 
   "TEXT_NO_PATH": "Non esistono percorsi salvati!",
 
-  "BUTTON_CLOSE": "Chiudi"
+  "BUTTON_CLOSE": "Chiudi",
+
+  "TAB_LIST": "Lista",
+  "TAB_MAP": "Mappa",
+
+  "PATHWAYS" : {
+    "NEW_TITLE": "Nuovo percorso",
+    "NEW_MESSAGE": "Inserisci un titolo per il nuovo percorso:",
+    "NEW_SAVE": "Salva",
+    "NEW_CANCEL": "Annulla",
+    "NEW_PLACEHOLDER": "Titolo",
+    "REMOVE_TITLE": "Rimuovi percorso",
+    "REMOVE_MESSAGE": "Sei sicuro di voler eliminare il percorso?",
+    "REMOVE_CANCEL": "Annulla",
+    "REMOVE_SAVE": "Rimuovi",
+    "NO_SAVED": "Non esiste nessun percorso salvato!"
+  },
+
+  "POI" : {
+    "PAGE_TITLE": "Dettagli",
+    "ADD_TITLE": "PoI aggiunto",
+    "ADD_MESSAGE": "Il punto di interesse è stato aggiunto correttamente al percorso ",
+    "EXISTING_TITLE": "PoI esistente",
+    "EXISTING_MESSAGE": "Il PoI è già presente nel percorso "
+  }
 
 }

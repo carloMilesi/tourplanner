@@ -15,7 +15,7 @@
 <ion-content>
 
   <ion-list padding *ngIf="items.length=== 0">
-    <p>Non esistono percorsi salvati!</p>
+    <p>{{ "PATHWAYS.NO_SAVED" | translate }}</p>
   </ion-list>
   <ion-list *ngIf="items.length> 0">
 

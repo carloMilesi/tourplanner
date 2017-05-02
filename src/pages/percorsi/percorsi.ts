@@ -1,6 +1,7 @@
 import { Component, NgZone, Renderer } from '@angular/core';
 import { NavController, Platform, ViewController, NavParams, AlertController } from 'ionic-angular';
 
+import { TranslateService } from 'ng2-translate';
 
 //import {NewItemPage} from './new-item';
 import { PoiRoot } from '../poi/poi';
@@ -26,7 +27,8 @@ export class PercorsiPage {
     private viewCtrl: ViewController,
     public alertCtrl: AlertController,
     public pathwaysService: PathwaysService,
-    public renderer: Renderer
+    public renderer: Renderer,
+    public translate: TranslateService
   ) {
 
     this.adding = navParams.get('adding');
@@ -50,7 +52,7 @@ export class PercorsiPage {
   }
 
   loadPathways() {
-    console.log("loading percorsi")
+    console.log("loading pathways")
     this.pathwaysService.getAll((paths) => {
       this.items = paths;
     });
@@ -58,24 +60,24 @@ export class PercorsiPage {
 
   addItem() {
     let prompt = this.alertCtrl.create({
-      title: 'Nuovo Percorso',
-      message: "Inserisci il titolo del nuovo percorso",
+      title: this.translate.instant('PATHWAYS.NEW_TITLE'), //'Nuovo Percorso',
+      message: this.translate.instant('PATHWAYS.NEW_MESSAGE'), //"Inserisci il titolo del nuovo percorso",
       inputs: [
         {
           name: 'title',
-          placeholder: 'Titolo'
+          placeholder: this.translate.instant('PATHWAYS.NEW_PLACEHOLDER')
         },
       ],
       buttons: [
         {
-          text: 'Cancel',
+          text: this.translate.instant('PATHWAYS.NEW_CANCEL'),
           handler: data => {
             console.log('Cancel clicked');
 
           }
         },
         {
-          text: 'Salva',
+          text: this.translate.instant('PATHWAYS.NEW_SAVE'),
           handler: data => {
             this.savePathway(data.title);
           }
@@ -112,8 +114,8 @@ export class PercorsiPage {
       if (poiIndex.length > 0) {
         console.log(" presente!!!!");
         let alert = this.alertCtrl.create({
-          title: 'Point esistente',
-          subTitle: 'Il POI ' + this.poi_selected.title + ' è già presente nel percorso ' + pathway.title + '! ',
+          title: this.translate.instant('POI.EXISTING_TITLE'),
+          subTitle: this.translate.instant('POI.EXISTING_MESSAGE')+ pathway.title + '! ', //'Il POI ' + this.poi_selected.title + ' è già presente nel percorso ' + pathway.title + '! ',
           buttons: ['OK']
         });
         alert.present();
@@ -127,8 +129,8 @@ export class PercorsiPage {
         this.pathwaysService.update(pathway);
 
         let alert = this.alertCtrl.create({
-          title: 'Point aggiunto',
-          subTitle: 'Il POI ' + this.poi_selected.title + ' è stato aggiunto correttamente al percorso ' + pathway.title + '! ',
+          title: this.translate.instant('POI.ADD_TITLE'),
+          subTitle: this.translate.instant('POI.ADD_MESSAGE') + pathway.title + '! ', //'Il POI ' + this.poi_selected.title + ' è stato aggiunto correttamente al percorso ' + pathway.title + '! ',
           buttons: ['OK']
         });
         alert.present();
@@ -149,17 +151,17 @@ export class PercorsiPage {
 
   removePathway(event, item) {
     let confirm = this.alertCtrl.create({
-      title: 'Rimuovi percorso',
-      message: 'Sei sicuro di voler elimare il percoso?',
+      title: this.translate.instant('PATHWAYS.REMOVE_TITLE'),
+      message: this.translate.instant('PATHWAYS.REMOVE_MESSAGE'),
       buttons: [
         {
-          text: 'Cancella',
+          text: this.translate.instant('PATHWAYS.REMOVE_CANCEL'),
           handler: () => {
             console.log('Disagree clicked');
           }
         },
         {
-          text: 'Rimuovi',
+          text: this.translate.instant('PATHWAYS.REMOVE_SAVE'),
           handler: () => {
             console.log('Agree clicked');
             //this.db.remove(item);
