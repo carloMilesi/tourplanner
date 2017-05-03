@@ -8,14 +8,18 @@
 
 }
 .card-background-page {
+  background-color: #b1cdfb;
 
   ion-card {
     position: relative;
     text-align: center;
-    background-color: #b1cdfb;
-    height: 100px;
+    height: 150px;
     width: auto;
-    border-style: none;
+    border-style: dotted;
+    border-color: white;
+    padding: 0px;
+    margin: 1px;
+
   }
 
   .card-title {
@@ -33,6 +37,33 @@
     top: 52%;
     width: 100%;
     color: #fff;
+  }
+
+  ion-grid{
+    align: center;
+    border-style: none;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+  }
+  ion-col{
+    width: 50%;
+    border: none;
+    align-content: center;
+    margin: 0px;
+    padding: 0px;
+  }
+  ion-row{
+    border-style: none;
+    width: auto;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  ion-searchbar{
+    border-style: none;
+    background-color: #b1cdfb;
+
   }
 
 

@@ -34,7 +34,7 @@ export class MyApp {
       { title: 'MENU_HOME', component: HelloIonicPage },
       { title: 'MENU_CATEGORIES', component: CategoriesListPage },
       { title: 'MENU_PATHWAYS', component: PercorsiPage },
-      { title: 'Settings', component: SettingsPage },
+      { title: "MENU_SETTINGS", component: SettingsPage },
     ];
 
 

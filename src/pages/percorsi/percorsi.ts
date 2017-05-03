@@ -6,6 +6,7 @@ import { TranslateService } from 'ng2-translate';
 //import {NewItemPage} from './new-item';
 import { PoiRoot } from '../poi/poi';
 import { PathwaysService } from '../../services/pathways.service';
+import {stringify} from "@angular/core/src/util";
 
 
 @Component({

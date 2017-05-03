@@ -11,34 +11,68 @@
 <!--ion-content padding class="getting-started"-->
 
 <ion-content class="card-background-page">
-  <ion-searchbar [(ngModel)]="keyword"></ion-searchbar>
 
-  <br>
+    <ion-grid>
+        <ion-row>
+            <ion-col style="border-style: dotted; border-color: white;">
+                <ion-searchbar [(ngModel)]="keyword"></ion-searchbar>
+            </ion-col>
+        </ion-row>
+        <ion-row style="height: 2px"></ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-card style="background-color: blue;">
+                    <!--img src="img/cp_logo.png"/-->
+                    <div class="card-title">{{ "MENU_SETTINGS" | translate}}</div>
+                </ion-card>
 
+            </ion-col>
+            <ion-col>
+                <ion-card style="background-color: turquoise;">
+                    <!--img src="img/cp_logo.png"/-->
+                    <div class="card-title">{{ "MENU_PATHWAYS" | translate}}</div>
+                </ion-card>
 
-        <ion-card>
-          <!--img src="img/cp_logo.png"/-->
-          <div class="card-title">{{ "PAGE_MONUMENTS" | translate }}</div>
-        </ion-card>
+            </ion-col>
 
-        <ion-card>
-          <!--img src="img/cp_logo.png"/-->
-          <div class="card-title">{{ "PAGE_MUSEUMS" | translate }}</div>
-        </ion-card>
+        </ion-row>
 
+        <ion-row>
+            <ion-col>
+                <ion-card style="background-color: darkturquoise;">
+                    <!--img src="img/cp_logo.png"/-->
+                    <div class="card-title">{{ "PAGE_MONUMENTS" | translate }}</div>
+                </ion-card>
 
+            </ion-col>
+            <ion-col>
+                <ion-card style="background-color: royalblue;">
+                    <!--img src="img/cp_logo.png"/-->
+                    <div class="card-title">{{ "PAGE_MUSEUMS" | translate }}</div>
+                </ion-card>
 
-        <ion-card>
-          <!--img src="img/cp_logo.png"/-->
-          <div class="card-title">{{ "PAGE_ARCHEOLOGY" | translate }}</div>
-        </ion-card>
+            </ion-col>
 
-        <ion-card>
-          <!--img src="img/cp_logo.png"/-->
-          <div class="card-title">{{ "PAGE_GARDENS" | translate }}</div>
-        </ion-card>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-card style="background-color: #0c60ee;">
+                    <!--img src="img/cp_logo.png"/-->
+                    <div class="card-title">{{ "PAGE_ARCHEOLOGY" | translate }}</div>
+                </ion-card>
 
+            </ion-col>
+            <ion-col>
+                <ion-card style="background-color: deepskyblue;">
+                    <!--img src="img/cp_logo.png"/-->
+                    <div class="card-title">{{ "PAGE_GARDENS" | translate }}</div>
+                </ion-card>
 
+            </ion-col>
+
+        </ion-row>
+
+    </ion-grid>
 
 
 

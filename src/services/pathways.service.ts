@@ -53,9 +53,17 @@ export class PathwaysService {
 
   remove(pathway) {
     console.log("Removing pathway form list");
-    this.pathways.splice(pathway, 1);
+
+    let index = this.pathways.indexOf(pathway, 0);
+    if (index > -1) {
+      this.pathways.splice(index, 1);
+    }
+    this.saveLocal();
+
+  /*this.pathways.splice(pathway, 1);
     if (this.serve)
-      this.saveLocal();
+      this.saveLocal();*/
+
   }
 
   saveLocal() {
