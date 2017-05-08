@@ -24679,11 +24679,9 @@ ion-navbar.toolbar {
 .card-background-page ion-card {
   position: relative;
   text-align: center;
-  height: 145px;
+  height: 100px;
   width: auto;
   border-style: none;
-  padding: 0px;
-  margin: 3px;
 }
 
 .card-background-page .card-title {
@@ -24692,7 +24690,7 @@ ion-navbar.toolbar {
   font-size: 1.5em;
   width: 100%;
   font-weight: bold;
-  color: #555555;
+  color: #2d2d2d;
 }
 
 .card-background-page .card-subtitle {
@@ -24712,7 +24710,7 @@ ion-navbar.toolbar {
 }
 
 .card-background-page ion-col {
-  width: 50%;
+  width: 100%;
   border: none;
   -webkit-align-content: center;
   -ms-flex-line-pack: center;

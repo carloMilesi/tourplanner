@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { PoiDetailsPage } from './poi-details';
 
 declare var google;
 
@@ -17,7 +18,7 @@ export class MapComponent {
   private map: any;
   private items: any;
 
-  constructor(public platform: Platform, public zone: NgZone) {
+  constructor(public platform: Platform, public zone: NgZone, public modalCtrl: ModalController) {
     console.log("Map constructor")
 
   }
@@ -115,17 +116,14 @@ export class MapComponent {
 
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
-      //this.itemTapped("click", item)
+      this.itemTapped("click", item)
     });
   }
 
 
-  // itemTapped(event, item) {
-  //   let modal = this.modalCtrl.create(PoiDetailsPage, { item });
-  //   modal.present();
-  //   // this.navCtrl.push(PoiDetailsPage, {
-  //   //   item: item
-  //   // });
-  // }
+   itemTapped(event, item) {
+     let modal = this.modalCtrl.create(PoiDetailsPage, { item });
+     modal.present();
+   }
 
 }

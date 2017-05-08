@@ -22,10 +22,6 @@ public categories : any = [ {title : this.translate.instant('PAGE_MONUMENTS'), p
                            /* {title : this.translate.instant('PAGE_EVENTS'), path : "events"},
                             {title : this.translate.instant('PAGE_RESTAURANTS'), path : "restaurants"}*/
 
-
-
-
-
   constructor(public navCtrl: NavController, navParams: NavParams,  public translate: TranslateService) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
