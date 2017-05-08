@@ -116,7 +116,7 @@ export class MapComponent {
 
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
-      this.itemTapped("click", item)
+      //this.itemTapped("click", item)
     });
   }
 
