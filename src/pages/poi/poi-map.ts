@@ -44,7 +44,7 @@ export class MapPage {
 
 
   loadPoi() {
-    let url = 'http://156.148.14.146:3020/api/v1/' + this.selectedItem.path
+    let url = 'http://seitre.crs4.it:3009/api/v1/' + this.selectedItem.path;
     this.poiService.load(url, pois => {
       this.points = pois;
       //console.log("points in load pois: " + JSON.stringify(this.points))

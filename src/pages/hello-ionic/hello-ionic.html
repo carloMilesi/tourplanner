@@ -13,7 +13,22 @@
     <ion-grid>
         <ion-row>
             <ion-col>
-                <ion-searchbar [(ngModel)]="keyword"></ion-searchbar>
+
+                <!--ion-searchbar
+                        [(ngModel)]="searchQuery"
+                        (search)="searchThis($event)"
+                        (ionCancel)="cancelSearch($event)"
+                        (ionClear) = "cancelSearch($event)"
+                        [showCancelButton]="true"
+                        autocorrect="on"
+                        placeholder="Search">
+                </ion-searchbar-->
+
+
+
+
+
+                <ion-searchbar [(ngModel)]="search"></ion-searchbar>
             </ion-col>
         </ion-row>
         <ion-row style="height: 1px"></ion-row>

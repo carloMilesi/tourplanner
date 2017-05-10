@@ -26,14 +26,24 @@ export class PoiService {
   dataToPoi(data){
     let res = [];
     for(let i = 0; i< data.length; i++) {
-      res.push({
+      /*res.push({
         title : data[i].label,
         description : data[i].abstract,
         lat : data[i].lat,
         lng : data[i].long,
         thumbnail : data[i].image,
         photos : data[i].photo
-      })
+      })*/
+        res.push({
+            title : data[i].data.title,
+            description : data[i].data.description,
+            lat : data[i].data.latitude,
+            lng : data[i].data.longitude,
+            thumbnail : data[i].data.img,
+            photos : data[i].data.photo
+        })
+
+
 
     }
     return res;

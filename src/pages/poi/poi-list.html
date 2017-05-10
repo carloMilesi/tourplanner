@@ -18,13 +18,14 @@
         <div *ngIf="item.thumbnail !== ''">
           <img src="{{ item.thumbnail }}" style="height:100%">
         </div>
-        <div *ngIf="item.thumbnail === ''">
+        <div *ngIf="item.thumbnail === '' || item.thumbnail === undefined">
           <div id="profileImage" class="profileImg" [ngStyle]="{'backgroundColor': item.bgcolor}"> {{ item.title.substr(0, 1) }} </div>
         </div>
 
+
       </ion-thumbnail>
       <h2>{{ item.title }} </h2>
-      <h4>{{ item.description.substr(0, 35) }}...</h4>
+      <h4 *ngIf="item.description != undefined">{{ item.description.substr(0, 35) }}...</h4>
     </button>
   </ion-list>
 
