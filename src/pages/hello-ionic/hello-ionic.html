@@ -8,13 +8,13 @@
 </ion-header>
 
 
-<ion-content class="card-background-page" padding="2px">
+<ion-content class="card-background-page">
 
-    <ion-grid>
+    <!--ion-grid>
         <ion-row>
             <ion-col>
 
-                <!--ion-searchbar
+                <ion-searchbar
                         [(ngModel)]="searchQuery"
                         (search)="searchThis($event)"
                         (ionCancel)="cancelSearch($event)"
@@ -22,25 +22,24 @@
                         [showCancelButton]="true"
                         autocorrect="on"
                         placeholder="Search">
-                </ion-searchbar-->
+                </ion-searchbar>
 
-
-
-
-
-                <ion-searchbar [(ngModel)]="search"></ion-searchbar>
-            </ion-col>
+                <!--ion-searchbar [(ngModel)]="search" (ionInput)="searchBar()"></ion-searchbar-->
+            <!--/ion-col>
         </ion-row>
         <ion-row style="height: 1px"></ion-row>
-    </ion-grid>
+    </ion-grid-->
+
 
     <ion-card *ngFor="let item of items" (click)="cardTapped(item)">
 
-        <img src='{{item.imgUrl}}' style="opacity:0.6; size: 100%;">
+        <img src='{{item.imgUrl}}' style="opacity:0.6;">
 
         <ion-card-title class="card-title">
-                {{item.title | translate}}
+            {{item.title | translate}}
         </ion-card-title>
     </ion-card>
+
+
 
 </ion-content>
