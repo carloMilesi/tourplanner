@@ -14,6 +14,7 @@ export class PoiRoot {
 
   tab1: any;
   tab2: any;
+
   poiParams : any;
   item : any;
 

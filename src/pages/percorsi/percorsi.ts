@@ -33,11 +33,15 @@ export class PercorsiPage {
   ) {
 
     this.adding = navParams.get('adding');
-    console.log("this.adding " + this.adding)
+    console.log("this.adding " + this.adding);
     if (this.adding)
       this.renderer.setElementClass(viewCtrl.pageRef().nativeElement, 'my-popup', true);
 
-    this.poi_selected = navParams.get('poi');
+    if (navParams.get('poi')){
+      this.poi_selected = navParams.get('poi');
+      this.poi_selected._id= this.guid(); ///assegna un id univoco ad ogni punto del percorso
+    }
+
 
     if (navParams.get('menu')) {
       this.edited = false;
