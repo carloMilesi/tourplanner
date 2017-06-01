@@ -213,7 +213,7 @@ export class MapComponent {
       this.directionsService.route(routeRequest, (response, status) => {
         //console.log('status directionservice.route: ' + status);
         if (status == 'OK') {
-          //console.log('directionservice.route response: ' + JSON.stringify(response));
+          console.log('directionservice.route STATUS OK');
           this.directionsDisplay.setDirections(response);
           this.showSteps(response, waypoints, stepDisplay, this.map);
           //google.maps.event.trigger(this.map, 'resize');
@@ -239,8 +239,8 @@ export class MapComponent {
     // Also attach the marker to an array so we can keep track of it and remove it
     // when calculating new routes.
     var myRoute = directionResult.routes[0].legs[0];
-    for (var i = 0; i < myRoute.steps.length; i++) {
-      var marker = markerArray[i] = markerArray[i] || new google.maps.Marker;
+    for (let i in myRoute.steps.length) {
+      let marker = markerArray[i] = markerArray[i] || new google.maps.Marker;
       marker.setMap(map);
       marker.setPosition(myRoute.steps[i].start_location);
       this.attachInstructionText(

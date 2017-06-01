@@ -6,17 +6,46 @@
   "MENU_HOME":"Home",
   "MENU_CATEGORIES": "Categories",
   "MENU_PATHWAYS": "Pathways",
-  "MENU_LANGUAGE": "Language",
+  "MENU_SETTINGS": "Settings",
+  "PAGE_EVENTS": "Events",
+  "PAGE_RESTAURANTS": "Restaurants",
 
   "SELECT_LANGUAGE": "Select Language",
   "BTN_EN": "English",
   "BTN_IT": "Italian",
+  "BTN_FR": "French",
 
   "PAGE_MONUMENTS": "Monuments",
   "PAGE_MUSEUMS": "Museums",
   "PAGE_ARCHEOLOGY": "Archeology",
   "PAGE_GARDENS": "Gardens",
 
-  "TEXT_NO_PATH": "There are no saved pathways!"
+  "TEXT_NO_PATH": "There are no saved pathways!",
+
+  "BUTTON_CLOSE": "Close",
+
+  "TAB_LIST": "List",
+  "TAB_MAP": "Map",
+
+  "PATHWAYS" : {
+    "NEW_TITLE": "New Pathway",
+    "NEW_MESSAGE": "Insert a title for the new pathway:",
+    "NEW_SAVE": "Save",
+    "NEW_CANCEL": "Cancel",
+    "NEW_PLACEHOLDER": "Title",
+    "REMOVE_TITLE": "Remove pathway",
+    "REMOVE_MESSAGE": "Are you sure you want to delete the pathway?",
+    "REMOVE_CANCEL": "Cancel",
+    "REMOVE_SAVE": "Remove",
+    "NO_SAVED": "There are no pathways saved!"
+  },
+
+  "POI" : {
+    "PAGE_TITLE": "Details",
+    "ADD_TITLE": "PoI added",
+    "ADD_MESSAGE": "This PoI was added in the pathway ",
+    "EXISTING_TITLE": "PoI alredy existing",
+    "EXISTING_MESSAGE": "The Poi is already present in the pathway "
+  }
 
 }

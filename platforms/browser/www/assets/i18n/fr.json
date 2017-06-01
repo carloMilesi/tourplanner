@@ -1,0 +1,51 @@
+{
+  "PAGES": "Pages",
+  "HOME": "Page d'accueil pour le Tour Planner",
+  "DESC": "App pour CP2020",
+
+  "MENU_HOME":"Page d'accueil",
+  "MENU_CATEGORIES": "Catégories",
+  "MENU_PATHWAYS": "Itinéraires",
+  "MENU_SETTINGS": "Paramètres",
+
+  "SELECT_LANGUAGE": "Sélectionnez la langue",
+  "BTN_EN": "Anglais",
+  "BTN_IT": "Italien",
+  "BTN_FR": "Français",
+
+  "PAGE_MONUMENTS": "Monuments",
+  "PAGE_MUSEUMS": "Musées",
+  "PAGE_ARCHEOLOGY": "Archéologie",
+  "PAGE_GARDENS": "Jardins",
+  "PAGE_EVENTS":"Événements",
+  "PAGE_RESTAURANTS": "Restaurants",
+
+  "TEXT_NO_PATH": "Il n'y a pas de itinéraire sauvegardées!",
+
+  "BUTTON_CLOSE": "Près",
+
+  "TAB_LIST": "Liste",
+  "TAB_MAP": "Carte",
+
+  "PATHWAYS" : {
+    "NEW_TITLE": "Nouveau itinéraire",
+    "NEW_MESSAGE": "Entrez un titre pour le nouveau itinéraire:",
+    "NEW_SAVE": "Sauver",
+    "NEW_CANCEL": "Annullation",
+    "NEW_PLACEHOLDER": "Titre",
+    "REMOVE_TITLE": "Retirez itinéraire",
+    "REMOVE_MESSAGE": "Etes-vous sûr de vouloir supprimer le itinéraire?",
+    "REMOVE_CANCEL": "Annullation",
+    "REMOVE_SAVE": "Supprimer",
+    "NO_SAVED": "Il n'y a pas itinéraire enregistré!"
+  },
+
+  "POI" : {
+    "PAGE_TITLE": "Détails",
+    "ADD_TITLE": "Point d'intérêt ajoute",
+    "ADD_MESSAGE": "Le point d'intérêt a été correctement ajouté au itinéraire ",
+    "EXISTING_TITLE": "Point d'intérêt existe",
+    "EXISTING_MESSAGE": "Point d'intérêt est déjà sur le itinéraire "
+  }
+
+}

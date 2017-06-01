@@ -24672,6 +24672,64 @@ ion-navbar.toolbar {
   font-size: 16px;
 }
 
+.card-background-page {
+  background-color: #e8e8e8;
+}
+
+.card-background-page ion-card {
+  position: relative;
+  text-align: center;
+  height: 150px;
+  width: auto;
+  border-style: none;
+}
+
+.card-background-page .card-title {
+  position: absolute;
+  top: 40%;
+  font-size: 1.5em;
+  width: 100%;
+  font-weight: bold;
+  color: #2d2d2d;
+}
+
+.card-background-page .card-subtitle {
+  font-size: 1.0em;
+  position: absolute;
+  top: 52%;
+  width: 100%;
+  color: #fff;
+}
+
+.card-background-page ion-grid {
+  align: center;
+  border-style: none;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.card-background-page ion-col {
+  width: 100%;
+  border: none;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  margin: 0px;
+  padding: 0px;
+}
+
+.card-background-page ion-row {
+  border-style: none;
+  width: auto;
+  margin: 0px;
+  padding: 0px;
+}
+
+.card-background-page ion-searchbar {
+  border-style: none;
+}
+
 .ios map-component #map, .md map-component #map {
   width: 100%;
   height: 100%;

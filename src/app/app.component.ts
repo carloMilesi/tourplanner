@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
-//import { SplashScreen } from '@ionic-native/splash-screen';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { CategoriesListPage } from '../pages/categories/categories-list';
@@ -22,7 +22,7 @@ export class MyApp {
   constructor(
     public platform: Platform, 
     public statusBar: StatusBar, 
-    //public splashScreen: SplashScreen,
+    public splashScreen: SplashScreen,
     private translateService: TranslateService
 ) {
 
@@ -46,6 +46,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       //this.splashScreen.hide();
+      this.hideSplashScreen();
     });
   }
 
@@ -53,5 +54,13 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  hideSplashScreen() {
+    if (this.splashScreen) {
+      setTimeout(() => {
+        this.splashScreen.hide();
+      }, 100);
+    }
   }
 }
