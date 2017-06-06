@@ -14,12 +14,13 @@ export class MapComponent {
 
   //@Input() points: Array<any>;
 
-  private startPosition: any;
+ // private startPosition: any;
   private map: any;
   private items: any;
   private directionsService: any;
   private directionsDisplay: any;
   private routeResponse: any;
+  private pathway = false;
 
 
   constructor(public platform: Platform, public zone: NgZone, public modalCtrl: ModalController) {
@@ -29,16 +30,19 @@ export class MapComponent {
 
 
   loadMap(item?) {
-    this.directionsService = new google.maps.DirectionsService;
-    this.directionsDisplay = new google.maps.DirectionsRenderer;
+    this.directionsService = new google.maps.DirectionsService();
+    this.directionsDisplay = new google.maps.DirectionsRenderer();
+
     let mapOptions = {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       disableDefaultUI: true
     };
+
     if (item !== undefined) {
       mapOptions['center'] = new google.maps.LatLng(item.lat, item.lng);
       mapOptions['zoom'] = 12
     }
+
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     this.directionsDisplay.setMap(this.map);
 
@@ -55,6 +59,11 @@ export class MapComponent {
 
 
   loadPois(pois, kindoflist) {
+
+  if (kindoflist== "pathway"){
+    this.pathway= true;
+    }
+
     this.items = pois;
     this.getPointsBounds((bounds) => {
       this.loadMap();
@@ -137,9 +146,20 @@ export class MapComponent {
      modal.present();
    }
 
+
+
   calculateAndDisplayRoute(origin, destination ,waypts){
+
     console.log("FUNCTION calculateAndDisplayRoute ");
     let stepDisplay = new google.maps.InfoWindow;
+
+    /**
+     * waypoints[]specifies an array of DirectionsWaypoints.
+     * Waypoints alter a route by routing it through the specified location(s).
+     * A waypoint is specified as an object literal with fields shown below:
+     * - location specifies the location of the waypoint, as a LatLng, as a google.maps.Place object or as a String which will be geocoded.
+     * - stopover is a boolean which indicates that the waypoint is a stop on the route, which has the effect of splitting the route into two routes.
+     * */
     let waypoints = [];
     for (let i in waypts){
       if(waypts[i].lat && waypts[i].lng){
@@ -147,7 +167,6 @@ export class MapComponent {
         waypoints.push({ location : new google.maps.LatLng(waypts[i].lat, waypts[i].lng), stopover: true});
         console.log(waypoints[i]);
       }
-
     }
 //non va
    /* for (let i in waypoints) {
@@ -202,27 +221,40 @@ export class MapComponent {
     //console.log('this.routeResponse: ' + this.routeResponse);
     if (typeof google !== "undefined") {
       //console.log("typeof google: " + typeof google);
+      /**
+       * The DirectionsRequest object literal contains the following fields:
+       {
+       origin: LatLng | String | google.maps.Place,
+       destination: LatLng | String | google.maps.Place,
+       travelMode: TravelMode, //DRIVING (Default), BICYCLING, TRANSIT (public transport), WALKING
+       transitOptions: TransitOptions, //(optional) specifies values that apply only to requests where travelMode is TRANSIT
+       drivingOptions: DrivingOptions, //(optional) specifies values that apply only to requests where travelMode is DRIVING
+       unitSystem: UnitSystem,
+       waypoints[]: DirectionsWaypoint,
+       optimizeWaypoints: Boolean, //By default, the Directions service calculates a route through the provided waypoints in their given order. Optionally, you may pass optimizeWaypoints: true within the DirectionsRequest to allow the Directions service to optimize the provided route by rearranging the waypoints in a more efficient order.
+       provideRouteAlternatives: Boolean,
+       avoidHighways: Boolean,
+       avoidTolls: Boolean,
+       region: String
+       }
+       **/
       let routeRequest = {
         origin: latlng_origin,
         destination: latlng_destination,
         waypoints: waypoints,
-        optimizeWaypoints: true,
+        optimizeWaypoints: false,
+        provideRouteAlternatives: false,
         travelMode: 'WALKING'
       };
       //console.log("routeRequest: " + JSON.stringify(routeRequest));
       this.directionsService.route(routeRequest, (response, status) => {
         //console.log('status directionservice.route: ' + status);
-        if (status == 'OK') {
+        if (status == google.maps.DirectionsStatus.OK) {
           console.log('directionservice.route STATUS OK');
           this.directionsDisplay.setDirections(response);
-          this.showSteps(response, waypoints, stepDisplay, this.map);
-          //google.maps.event.trigger(this.map, 'resize');
+          //this.showSteps(response, waypoints, stepDisplay, this.map);
           // Save the response so we access it from controller
-          this.routeResponse = response;
-          //console.log("-----" + JSON.stringify(this.routeResponse));
-          // Broadcast event so controller can process the route response
-          //$rootScope.$broadcast('googleRouteCallbackComplete');
-        }else{
+          //this.routeResponse = response;
           console.log('status directionservice.route: ' + status);
           //console.log(status);
           //console.log("////////////////////////")
@@ -234,26 +266,29 @@ export class MapComponent {
   }
 
 
-  showSteps(directionResult, markerArray, stepDisplay, map) {
+  /*showSteps(directionResult, markerArray, stepDisplay, map) {
     // For each step, place a marker, and add the text to the marker's infowindow.
     // Also attach the marker to an array so we can keep track of it and remove it
     // when calculating new routes.
     var myRoute = directionResult.routes[0].legs[0];
+    console.log(myRoute.steps[0].instructions);
     for (let i in myRoute.steps.length) {
       let marker = markerArray[i] = markerArray[i] || new google.maps.Marker;
       marker.setMap(map);
       marker.setPosition(myRoute.steps[i].start_location);
+      console.log(myRoute.steps[i].instructions);
       this.attachInstructionText(
           stepDisplay, marker, myRoute.steps[i].instructions, map);
     }
   }
 
   attachInstructionText(stepDisplay, marker, text, map) {
+
     google.maps.event.addListener(marker, 'click', function() {
       // Open an info window when the marker is clicked on, containing the text
       // of the step.
       stepDisplay.setContent(text);
       stepDisplay.open(map, marker);
     });
-  }
+  }*/
 }

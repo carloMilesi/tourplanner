@@ -11,15 +11,15 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { CategoriesListPage } from '../pages/categories/categories-list';
-import {PoiRoot} from '../pages/poi/poi';
-import {PoiListPage} from '../pages/poi/poi-list';
-import {PoiDetailsPage} from '../pages/poi/poi-details';
-import {MapPage} from '../pages/poi/poi-map';
-import {MapComponent} from '../pages/poi/map';
+import { PoiRoot } from '../pages/poi/poi';
+import { PoiListPage } from '../pages/poi/poi-list';
+import { PoiDetailsPage } from '../pages/poi/poi-details';
+import { MapPage } from '../pages/poi/poi-map';
+import { MapComponent } from '../pages/poi/map';
 
-import {PercorsiPage} from '../pages/percorsi/percorsi';
+import { PercorsiPage } from '../pages/percorsi/percorsi';
 import { NativeStorage } from '@ionic-native/native-storage';
-import {SettingsPage} from '../pages/settings/settings';
+import { SettingsPage } from '../pages/settings/settings';
 
 import { HttpModule } from '@angular/http';
 import { Http } from '@angular/http';

@@ -31,9 +31,9 @@ export class PoiListPage {
     this.pathway = params.get('pathway');
 
     if(this.pathway){
-      console.log("***************")
-      console.log(JSON.stringify(this.pathway));
-      console.log("***************")
+      //console.log("***************")
+      //console.log(JSON.stringify(this.pathway));
+      //console.log("***************")
       this.items = this.pathway.points;
     } else {
       this.loadPoi();
