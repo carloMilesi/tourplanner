@@ -37,7 +37,7 @@ export class MapComponent {
 
   loadMap(item?) {
     this.directionsService = new google.maps.DirectionsService();
-    this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+    this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: false});
 
     let mapOptions = {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
