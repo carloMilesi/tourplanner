@@ -45,8 +45,8 @@ export class PoiListPage {
     this.poiService.load('http://seitre.crs4.it:3009/api/v1/' + this.selectedItem.path,
       (data) => {
         this.items = data;
-        console.log(this.selectedItem.path);
-        console.log(JSON.stringify(data));
+        //console.log(this.selectedItem.path);
+        //console.log(JSON.stringify(data));
         for(let i = 0; i < this.items.length; i++){
           this.items[i].bgcolor = this.getColor();
           this.items[i].rating = this.getRankingCategory(this.selectedItem.path);

@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { Platform, ModalController } from 'ionic-angular';
+import { Platform, ModalController, NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { PoiDetailsPage } from './poi-details';
 
@@ -12,6 +12,7 @@ declare var google;
 export class MapComponent {
   @ViewChild('map') mapElement: ElementRef;
 
+
   //@Input() points: Array<any>;
 
  // private startPosition: any;
@@ -23,15 +24,20 @@ export class MapComponent {
   private pathway = false;
 
 
-  constructor(public platform: Platform, public zone: NgZone, public modalCtrl: ModalController) {
+  constructor(public nav: NavController, public platform: Platform, public zone: NgZone, public modalCtrl: ModalController) {
     console.log("Map constructor")
+    this.nav = nav;
 
+  }
+
+  ngAfterViewInit() {
+    this.loadMap();
   }
 
 
   loadMap(item?) {
     this.directionsService = new google.maps.DirectionsService();
-    this.directionsDisplay = new google.maps.DirectionsRenderer();
+    this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
 
     let mapOptions = {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -56,7 +62,6 @@ export class MapComponent {
       this.addInfoWindow(item, marker, item.title);
     }
   }
-
 
   loadPois(pois, kindoflist) {
 
@@ -149,10 +154,32 @@ export class MapComponent {
 
 
   calculateAndDisplayRoute(origin, destination ,waypts){
-
     console.log("FUNCTION calculateAndDisplayRoute ");
-    let stepDisplay = new google.maps.InfoWindow;
+    //let stepDisplay = new google.maps.InfoWindow;
 
+    // Start/Finish icons
+    let icons = {
+      start: new google.maps.MarkerImage(
+          // URL
+          'img/start.png',
+          // (width,height)
+          new google.maps.Size( 44, 32 ),
+          // The origin point (x,y)
+          new google.maps.Point( 0, 0 ),
+          // The anchor point (x,y)
+          new google.maps.Point( 22, 32 )
+      ),
+      end: new google.maps.MarkerImage(
+          // URL
+          'img/end.png',
+          // (width,height)
+          new google.maps.Size( 44, 32 ),
+          // The origin point (x,y)
+          new google.maps.Point( 0, 0 ),
+          // The anchor point (x,y)
+          new google.maps.Point( 22, 32 )
+      )
+    };
     /**
      * waypoints[]specifies an array of DirectionsWaypoints.
      * Waypoints alter a route by routing it through the specified location(s).
@@ -161,11 +188,13 @@ export class MapComponent {
      * - stopover is a boolean which indicates that the waypoint is a stop on the route, which has the effect of splitting the route into two routes.
      * */
     let waypoints = [];
+    let waypoints_titles = [];
     for (let i in waypts){
       if(waypts[i].lat && waypts[i].lng){
         //waypoints.push(new google.maps.LatLng(waypts[i].lat, waypts[i].lng));
         waypoints.push({ location : new google.maps.LatLng(waypts[i].lat, waypts[i].lng), stopover: true});
-        console.log(waypoints[i]);
+        waypoints_titles.push(waypts[i].title);
+        //console.log(waypoints[i]);
       }
     }
 //non va
@@ -183,39 +212,6 @@ export class MapComponent {
 
     console.log("origin: " + JSON.stringify(latlng_origin));
     console.log("destination: " + JSON.stringify(latlng_destination));
-
-    //console.log("waypoints[0]: " + waypoints[0]);
-
-    /*var request_origin = {
-      latLng: latlng_origin
-    };
-
-    geocoder.geocode(request_origin, function(data, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (data[0] != null) {
-          origin_address = data[0].formatted_address;
-          console.log("address is: " + origin_address);
-        } else {
-          alert("No address available");
-        }
-      }
-    });
-
-
-    var request_dest = {
-      latLng: latlng_destination
-    };
-
-    geocoder.geocode(request_dest, function(data, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (data[0] != null) {
-          dest_address = data[0].formatted_address;
-          console.log("address is: " + dest_address);
-        } else {
-          alert("No address available");
-        }
-      }
-    });*/
 
     this.routeResponse = null;
     //console.log('this.routeResponse: ' + this.routeResponse);
@@ -249,20 +245,38 @@ export class MapComponent {
       //console.log("routeRequest: " + JSON.stringify(routeRequest));
       this.directionsService.route(routeRequest, (response, status) => {
         //console.log('status directionservice.route: ' + status);
-        if (status == google.maps.DirectionsStatus.OK) {
+
+        if (status === 'OK') {
+          this.directionsDisplay.setDirections(response);
+          let leg = response.routes[0].legs[0];
+          console.log(waypoints_titles[0]);
+          //this.makeMarker( leg.start_location, icons.start, waypoints_titles[0] );
+          //this.makeMarker( leg.end_location, icons.end, waypoints_titles[waypoints_titles.length-1] );
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+        /*if (status == google.maps.DirectionsStatus.OK) {
           console.log('directionservice.route STATUS OK');
           this.directionsDisplay.setDirections(response);
           //this.showSteps(response, waypoints, stepDisplay, this.map);
           // Save the response so we access it from controller
-          //this.routeResponse = response;
-          console.log('status directionservice.route: ' + status);
+          this.routeResponse = response;
           //console.log(status);
           //console.log("////////////////////////")
-        }
+        }*/
 
       });
       //console.log("route response: " + this.routeResponse);
     }
+  }
+
+  makeMarker( position, icon, title ) {
+    new google.maps.Marker({
+      position: position,
+      map: this.map,
+      icon: icon,
+      title: title
+    });
   }
 
 
