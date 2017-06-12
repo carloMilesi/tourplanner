@@ -46,7 +46,7 @@ export class PoiListPage {
       (data) => {
         this.items = data;
         //console.log(this.selectedItem.path);
-        //console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data));
         for(let i = 0; i < this.items.length; i++){
           this.items[i].bgcolor = this.getColor();
           this.items[i].rating = this.getRankingCategory(this.selectedItem.path);

@@ -189,12 +189,16 @@ export class MapComponent {
      * */
     let waypoints = [];
     let waypoints_titles = [];
+    for (let i=1; i<waypts.length-1;i++){
+      if(waypts[i].lat && waypts[i].lng){
+        waypoints.push({ location : new google.maps.LatLng(waypts[i].lat, waypts[i].lng), stopover: true});
+      }
+    }
+
+    //tutti i title
     for (let i in waypts){
       if(waypts[i].lat && waypts[i].lng){
-        //waypoints.push(new google.maps.LatLng(waypts[i].lat, waypts[i].lng));
-        waypoints.push({ location : new google.maps.LatLng(waypts[i].lat, waypts[i].lng), stopover: true});
         waypoints_titles.push(waypts[i].title);
-        //console.log(waypoints[i]);
       }
     }
 //non va
@@ -214,7 +218,7 @@ export class MapComponent {
     console.log("destination: " + JSON.stringify(latlng_destination));
 
     this.routeResponse = null;
-    //console.log('this.routeResponse: ' + this.routeResponse);
+    //console.log('this.routeResponse: ' + lthis.routeResponse);
     if (typeof google !== "undefined") {
       //console.log("typeof google: " + typeof google);
       /**
