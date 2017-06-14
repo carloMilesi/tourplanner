@@ -22,6 +22,8 @@ export class MapComponent {
   private directionsDisplay: any;
   private routeResponse: any;
   private pathway = false;
+  private markerArray = [];
+  private stepDisplay;
 
 
   constructor(public nav: NavController, public platform: Platform, public zone: NgZone, public modalCtrl: ModalController) {
@@ -37,7 +39,7 @@ export class MapComponent {
 
   loadMap(item?) {
     this.directionsService = new google.maps.DirectionsService();
-    this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: false});
+    this.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
 
     let mapOptions = {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -59,7 +61,7 @@ export class MapComponent {
         position: new google.maps.LatLng(item.lat, item.lng),
       });
 
-      this.addInfoWindow(item, marker, item.title);
+      this.addInfoWindow(marker, item.title);
     }
   }
 
@@ -88,7 +90,7 @@ export class MapComponent {
               position: new google.maps.LatLng(this.items[i].lat, this.items[i].lng),
             });
 
-            this.addInfoWindow(this.items[i], marker, this.items[i].title);
+            this.addInfoWindow(marker, this.items[i].title);
 
           }
         }
@@ -133,7 +135,7 @@ export class MapComponent {
     return zoom;
   }
 
-  addInfoWindow(item, marker, content) {
+  addInfoWindow(marker, content) {
 
     let infoWindow = new google.maps.InfoWindow({
       content: content
@@ -154,32 +156,9 @@ export class MapComponent {
 
 
   calculateAndDisplayRoute(origin, destination ,waypts){
-    console.log("FUNCTION calculateAndDisplayRoute ");
-    //let stepDisplay = new google.maps.InfoWindow;
 
-    // Start/Finish icons
-    let icons = {
-      start: new google.maps.MarkerImage(
-          // URL
-          'img/start.png',
-          // (width,height)
-          new google.maps.Size( 44, 32 ),
-          // The origin point (x,y)
-          new google.maps.Point( 0, 0 ),
-          // The anchor point (x,y)
-          new google.maps.Point( 22, 32 )
-      ),
-      end: new google.maps.MarkerImage(
-          // URL
-          'img/end.png',
-          // (width,height)
-          new google.maps.Size( 44, 32 ),
-          // The origin point (x,y)
-          new google.maps.Point( 0, 0 ),
-          // The anchor point (x,y)
-          new google.maps.Point( 22, 32 )
-      )
-    };
+    console.log("FUNCTION calculateAndDisplayRoute ");
+
     /**
      * waypoints[]specifies an array of DirectionsWaypoints.
      * Waypoints alter a route by routing it through the specified location(s).
@@ -198,19 +177,10 @@ export class MapComponent {
     //tutti i title
     for (let i in waypts){
       if(waypts[i].lat && waypts[i].lng){
-        waypoints_titles.push(waypts[i].title);
+        waypoints_titles.push({ title : waypts[i].title});
       }
     }
-//non va
-   /* for (let i in waypoints) {
-      waypoints[i].setMap(null);
-      console.log(JSON.stringify(waypoints[i]));
-    }
 
-    let origin_address = "";
-    let dest_address = "";
-
-    let geocoder = new google.maps.Geocoder;*/
     let latlng_origin = { location : new google.maps.LatLng(origin.lat, origin.lng)};
     let latlng_destination = { location : new google.maps.LatLng(destination.lat, destination.lng)};
 
@@ -218,9 +188,9 @@ export class MapComponent {
     console.log("destination: " + JSON.stringify(latlng_destination));
 
     this.routeResponse = null;
-    //console.log('this.routeResponse: ' + lthis.routeResponse);
+
     if (typeof google !== "undefined") {
-      //console.log("typeof google: " + typeof google);
+
       /**
        * The DirectionsRequest object literal contains the following fields:
        {
@@ -252,61 +222,63 @@ export class MapComponent {
 
         if (status === 'OK') {
           this.directionsDisplay.setDirections(response);
-          let leg = response.routes[0].legs[0];
-          console.log(waypoints_titles[0]);
-          //this.makeMarker( leg.start_location, icons.start, waypoints_titles[0] );
-          //this.makeMarker( leg.end_location, icons.end, waypoints_titles[waypoints_titles.length-1] );
+          //console.log(JSON.stringify(response));
+          this.showSteps(response, waypoints_titles);
         } else {
           window.alert('Directions request failed due to ' + status);
         }
-        /*if (status == google.maps.DirectionsStatus.OK) {
-          console.log('directionservice.route STATUS OK');
-          this.directionsDisplay.setDirections(response);
-          //this.showSteps(response, waypoints, stepDisplay, this.map);
-          // Save the response so we access it from controller
-          this.routeResponse = response;
-          //console.log(status);
-          //console.log("////////////////////////")
-        }*/
 
       });
       //console.log("route response: " + this.routeResponse);
     }
   }
 
-  makeMarker( position, icon, title ) {
-    new google.maps.Marker({
-      position: position,
-      map: this.map,
-      icon: icon,
-      title: title
-    });
-  }
+  showSteps(directionResult, waypts_titles) {
+    // For each step, place a marker, and add the text to the marker's
+    // info window. Also attach the marker to an array so we
+    // can keep track of it and remove it when calculating new
+    // routes.
+    var myRoute = directionResult.routes[0];
 
+    for (var i = 0; i < myRoute.legs.length; i++) {
+      let icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000";
+      //let icon = "https://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=glyphish_walk|edge_bl|"+waypts_titles[i].title+"|4C9E21|000000";
+      console.log(icon);
+     /* if (i == 0) {
+        icon = "https://chart.googleapis.com/chart?chst=d_map_xpin_icon&chld=pin_star|glyphish_walk|00FFFF|FF0000";
 
-  /*showSteps(directionResult, markerArray, stepDisplay, map) {
-    // For each step, place a marker, and add the text to the marker's infowindow.
-    // Also attach the marker to an array so we can keep track of it and remove it
-    // when calculating new routes.
-    var myRoute = directionResult.routes[0].legs[0];
-    console.log(myRoute.steps[0].instructions);
-    for (let i in myRoute.steps.length) {
-      let marker = markerArray[i] = markerArray[i] || new google.maps.Marker;
-      marker.setMap(map);
-      marker.setPosition(myRoute.steps[i].start_location);
-      console.log(myRoute.steps[i].instructions);
-      this.attachInstructionText(
-          stepDisplay, marker, myRoute.steps[i].instructions, map);
+        //icon = "https://chart.googleapis.com/chart?chst=d_map_spin&chld=3|0|green|12|arial|"+waypts_titles[i].title;
+      }*/
+      var marker = new google.maps.Marker({
+        position: myRoute.legs[i].start_location,
+        animation: google.maps.Animation.DROP,
+        map: this.map,
+        icon: icon
+      });
+      this.addInfoWindow(marker, waypts_titles[i].title);
+      console.log(waypts_titles[i].title);
+      this.markerArray.push(marker);
     }
+
+    var marker = new google.maps.Marker({
+      position: myRoute.legs[i - 1].end_location,
+      animation: google.maps.Animation.DROP,
+      map: this.map,
+      icon: "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000" //"https://chart.googleapis.com/chart?chst=d_fnote&chld=balloon|1|000000|h|"+waypts_titles[i].title //"https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000" //"https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|ADDE63"
+    });
+    this.addInfoWindow(marker, waypts_titles[i].title);
+    console.log(waypts_titles[i].title);
+    this.markerArray.push(marker);
   }
 
-  attachInstructionText(stepDisplay, marker, text, map) {
-
+  attachInstructionText(marker, text) {
     google.maps.event.addListener(marker, 'click', function() {
-      // Open an info window when the marker is clicked on, containing the text
-      // of the step.
-      stepDisplay.setContent(text);
-      stepDisplay.open(map, marker);
+      // Open an info window when the marker is clicked on,
+      // containing the text of the step.
+      this.stepDisplay.setContent(text);
+      this.stepDisplay.open(this.map, marker);
     });
-  }*/
+  }
+
+ 
 }
