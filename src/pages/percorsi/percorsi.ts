@@ -8,6 +8,9 @@ import { PoiRoot } from '../poi/poi';
 import { PathwaysService } from '../../services/pathways.service';
 import {stringify} from "@angular/core/src/util";
 
+import { PathwayInsertPage} from '../pathway-insert/pathway-insert';
+
+import { HelloIonicPage } from '../hello-ionic/hello-ionic';
 
 @Component({
   templateUrl: 'percorsi.html',
@@ -18,7 +21,8 @@ export class PercorsiPage {
   public edited: any = false;
   private adding: boolean = false;
   private poi_selected: any;
-
+ 
+  private path: string;
 
   constructor(
     private navController: NavController,
@@ -32,8 +36,10 @@ export class PercorsiPage {
     public translate: TranslateService
   ) {
 
+    this.path = navParams.get('_path');
+    
     this.adding = navParams.get('adding');
-    console.log("this.adding " + this.adding);
+    
     if (this.adding)
       this.renderer.setElementClass(viewCtrl.pageRef().nativeElement, 'my-popup', true);
 
@@ -47,6 +53,15 @@ export class PercorsiPage {
       this.edited = false;
     }
   }
+  
+/**
+refresh automatico della pagina
+*/
+ ionViewWillEnter() {
+   console.log('go!');
+      this.loadPathways()
+ }
+
 
 
   ngOnInit() {
@@ -55,6 +70,11 @@ export class PercorsiPage {
       this.loadPathways()
     });
   }
+
+
+/**
+load dei percorsi
+*/
 
   loadPathways() {
     console.log("loading pathways")
@@ -92,6 +112,16 @@ export class PercorsiPage {
     prompt.present();
   }
 
+/**
+apertura form di inserimento
+*/  
+   openForm()
+   {
+     this.navController.push(PathwayInsertPage);
+   }
+
+
+
   savePathway(title) {
     console.log("new pathway")
     let pathway = {
@@ -112,6 +142,7 @@ export class PercorsiPage {
   }
 
   handleItem(event, pathway) {
+    
     if (this.adding) {
 
       let poiIndex = pathway.points.filter(point => point.title === this.poi_selected.title);
@@ -127,20 +158,69 @@ export class PercorsiPage {
 
       } else {
         console.log(" non presente")
-        pathway.points.unshift(this.poi_selected);
+        pathway.points.unshift(this.poi_selected); //json del percorso
         console.log("adding a point to pathway...");
         console.log(JSON.stringify(pathway));
         // this.pathwaysService.update(pathway._id, this.poi_selected);
         this.pathwaysService.update(pathway);
-
+        
         let alert = this.alertCtrl.create({
           title: this.translate.instant('POI.ADD_TITLE'),
           subTitle: this.translate.instant('POI.ADD_MESSAGE') + pathway.title + '! ', //'Il POI ' + this.poi_selected.title + ' è stato aggiunto correttamente al percorso ' + pathway.title + '! ',
-          buttons: ['OK']
+          buttons: [
+                {
+                  text: this.translate.instant('ADD_NEW'),
+                  handler: () => {
+                     this.dismiss();
+                     this.navController.remove(2,1);
+                     this.navController.pop();
+                  }
+                },
+                  {
+                  text: this.translate.instant('PATHWAY'),
+                  handler: () => {
+                     this.dismiss();
+                     this.navController.remove(2,1);
+                     this.navController.push(PoiRoot, {
+                          pathway: pathway,
+                          editAdd: false
+                        });
+                  },
+                }]
         });
         alert.present();
+        
+
+        
+        
+        //this.navController.push(HelloIonicPage);
+         
+         /*
+         this.dismiss();
+         this.navController.remove(2,1);
+         this.navController.pop();
+         */
 
 
+         /*
+         this.navController.push(PoiRoot, {
+            path: this.path
+          })
+          .then(() => {
+          const index = this.nav.getActive().index;
+          this.navController.remove(0, index);
+        });
+        */
+      
+
+
+
+
+
+      /*
+      this.navController.dismiss();
+      this.appCtrl.getRootNav().push(SecondPage);
+      */
       }
 
 
@@ -154,6 +234,11 @@ export class PercorsiPage {
 
   }
 
+
+
+/**
+eliminazione percorso
+*/
   removePathway(event, item) {
     let confirm = this.alertCtrl.create({
       title: this.translate.instant('PATHWAYS.REMOVE_TITLE'),
@@ -178,7 +263,9 @@ export class PercorsiPage {
     confirm.present();
   }
 
-
+/**
+ceazione guid fittizia
+*/
   guid() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)

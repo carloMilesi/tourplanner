@@ -17,7 +17,8 @@ export class PoiDetailsPage {
   private edited: boolean = true;
   private selectedItem: any;
   private paths: any;
-
+  
+  private path: string;
  
   constructor(
     private navParams: NavParams,
@@ -27,6 +28,8 @@ export class PoiDetailsPage {
 
   ) {
     this.selectedItem = navParams.get('item');
+    this.path = navParams.get('_path');
+
     
   }
 
@@ -42,7 +45,8 @@ export class PoiDetailsPage {
 
 
   openPathways($event, selectedItem){
-    let profileModal = this.modalCtrl.create(PercorsiPage, { adding: true, poi: selectedItem });
+    let _path: string = this.path;
+    let profileModal = this.modalCtrl.create(PercorsiPage, { adding: true, poi: selectedItem, _path: this.path });
     profileModal.present();
   }
 

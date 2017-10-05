@@ -16,7 +16,7 @@ export class MapPage {
 
   private points: Array<any> = [];
   private pathway: any = null;
-  private selectedItem: any;
+  private path: string;
 
 
   constructor(
@@ -30,8 +30,11 @@ export class MapPage {
     console.log("Poi map constructor")
 
     this.pathway = navParams.get('pathway');
-    this.selectedItem = this.navParams.get('item');
-
+    this.path = navParams.get('path');
+    
+    console.log(this.pathway);
+    console.log(this.path);
+    
     this.platform.ready().then(() => {
 
       if (this.pathway) {
@@ -49,7 +52,7 @@ export class MapPage {
 
 
   loadPoi(){
-    let url = 'http://seitre.crs4.it:3009/api/v1/' + this.selectedItem.path;
+    let url = 'http://seitre.crs4.it:3009/api/v1/' + this.path;
     this.poiService.load(url, pois => {
       this.points = pois;
       //console.log("points in load pois: " + JSON.stringify(this.points))

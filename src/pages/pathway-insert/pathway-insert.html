@@ -1,0 +1,74 @@
+<!--
+  Generated template for the PathwayInsertPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ "PATHWAYS.NEW_TITLE" | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+<form [formGroup]="formgroup" (ngSubmit)="saveItem(formgroup.value)">
+   <ion-list>
+   
+   <ion-item>
+      <ion-label floating>{{ "PATHWAYS.NEW_PLACEHOLDER" | translate}}</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="name.hasError('required') && name.touched">
+    <p>{{ "PATHWAYS.VALIDATION1" | translate}}</p>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label floating>{{ "PATHWAYS.DATE" | translate}}</ion-label>
+      <ion-datetime displayFormat="DD-MM-YYYY" pickerFormat="DD-MM-YYYY" formControlName="dataInizio"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="dataInizio.hasError('required') && dataInizio.touched">
+    <p>{{ "PATHWAYS.VALIDATION1" | translate}}</p>
+    </ion-item>
+    
+
+    <ion-item>
+      <ion-label floating>{{ "PATHWAYS.START_POINT" | translate}}</ion-label>
+      <ion-select  formControlName="puntoPartenza">
+      	<ion-option value="porto" selected>porto</ion-option>
+      	<ion-option value="quartiere">Quartiere</ion-option>
+      </ion-select>
+    </ion-item>
+    <br>
+
+    <ion-item>
+
+       <ion-label floating>{{ "PATHWAYS.DURATION" | translate}}</ion-label>
+      
+      <ion-range  min="30" max="240" step="30" formControlName="durata">
+	    <ion-icon range-left small name="stopwatch"></ion-icon>
+	    <ion-icon range-right name="stopwatch"></ion-icon>
+	  </ion-range>
+    </ion-item>
+    <ion-badge>{{durata.value}} min.</ion-badge>
+
+
+    <ion-item>
+      <ion-label floating>{{ "PATHWAYS.DIFFICLTY" | translate}}</ion-label>
+      <ion-range  min="1" max="3" step="1" color="secondary" formControlName="difficolta">
+	    <ion-icon range-left small name="walk"></ion-icon>
+	    <ion-icon range-right name="walk"></ion-icon>
+	  </ion-range>
+    </ion-item>
+    <ion-badge color="secondary">{{difficolta_str}}</ion-badge>
+
+    
+  </ion-list>
+  <input block type="submit" ion-button type="submit" value="save" [disabled]="!formgroup.valid">
+  </form>
+
+
+</ion-content>

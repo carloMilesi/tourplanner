@@ -24687,18 +24687,19 @@ ion-navbar.toolbar {
 .card-background-page .card-title {
   position: absolute;
   top: 40%;
-  font-size: 1.5em;
+  font-size: 1.8em;
   width: 100%;
   font-weight: bold;
-  color: #2d2d2d;
+  color: #ffffff;
 }
 
 .card-background-page .card-subtitle {
   font-size: 1.0em;
   position: absolute;
-  top: 52%;
+  top: 58%;
   width: 100%;
-  color: #fff;
+  font-weight: bold;
+  color: #ffffff;
 }
 
 .card-background-page ion-grid {

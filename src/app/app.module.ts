@@ -16,6 +16,7 @@ import { PoiListPage } from '../pages/poi/poi-list';
 import { PoiDetailsPage } from '../pages/poi/poi-details';
 import { MapPage } from '../pages/poi/poi-map';
 import { MapComponent } from '../pages/poi/map';
+import { PathwayInsertPage} from '../pages/pathway-insert/pathway-insert';
 
 import { PercorsiPage } from '../pages/percorsi/percorsi';
 import { NativeStorage } from '@ionic-native/native-storage';
@@ -47,7 +48,8 @@ export function createTranslateLoader(http: Http) {
     MapPage,
     PercorsiPage,
     MapComponent,
-    SettingsPage
+    SettingsPage,
+    PathwayInsertPage
     
   ],
   imports: [
@@ -73,7 +75,8 @@ export function createTranslateLoader(http: Http) {
     MapPage,
     PercorsiPage,
     MapComponent,
-    SettingsPage
+    SettingsPage,
+    PathwayInsertPage
   ],
   providers: [
     StatusBar,

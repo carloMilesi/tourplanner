@@ -28,8 +28,9 @@
 
   </ion-list>
 
-  <ion-fab bottom right >
-    <button ion-fab (click)="addItem()"><ion-icon name="add" ></ion-icon></button>
+
+  <ion-fab bottom right *ngIf="!adding">
+    <button ion-fab (click)="openForm()"><ion-icon name="add" ></ion-icon></button>
   </ion-fab>
 
 </ion-content>

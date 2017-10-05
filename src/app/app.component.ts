@@ -17,7 +17,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HelloIonicPage;
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, icon: string, component: any}>;
 
   constructor(
     public platform: Platform, 
@@ -31,10 +31,10 @@ export class MyApp {
     
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'MENU_HOME', component: HelloIonicPage },
-      { title: 'MENU_CATEGORIES', component: CategoriesListPage },
-      { title: 'MENU_PATHWAYS', component: PercorsiPage },
-      { title: "MENU_SETTINGS", component: SettingsPage },
+      { title: 'MENU_HOME', icon: 'md-home', component: HelloIonicPage },
+      { title: 'MENU_CATEGORIES', icon: 'md-locate', component: CategoriesListPage },
+      { title: 'MENU_PATHWAYS', icon: 'logo-steam', component: PercorsiPage },
+      { title: "MENU_SETTINGS", icon: 'md-settings', component: SettingsPage },
     ];
 
 

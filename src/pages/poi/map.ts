@@ -89,8 +89,7 @@ export class MapComponent {
               animation: google.maps.Animation.DROP,
               position: new google.maps.LatLng(this.items[i].lat, this.items[i].lng),
             });
-
-            this.addInfoWindow(marker, this.items[i].title);
+            this.addInfoWindow(marker, this.items[i]);
 
           }
         }
@@ -135,17 +134,65 @@ export class MapComponent {
     return zoom;
   }
 
+
+/**
+Crea il popoup del marker
+
+*/
+
   addInfoWindow(marker, content) {
 
+    console.log(content);
+    let contentString: string;
+    
+    
+    if (content.rating && content.description)
+    {
+          if (content.description.length > 140)
+            {
+                content.description = content.description.substr(0, 140) + '...';
+            }
+          contentString = '<div><h5>'+content.title+'</h5><div style="margin-bottom: 4px">'+this.createRating(content.rating)+'</div><img src="'+ content.thumbnail +'" style="height:120px; float: left; margin-right: 10px"><span>'+content.description+'</span></div>';
+    }
+    else
+      contentString = '<div><h5>'+content+'</h5></div>';
+
     let infoWindow = new google.maps.InfoWindow({
-      content: content
+      content: contentString
     });
 
     google.maps.event.addListener(marker, 'click', () => {
       infoWindow.open(this.map, marker);
       //this.itemTapped("click", item)
     });
-  }
+  } 
+
+createRating(rating)
+{
+  let rate_str:string = '';
+  let src_1: string = '<img src="img/if_star.png" height="20">';
+  let src_2: string = '<img src="img/if_star-e.png" height="20">';
+  
+  switch(rating) {
+               case 1:
+                 rate_str = src_1+ src_2 + src_2+ src_2 + src_2;
+               break;
+               case 2:
+                 rate_str = src_1+ src_1 + src_2+ src_2 + src_2;
+               break;
+               case 3:
+                 rate_str = src_1+ src_1 + src_1+ src_2 + src_2;
+               break;
+               case 4:
+                 rate_str = src_1+ src_1 + src_1+ src_1 + src_2;
+               break;
+               case 5:
+                 rate_str = src_1+ src_1 + src_1+ src_1 + src_1;
+               break;
+
+      }
+      return rate_str;
+}
 
 
    itemTapped(event, item) {

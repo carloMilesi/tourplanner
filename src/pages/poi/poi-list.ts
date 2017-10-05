@@ -13,9 +13,11 @@ import {PoiService} from '../../services/poi.service'
 export class PoiListPage {
    @ViewChild(Nav) nav: Nav;
 
-  private selectedItem: any;
+  private path: string;
   private items: any;
   private pathway : any = null;
+  public rating: string;
+  private pathway_opt : any = null;
 
   constructor(
       public params: NavParams,
@@ -27,36 +29,77 @@ export class PoiListPage {
   ) {
     console.log("Poi list constructor")
 
-    this.selectedItem = this.params.get('item');
+    this.path = params.get('path');
     this.pathway = params.get('pathway');
+    
 
     if(this.pathway){
-      //console.log("***************")
-      //console.log(JSON.stringify(this.pathway));
-      //console.log("***************")
+      console.log(JSON.stringify(this.pathway));
       this.items = this.pathway.points;
-    } else {
+    }
+    else if (this.pathway_opt)
+    {
+
+    }
+     else {
       this.loadPoi();
     }
   }
 
-
+/** 
+Load list of POI
+*/
   loadPoi(){
-    this.poiService.load('http://seitre.crs4.it:3009/api/v1/' + this.selectedItem.path,
+    this.poiService.load('http://seitre.crs4.it:3009/api/v1/' + this.path,
       (data) => {
         this.items = data;
-        //console.log(this.selectedItem.path);
-        console.log(JSON.stringify(data));
         for(let i = 0; i < this.items.length; i++){
           this.items[i].bgcolor = this.getColor();
-          this.items[i].rating = this.getRankingCategory(this.selectedItem.path);
-          this.items[i].timetovisit = this.getTimeToVisit(this.selectedItem.path);
-          this.items[i].category = this.selectedItem.path;
+          this.items[i].timetovisit = this.items[i].time_to_visit;
+          this.items[i].category = this.path;
+          if (this.items[i].category == 'restaurants')
+              this.items[i].description = this.items[i].address;
+          
         }
       });
 
+
   }
 
+
+
+
+createRating(rating)
+{
+  let rate_str:string = '';
+  let src_1: string = '<img src="img/if_star.png" height="20">';
+  let src_2: string = '<img src="img/if_star-e.png" height="20">';
+  
+  switch(rating) {
+               case 1:
+                 rate_str = src_1+ src_2 + src_2+ src_2 + src_2;
+               break;
+               case 2:
+                 rate_str = src_1+ src_1 + src_2+ src_2 + src_2;
+               break;
+               case 3:
+                 rate_str = src_1+ src_1 + src_1+ src_2 + src_2;
+               break;
+               case 4:
+                 rate_str = src_1+ src_1 + src_1+ src_1 + src_2;
+               break;
+               case 5:
+                 rate_str = src_1+ src_1 + src_1+ src_1 + src_1;
+               break;
+
+      }
+      return rate_str;
+}
+
+
+
+
+/*
   getRankingCategory(category){
 
     //assegna un valore di rating in base alla categoria
@@ -100,9 +143,11 @@ export class PoiListPage {
 
     return timeToVisit;
   }
+  */
 
   itemTapped(event, item) {
-    let modal = this.modalCtrl.create(PoiDetailsPage, {item});
+    let _path: string =  this.path;
+    let modal = this.modalCtrl.create(PoiDetailsPage, {item, _path});
     modal.present();
      
     //this.app.getRootNav().push(PoiDetailsPage , {
@@ -118,9 +163,29 @@ export class PoiListPage {
   }
 
   optimizePathway(){
+      console.log('+++++++++++++++++++++++++');
+      console.log(this.pathway);
+      this.poiService.load_optimize('http://192.167.144.196:5010/requestTrip/ ', this.pathway,
+      (data) => {
+        console.log('+++++++++++++++++++++++++');
+        console.log(data);
+        this.items = data;
+        for(let i = 0; i < this.items.length; i++){
+          this.items[i].bgcolor = this.getColor();
+          this.items[i].timetovisit = this.items[i].time_to_visit;
+          this.items[i].category = this.path;
+          if (this.items[i].category == 'restaurants')
+              this.items[i].description = this.items[i].address;
+          
+        }
+      });
+
+
+
+
     let alert = this.alertCtrl.create({
       title: "Ottimizzazione percorso",
-      subTitle: "Funzione non ancora disponibile",
+      subTitle: "Funzione non ancora disponibile --------------",
       buttons: ['OK']
     });
     alert.present();

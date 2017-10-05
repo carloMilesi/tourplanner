@@ -17,15 +17,18 @@ export class PoiRoot {
 
   poiParams : any;
   item : any;
+  poiTitle: string;
 
   constructor(
       private navController: NavController,
       public params: NavParams
 ) {
     console.log("Poi root constructor")
-    console.log("item param: " + JSON.stringify(params.get('item')))
+    console.log("item param: " + JSON.stringify(params.get('path')))
+    
+    this.poiTitle  = params.get("path");
 
-    this.poiParams = {pathway : params.get("pathway"), item : params.get("item") }; // i parametri sono passati nel template
+    this.poiParams = {pathway : params.get("pathway"), path : params.get("path") }; // i parametri sono passati nel template
 
     this.tab1 = PoiListPage;
     this.tab2 = MapPage;

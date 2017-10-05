@@ -53,7 +53,7 @@ public categories : any = [ {title : this.translate.instant('PAGE_MONUMENTS'), p
     //   item: item
     // });
     this.navCtrl.push(PoiRoot, {
-      item: item
+      path: item.path
     });
   }
 }

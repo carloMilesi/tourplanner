@@ -26,7 +26,12 @@
 
       <h2>{{ item.title }} </h2>
       <h4 *ngIf="item.description != undefined">{{ item.description.substr(0, 35) }}...</h4>
+    <div [innerHtml]="'<p>' + createRating(item.rating)+ '</p>'">
+      
+    </div>
+
     </button>
+      }
   </ion-list>
 
   <button ion-button block *ngIf="this.pathway" (click)="optimizePathway()">Optimize pathway</button>
