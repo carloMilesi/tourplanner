@@ -24,7 +24,8 @@
 
   "ADD_NEW": "Aggungi",
   "PATHWAY": "Percorso",
-
+  "PORT_POINT": "Cagliari port",
+  
   "monuments": "Monumenti",
   "museums": "Museumi",
   "archeoSites": "Archeologia",
@@ -52,9 +53,11 @@
     "NO_SAVED": "Non esiste nessun percorso salvato!",
     "DATE": "Data",
     "START_POINT": "Punto di inizio",
-    "DURATION": "Durata", 
-    "DIFFICLTY": "Difficultà",
+    "DURATION": "Quanto tempo hai a disposizione?", 
+    "DIFFICLTY": "Quanto sei allenato?",
     "VALIDATION1": "Campo obbligatorio",
+    "START_POINT": "Punto di partenza",
+    "END_POINT": "Punto di arrivo",
     "EASY": "facile",
     "MEDIUM": "medio",
     "HARD": "difficile",

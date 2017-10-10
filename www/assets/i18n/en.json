@@ -24,6 +24,7 @@
 
 "ADD_NEW": "Add new",
 "PATHWAY": "Pathway",
+"PORT_POINT": "Cagliari port",
 
  "monuments": "Monuments",
   "museums": "Museums",
@@ -53,8 +54,10 @@
     "DATE": "Date",
     "START_POINT": "Start point",
     "DURATION": "How much time do you have?", 
-    "DIFFICLTY": "Difficulty",
+    "DIFFICLTY": "How much are you trained?",
     "VALIDATION1": "Fields required",
+    "START_POINT": "Start point",
+    "END_POINT": "End point",
     "EASY": "easy",
     "MEDIUM": "medium",
     "HARD": "hard",

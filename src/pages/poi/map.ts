@@ -213,6 +213,14 @@ createRating(rating)
      * - location specifies the location of the waypoint, as a LatLng, as a google.maps.Place object or as a String which will be geocoded.
      * - stopover is a boolean which indicates that the waypoint is a stop on the route, which has the effect of splitting the route into two routes.
      * */
+   console.log('origin +++++++++++++++');
+   console.log(origin); 
+   console.log('destination +++++++++++++++');
+   console.log(destination);
+   console.log('percorso +++++++++++++++');
+   console.log(waypts);
+   console.log('+++++++++++++++');
+
     let waypoints = [];
     let waypoints_titles = [];
     for (let i=1; i<waypts.length-1;i++){
@@ -220,7 +228,7 @@ createRating(rating)
         waypoints.push({ location : new google.maps.LatLng(waypts[i].lat, waypts[i].lng), stopover: true});
       }
     }
-
+    console.log('-----------');
     //tutti i title
     for (let i in waypts){
       if(waypts[i].lat && waypts[i].lng){

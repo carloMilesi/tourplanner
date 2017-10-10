@@ -59,7 +59,7 @@ _pathways: Array<any> = [];
         );
 
 
-console.log(this.formgroup.controls['puntoPartenza']);
+
       this.name = this.formgroup.controls['name'];
       this.dataInizio = this.formgroup.controls['dataInizio'];
       this.puntoPartenza = this.formgroup.controls['puntoPartenza'];
@@ -141,17 +141,18 @@ saveItem(fields) {
       points: []
     };
 
+ 
 
 if (this.puntoPartenza.value)
 {
  pathway.start = {
-         lat:39.2227435,
-     lng:9.11681436631944
+         lat:39.213644,
+         lng:9.111093
      };
 
  pathway.stop = {
-         lat:39.2227435,
-     lng:9.11681436631944
+         lat:39.213644,
+         lng:9.111093
      };
 
      

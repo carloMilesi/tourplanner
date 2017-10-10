@@ -1,5 +1,6 @@
 import { Component, ViewChild} from '@angular/core';
 import { Nav, ModalController, App, NavController, NavParams, AlertController } from 'ionic-angular';
+import { TranslateService } from 'ng2-translate';
 
 import {PoiDetailsPage} from './poi-details';
 import {PoiService} from '../../services/poi.service'
@@ -25,7 +26,8 @@ export class PoiListPage {
       public alertCtrl: AlertController,
       public poiService: PoiService,
       private navCtrl: NavController,
-      public app : App
+      public app : App,
+      public translate: TranslateService
   ) {
     console.log("Poi list constructor")
 
@@ -99,51 +101,6 @@ createRating(rating)
 
 
 
-/*
-  getRankingCategory(category){
-
-    //assegna un valore di rating in base alla categoria
-    let rating;
-
-    if (category == "monuments")
-      rating = 6;
-    if (category == "museums")
-      rating = 5;
-    if (category == "archeoSites")
-      rating = 4;
-    if (category == "gardens")
-      rating = 3;
-    if (category == "restaurants")
-      rating = 2;
-    if (category == "events")
-      rating = 1;
-
-
-    return rating;
-  }
-
-  getTimeToVisit(category){
-
-    //assegna un tempo medio di visita in base alla categoria
-    let timeToVisit;
-
-    if (category == "monuments")
-      timeToVisit = 30;
-    if (category == "museums")
-      timeToVisit = 60;
-    if (category == "archeoSites")
-      timeToVisit = 30;
-    if (category == "gardens")
-      timeToVisit = 20;
-    if (category == "restaurants")
-      timeToVisit = 120;
-    if (category == "events")
-      timeToVisit = 0;  // durata dell'evento?
-
-
-    return timeToVisit;
-  }
-  */
 
   itemTapped(event, item) {
     let _path: string =  this.path;
@@ -163,26 +120,46 @@ createRating(rating)
   }
 
   optimizePathway(){
-      console.log('+++++++++++++++++++++++++');
       console.log(this.pathway);
-      this.poiService.load_optimize('http://192.167.144.196:5010/requestTrip/ ', this.pathway,
+      this.poiService.load_optimize('http://192.167.144.196:5010/v1/requestTrip/ ', this.pathway,
       (data) => {
-        console.log('+++++++++++++++++++++++++');
+        console.log("++++++++++++++++++++++++++++");
         console.log(data);
-        this.items = data;
+        this.items = data.Points;
+        
+        console.log(this.items);
+        console.log("++++++++++++++++++++++++++++");
+        
         for(let i = 0; i < this.items.length; i++){
           this.items[i].bgcolor = this.getColor();
           this.items[i].timetovisit = this.items[i].time_to_visit;
           this.items[i].category = this.path;
+          
+          console.log(this.items[i].title);
+          console.log(this.items[i].rating);
+          console.log('Start_' + data.id_request);
+          if ( this.items[i].title == 'Start_' + data.id_request)
+          {
+             this.items[i].title = this.translate.instant('PORT_POINT');
+             this.items[i].description = this.translate.instant('PATHWAYS.START_POINT');
+          }
+          else if (this.items[i].title == 'Stop_'+ data.id_request)
+          {
+             this.items[i].title = this.translate.instant('PORT_POINT');
+             this.items[i].description = this.translate.instant('PATHWAYS.END_POINT');
+          }
+          
           if (this.items[i].category == 'restaurants')
               this.items[i].description = this.items[i].address;
           
         }
+        
+        
       });
 
+}
 
-
-
+/*
     let alert = this.alertCtrl.create({
       title: "Ottimizzazione percorso",
       subTitle: "Funzione non ancora disponibile --------------",
@@ -190,5 +167,7 @@ createRating(rating)
     });
     alert.present();
   }
+
+*/
 
 }

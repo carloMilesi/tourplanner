@@ -28,12 +28,12 @@ export class MapPage {
   ) {
 
     console.log("Poi map constructor")
-
-    this.pathway = navParams.get('pathway');
-    this.path = navParams.get('path');
     
-    console.log(this.pathway);
-    console.log(this.path);
+    this.path = navParams.get('path');
+    this.pathway = navParams.get('pathway');
+    
+    console.log(this.pathway); // map pathway points
+    console.log(this.path);  // map categories 
     
     this.platform.ready().then(() => {
 
@@ -68,4 +68,25 @@ export class MapPage {
     //   item: item
     // });
   }
-}
+
+
+
+
+
+optimizePathway(){
+      console.log(this.pathway);
+      this.poiService.load_optimize('http://192.167.144.196:5010/v1/requestTrip/ ', this.pathway,
+      (data) => {
+        
+        let origin = data.Points[0];
+        let destination = data.Points[data.Points.length-1];
+        let waypts = data.Points;
+        //console.log(data.Points);
+        this.myMap.loadPois(data.Points, "pathway");
+        this.myMap.calculateAndDisplayRoute(origin, destination, waypts);
+        
+      });
+    }
+
+
+  }

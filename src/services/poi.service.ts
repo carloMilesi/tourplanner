@@ -31,11 +31,17 @@ export class PoiService {
   {
      this.http.post(url, params)
       .map(res => res.json())
+      .catch((err) => {
+                
+                console.log(err);
+                return Observable.throw(err)
+            })
       .subscribe(data => {
         this.data = this.dataToPoi(data);
         if(_cb !== undefined)
-          _cb(this.data);
-      });
+          _cb(data);
+      })
+      
 }
 
 
