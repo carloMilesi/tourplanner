@@ -22,6 +22,16 @@
   
   "num_items": "Presenze",
 
+  "ADD_NEW": "Aggungi",
+  "PATHWAY": "Percorso",
+  "PORT_POINT": "Cagliari port",
+  
+  "monuments": "Monumenti",
+  "museums": "Museumi",
+  "archeoSites": "Archeologia",
+  "gardens": "Giardini",
+  "events": "Eventi",
+  "restaurants": "Ristoranti",
 
   "TEXT_NO_PATH": "Non esistono percorsi salvati!",
 
@@ -40,7 +50,19 @@
     "REMOVE_MESSAGE": "Sei sicuro di voler eliminare il percorso?",
     "REMOVE_CANCEL": "Annulla",
     "REMOVE_SAVE": "Rimuovi",
-    "NO_SAVED": "Non esiste nessun percorso salvato!"
+    "NO_SAVED": "Non esiste nessun percorso salvato!",
+    "DATE": "Data",
+    "START_POINT": "Punto di inizio",
+    "DURATION": "Quanto tempo hai a disposizione?", 
+    "DIFFICLTY": "Quanto sei allenato?",
+    "VALIDATION1": "Campo obbligatorio",
+    "START_POINT": "Punto di partenza",
+    "END_POINT": "Punto di arrivo",
+    "EASY": "facile",
+    "MEDIUM": "medio",
+    "HARD": "difficile",
+    "CONFIRM_ADD": "Percorso iserito correttamente",
+    "ADD_POINT": "Aggiungi punti"
   },
 
   "POI" : {

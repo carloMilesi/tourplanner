@@ -22,6 +22,17 @@
   
   "num_items": "Presenze",
 
+  "ADD_NEW": "Add new",
+  "PATHWAY": "Pathway",
+  "PORT_POINT": "Cagliari port",
+  
+"monuments": "Monuments",
+  "museums": "Musées",
+  "archeoSites": "Archéologie",
+  "gardens": "Jardins",
+  "events": "Événements",
+  "restaurants": "Restaurants",
+
   "TEXT_NO_PATH": "Il n'y a pas de itinéraire sauvegardées!",
 
   "BUTTON_CLOSE": "Près",
@@ -39,7 +50,21 @@
     "REMOVE_MESSAGE": "Etes-vous sûr de vouloir supprimer le itinéraire?",
     "REMOVE_CANCEL": "Annullation",
     "REMOVE_SAVE": "Supprimer",
-    "NO_SAVED": "Il n'y a pas itinéraire enregistré!"
+    "NO_SAVED": "Il n'y a pas itinéraire enregistré!",
+    "DATE": "Data",
+    "START_POINT": "Punto di inizio",
+    "DURATION": "Quanto tempo hai a disposizione?", 
+    "DIFFICLTY": "Quanto sei allenato?",
+    "VALIDATION1": "Campo obbligatorio",
+    "START_POINT": "Start point",
+    "END_POINT": "End point",
+    "START_POINT": "Start point",
+    "END_POINT": "End point",
+    "EASY": "facile",
+    "MEDIUM": "medio",
+    "HARD": "difficile",
+    "CONFIRM_ADD": "Pathway inserted!",
+    "ADD_POINT": "Add points"
   },
 
   "POI" : {

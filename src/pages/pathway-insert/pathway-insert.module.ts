@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { PathwayInsertPage } from './pathway-insert';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { PathwayInsertPage } from './pathway-insert';
   ],
   imports: [
     IonicPageModule.forChild(PathwayInsertPage),
+    TranslateModule.forChild(),
   ],
   exports: [
     PathwayInsertPage

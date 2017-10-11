@@ -1,6 +1,6 @@
 import { Component, ViewChild} from '@angular/core';
 import { Nav, ModalController, App, NavController, NavParams, AlertController } from 'ionic-angular';
-import { TranslateService } from 'ng2-translate';
+import { TranslateService } from '@ngx-translate/core';
 
 import {PoiDetailsPage} from './poi-details';
 import {PoiService} from '../../services/poi.service'

@@ -58,6 +58,9 @@
         },
         "cordova-plugin-secure-storage": {
             "PACKAGE_NAME": "com.ionicframework.tourplanner3950807"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.ionicframework.tourplanner3950807"
         }
     },
     "dependent_plugins": {},
@@ -305,6 +308,7 @@
         "cordova-plugin-compat": "1.2.0",
         "cordova-plugin-geolocation": "2.4.3",
         "cordova-plugin-splashscreen": "4.0.3",
-        "cordova-plugin-secure-storage": "2.6.8"
+        "cordova-plugin-secure-storage": "2.6.8",
+        "cordova-plugin-crosswalk-webview": "2.3.0"
     }
 }

@@ -17,23 +17,27 @@ import { PoiDetailsPage } from '../pages/poi/poi-details';
 import { MapPage } from '../pages/poi/poi-map';
 import { MapComponent } from '../pages/poi/map';
 import { PathwayInsertPage} from '../pages/pathway-insert/pathway-insert';
+import { PathwayInsertPageModule } from '../pages/pathway-insert/pathway-insert.module.ts';
+import { NewItemPage } from '../pages/percorsi/new-item.ts';
+import { PercorsiPathwayDetailsPage } from '/home/davide/git/tourplanner/src/pages/percorsi/pathway-details.ts';
 
 import { PercorsiPage } from '../pages/percorsi/percorsi';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { SettingsPage } from '../pages/settings/settings';
 
 import { HttpModule } from '@angular/http';
-import { Http } from '@angular/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-import {
-TranslateModule,
-TranslateStaticLoader,
-TranslateLoader } from 'ng2-translate/ng2-translate';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-
-export function createTranslateLoader(http: Http) {
-  return new TranslateStaticLoader(http, 'assets/i18n', '.json');
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -49,17 +53,23 @@ export function createTranslateLoader(http: Http) {
     PercorsiPage,
     MapComponent,
     SettingsPage,
-    PathwayInsertPage
+    NewItemPage,
+    PercorsiPathwayDetailsPage
+    //PathwayInsertPage
     
   ],
   imports: [
+    PathwayInsertPageModule,    
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule,
+    HttpClientModule,    
+    HttpModule,    
     TranslateModule.forRoot({
-      provide: TranslateLoader,
-      useFactory: (createTranslateLoader),
-      deps: [Http]
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient] 
+      }
     })
   ],
   bootstrap: [IonicApp],

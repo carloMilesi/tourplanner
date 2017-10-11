@@ -4,7 +4,7 @@ import { IonicPage, NavController, NavParams, ViewController, AlertController } 
 import {Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { NativeStorage } from '@ionic-native/native-storage';
 import {stringify} from "@angular/core/src/util";
-import { TranslateService } from 'ng2-translate';
+import { TranslateService } from '@ngx-translate/core';
 
 import { CategoriesListPage } from '../categories/categories-list';
 import { PathwaysService } from '../../services/pathways.service';

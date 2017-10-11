@@ -1,7 +1,7 @@
 import { Component, NgZone, Renderer } from '@angular/core';
 import { NavController, Platform, ViewController, NavParams, AlertController } from 'ionic-angular';
 
-import { TranslateService } from 'ng2-translate';
+import { TranslateService } from '@ngx-translate/core';
 
 //import {NewItemPage} from './new-item';
 import { PoiRoot } from '../poi/poi';

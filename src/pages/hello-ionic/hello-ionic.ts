@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController, NavController, NavParams } from 'ionic-angular';
 import { PoiRoot } from '../poi/poi';
-import { TranslateService } from 'ng2-translate';
+import { TranslateService } from '@ngx-translate/core';
 import { PoiService } from '../../services/poi.service';
 
 

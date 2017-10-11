@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { CategoriesListPage } from '../pages/categories/categories-list';
 import {PercorsiPage} from '../pages/percorsi/percorsi';
-import { TranslateService } from 'ng2-translate';
+import { TranslateService } from '@ngx-translate/core';
 
 import {SettingsPage} from '../pages/settings/settings';
 
