@@ -88,13 +88,19 @@ ngOnInit()
 		(difficolta) => {
 			switch(difficolta) {
                case 1:
-                 this.difficolta_str = this.translate.instant('PATHWAYS.EASY');
+                 this.difficolta_str = this.translate.instant('PATHWAYS.LOW');
                break;
-               case 2:
+               case 25:
                	this.difficolta_str = this.translate.instant('PATHWAYS.MEDIUM');
                break;
-               case 3:
-               	this.difficolta_str = this.translate.instant('PATHWAYS.HARD');
+               case 50:
+               	this.difficolta_str = this.translate.instant('PATHWAYS.GOOD');
+               break;
+               case 75:
+                 this.difficolta_str = this.translate.instant('PATHWAYS.HIGH');
+               break;
+               case 100:
+                 this.difficolta_str = this.translate.instant('PATHWAYS.VERYHIGH');
                break;
 
 			}

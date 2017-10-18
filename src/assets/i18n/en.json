@@ -59,11 +59,17 @@
     "VALIDATION1": "Fields required",
     "START_POINT": "Start point",
     "END_POINT": "End point",
-    "EASY": "easy",
-    "MEDIUM": "medium",
-    "HARD": "hard",
+    "LOW": "Low",
+    "MEDIUM": "Medium",
+    "GOOD": "Good",
+    "HIGH": "High",
+    "VERYHIGH": "Very high",
     "CONFIRM_ADD": "Pathway inserted!",
-    "ADD_POINT": "Add points"
+    "ADD_POINT": "Add points",
+    "DIFF_PATHWAY": "Difficulty of the path",
+    "TIME_PATHWAY": "Duration of the route (min)",
+    "YOUR_TRAIN": "Your physical fitness",
+    "YOUR_TIME": "Your time available (min)"
   },
 
   "POI" : {

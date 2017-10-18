@@ -61,12 +61,12 @@ export class MapComponent {
         position: new google.maps.LatLng(item.lat, item.lng),
       });
 
-      this.addInfoWindow(marker, item.title);
+      this.addInfoWindow(marker, item.title, null);
     }
   }
 
   loadPois(pois, kindoflist) {
-
+  
   if (kindoflist== "pathway"){
     this.pathway= true;
     }
@@ -89,7 +89,7 @@ export class MapComponent {
               animation: google.maps.Animation.DROP,
               position: new google.maps.LatLng(this.items[i].lat, this.items[i].lng),
             });
-            this.addInfoWindow(marker, this.items[i]);
+            this.addInfoWindow(marker, this.items[i], null);
 
           }
         }
@@ -97,6 +97,39 @@ export class MapComponent {
 
     })
   }
+
+
+
+loadPois2(pois) {
+
+  
+    this.items = pois;
+    this.getPointsBounds((bounds) => {
+      
+      this.map.fitBounds(bounds);
+      //console.log("items count " + this.items.length);
+
+      
+
+        for (let i = 0; i < this.items.length; i++) {
+          if (this.items[i].lat && this.items[i].lng) {
+            //console.log(this.items[i].title + ": " + this.items[i].lat + " - " + this.items[i].lng)
+
+            let marker = new google.maps.Marker({
+              map: this.map,
+              animation: google.maps.Animation.DROP,
+              position: new google.maps.LatLng(this.items[i].lat, this.items[i].lng),
+            });
+            this.addInfoWindow(marker, this.items[i], null);
+
+          }
+        }
+      
+
+    })
+  }
+
+
 
   setMapHeight(height){
     this.mapElement.nativeElement.style.height = height;
@@ -140,12 +173,12 @@ Crea il popoup del marker
 
 */
 
-  addInfoWindow(marker, content) {
+  addInfoWindow(marker, content, type) {
 
     console.log(content);
     let contentString: string;
     
-    
+    // marker extended description
     if (content.rating && content.description)
     {
           if (content.description.length > 140)
@@ -154,8 +187,10 @@ Crea il popoup del marker
             }
           contentString = '<div><h5>'+content.title+'</h5><div style="margin-bottom: 4px">'+this.createRating(content.rating)+'</div><img src="'+ content.thumbnail +'" style="height:120px; float: left; margin-right: 10px"><span>'+content.description+'</span></div>';
     }
-    else
-      contentString = '<div><h5>'+content+'</h5></div>';
+    else // only title description
+    {
+          contentString = '<div><h5>'+content+'</h5></div>';
+        }
 
     let infoWindow = new google.maps.InfoWindow({
       content: contentString
@@ -213,14 +248,7 @@ createRating(rating)
      * - location specifies the location of the waypoint, as a LatLng, as a google.maps.Place object or as a String which will be geocoded.
      * - stopover is a boolean which indicates that the waypoint is a stop on the route, which has the effect of splitting the route into two routes.
      * */
-   console.log('origin +++++++++++++++');
-   console.log(origin); 
-   console.log('destination +++++++++++++++');
-   console.log(destination);
-   console.log('percorso +++++++++++++++');
-   console.log(waypts);
-   console.log('+++++++++++++++');
-
+   
     let waypoints = [];
     let waypoints_titles = [];
     for (let i=1; i<waypts.length-1;i++){
@@ -228,7 +256,7 @@ createRating(rating)
         waypoints.push({ location : new google.maps.LatLng(waypts[i].lat, waypts[i].lng), stopover: true});
       }
     }
-    console.log('-----------');
+    
     //tutti i title
     for (let i in waypts){
       if(waypts[i].lat && waypts[i].lng){
@@ -246,23 +274,7 @@ createRating(rating)
 
     if (typeof google !== "undefined") {
 
-      /**
-       * The DirectionsRequest object literal contains the following fields:
-       {
-       origin: LatLng | String | google.maps.Place,
-       destination: LatLng | String | google.maps.Place,
-       travelMode: TravelMode, //DRIVING (Default), BICYCLING, TRANSIT (public transport), WALKING
-       transitOptions: TransitOptions, //(optional) specifies values that apply only to requests where travelMode is TRANSIT
-       drivingOptions: DrivingOptions, //(optional) specifies values that apply only to requests where travelMode is DRIVING
-       unitSystem: UnitSystem,
-       waypoints[]: DirectionsWaypoint,
-       optimizeWaypoints: Boolean, //By default, the Directions service calculates a route through the provided waypoints in their given order. Optionally, you may pass optimizeWaypoints: true within the DirectionsRequest to allow the Directions service to optimize the provided route by rearranging the waypoints in a more efficient order.
-       provideRouteAlternatives: Boolean,
-       avoidHighways: Boolean,
-       avoidTolls: Boolean,
-       region: String
-       }
-       **/
+      
       let routeRequest = {
         origin: latlng_origin,
         destination: latlng_destination,
@@ -294,35 +306,56 @@ createRating(rating)
     // can keep track of it and remove it when calculating new
     // routes.
     var myRoute = directionResult.routes[0];
-
+    var icon : string; 
+    
     for (var i = 0; i < myRoute.legs.length; i++) {
-      let icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000";
-      //let icon = "https://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=glyphish_walk|edge_bl|"+waypts_titles[i].title+"|4C9E21|000000";
-      console.log(icon);
-     /* if (i == 0) {
-        icon = "https://chart.googleapis.com/chart?chst=d_map_xpin_icon&chld=pin_star|glyphish_walk|00FFFF|FF0000";
+      
+      icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000";
 
+      //let icon = "https://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=glyphish_walk|edge_bl|"+waypts_titles[i].title+"|4C9E21|000000";
+      //console.log(icon);
+      //console.log(waypts_titles[i].title.substring(0,5));
+      //console.log(waypts_titles[i].title);
+     
+     if (waypts_titles[i].title.substring(0,5) == "Start")
+     {
+          if (i == 0 || i == myRoute.legs.length) {
+             icon = "https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png";
+          }
+          waypts_titles[i].title = "Cruise terminal";
         //icon = "https://chart.googleapis.com/chart?chst=d_map_spin&chld=3|0|green|12|arial|"+waypts_titles[i].title;
-      }*/
+      }
       var marker = new google.maps.Marker({
         position: myRoute.legs[i].start_location,
         animation: google.maps.Animation.DROP,
         map: this.map,
         icon: icon
       });
-      this.addInfoWindow(marker, waypts_titles[i].title);
-      console.log(waypts_titles[i].title);
+      this.addInfoWindow(marker, waypts_titles[i].title, null);
+      //console.log(waypts_titles[i].title);
       this.markerArray.push(marker);
     }
+    
+    //console.log(waypts_titles[i].title);
+    //console.log(waypts_titles[i].title.substring(0,5));
+    if (waypts_titles[i].title.substring(0,5) == "Stop_")
+     {
+          icon = "https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png";
+          waypts_titles[i].title = "Cruise terminal";
+        //icon = "https://chart.googleapis.com/chart?chst=d_map_spin&chld=3|0|green|12|arial|"+waypts_titles[i].title;
+      }
+      else
+          icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000";
+
 
     var marker = new google.maps.Marker({
       position: myRoute.legs[i - 1].end_location,
       animation: google.maps.Animation.DROP,
       map: this.map,
-      icon: "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000" //"https://chart.googleapis.com/chart?chst=d_fnote&chld=balloon|1|000000|h|"+waypts_titles[i].title //"https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000" //"https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|ADDE63"
+      icon: icon //"https://chart.googleapis.com/chart?chst=d_fnote&chld=balloon|1|000000|h|"+waypts_titles[i].title //"https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000" //"https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|ADDE63"
     });
-    this.addInfoWindow(marker, waypts_titles[i].title);
-    console.log(waypts_titles[i].title);
+    this.addInfoWindow(marker, waypts_titles[i].title, null);
+    //console.log(waypts_titles[i].title);
     this.markerArray.push(marker);
   }
 

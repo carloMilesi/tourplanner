@@ -89,4 +89,56 @@ optimizePathway(){
     }
 
 
+
+    addItems(category)
+    {
+      let center_point: any = this.getCenter(this.pathway);
+      //console.log(center_point);
+
+      let url = 'http://seitre.crs4.it:3009/api/v1/'+ category +'?lat=' + center_point.lat + '&lng=' + center_point.lng;
+    this.poiService.load(url, pois => {
+      this.points = pois;
+      //console.log(pois);
+      //console.log("points in load pois: " + JSON.stringify(this.points))
+      if (pois)
+        this.myMap.loadPois2(pois);
+    })
+    }
+
+
+
+    getCenter(pathway)
+    {
+          //console.log(this.pathway.points);
+          
+
+          let max_lat: number = 0.0;
+          let max_lng: number = 0.0;
+          let min_lat: number = 1000.0;
+          let min_lng: number = 1000.0;
+
+          for (let i = 0; i < this.pathway.points.length; i++) {
+            
+
+            if  (parseFloat(this.pathway.points[i].lat) > max_lat)
+                max_lat = parseFloat(this.pathway.points[i].lat);
+            if  (parseFloat(this.pathway.points[i].lng) > max_lng)
+                max_lng = parseFloat(this.pathway.points[i].lng);
+
+            if  (parseFloat(this.pathway.points[i].lat) < min_lat)
+                min_lat = parseFloat(this.pathway.points[i].lat);
+            if  (parseFloat(this.pathway.points[i].lng) < min_lng)
+                min_lng = parseFloat(this.pathway.points[i].lng);
+                
+
+
+        }
+
+        let c_lat = (max_lat - min_lat)/2 + min_lat;
+        let c_lng = (max_lng - min_lng)/2 + min_lng;
+
+        return {"lat": c_lat, "lng": c_lng};
+    }
+
+
   }

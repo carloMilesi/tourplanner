@@ -61,11 +61,17 @@
     "END_POINT": "End point",
     "START_POINT": "Start point",
     "END_POINT": "End point",
-    "EASY": "facile",
-    "MEDIUM": "medio",
-    "HARD": "difficile",
+    "LOW": "Bassa",
+    "MEDIUM": "media",
+    "GOOD": "Buona",
+    "HIGH": "Molto buona",
+    "VERYHIGH": "Ottima",
     "CONFIRM_ADD": "Pathway inserted!",
-    "ADD_POINT": "Add points"
+    "ADD_POINT": "Add points",
+    "DIFF_PATHWAY": "Difficoltà del percorso",
+    "TIME_PATHWAY": "Durata del percorso (min)",
+    "YOUR_TRAIN": "La tua forma",
+    "YOUR_TIME": "Il tuo tempo a disposizione (min)"
   },
 
   "POI" : {

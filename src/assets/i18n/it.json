@@ -23,7 +23,7 @@
   
   "num_items": "Presenze",
 
-  "ADD_NEW": "Aggungi",
+  "ADD_NEW": "Aggiungi",
   "PATHWAY": "Percorso",
   "PORT_POINT": "Cagliari port",
   
@@ -59,11 +59,18 @@
     "VALIDATION1": "Campo obbligatorio",
     "START_POINT": "Punto di partenza",
     "END_POINT": "Punto di arrivo",
-    "EASY": "facile",
-    "MEDIUM": "medio",
-    "HARD": "difficile",
-    "CONFIRM_ADD": "Percorso iserito correttamente",
-    "ADD_POINT": "Aggiungi punti"
+    "LOW": "Bassa",
+    "MEDIUM": "media",
+    "GOOD": "Buona",
+    "HIGH": "Molto buona",
+    "VERYHIGH": "Ottima",
+    "CONFIRM_ADD": "Percorso inserito correttamente",
+    "ADD_POINT": "Aggiungi punti",
+    "DIFF_PATHWAY": "Difficoltà del percorso",
+    "TIME_PATHWAY": "Durata del percorso (min)",
+    "YOUR_TRAIN": "La tua forma fisica",
+    "YOUR_TIME": "Il tuo tempo a disposizione (min)"
+    
   },
 
   "POI" : {
