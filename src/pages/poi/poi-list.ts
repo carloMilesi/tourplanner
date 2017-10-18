@@ -19,6 +19,9 @@ export class PoiListPage {
   private pathway : any = null;
   public rating: string;
   private pathway_opt : any = null;
+  public difficolta_str: string;
+  public timeToVisit_str_pw: string;
+  public difficolta_str_pw: string;
 
   constructor(
       public params: NavParams,
@@ -38,6 +41,15 @@ export class PoiListPage {
     if(this.pathway){
       console.log(JSON.stringify(this.pathway));
       this.items = this.pathway.points;
+    
+      console.log('-----------' + this.pathway.difficolta);
+      this.difficolta_str = this.createDifficulty(this.pathway.difficolta);
+       
+
+
+
+
+
     }
     else if (this.pathway_opt)
     {
@@ -99,7 +111,30 @@ createRating(rating)
 }
 
 
+createDifficulty(difficolta)
+{
+    
+    let diff : string = '';
 
+    if (difficolta < 25){
+      diff = this.translate.instant('PATHWAYS.LOW');
+    }
+     else if ((difficolta < 50)) {
+       diff = this.translate.instant('PATHWAYS.MEDIUM');
+     } 
+     else if ((difficolta < 75)) {
+       diff = this.translate.instant('PATHWAYS.GOOD');
+     }
+     else if ((difficolta < 100)) {
+       diff = this.translate.instant('PATHWAYS.HIGH');
+     }
+     else if ((difficolta = 100)) {
+       diff = this.translate.instant('PATHWAYS.VERYHIGH');
+     }
+
+     return diff;
+
+}
 
 
   itemTapped(event, item) {
@@ -120,24 +155,39 @@ createRating(rating)
   }
 
   optimizePathway(){
-      console.log(this.pathway);
+      //console.log(this.pathway);
       this.poiService.load_optimize('http://192.167.144.196:5010/v1/requestTrip/ ', this.pathway,
       (data) => {
-        console.log("++++++++++++++++++++++++++++");
-        console.log(data);
+        
+        
         this.items = data.Points;
         
-        console.log(this.items);
-        console.log("++++++++++++++++++++++++++++");
+        //console.log(this.items);
+        //console.log("++++++++++++++++++++++++++++");
         
+        
+        let diff_tot: number = 0;
+        let timeToVisit: number = 0;
+        let count: number = 0;
+
         for(let i = 0; i < this.items.length; i++){
+          
+          count = count + 1;
+          if (this.items[i].difficulty)
+            diff_tot = diff_tot + parseInt(this.items[i].difficulty);
+          if (this.items[i].DistanceTime)
+            timeToVisit = timeToVisit + parseInt(this.items[i].DistanceTime) / 60;
+          
+
           this.items[i].bgcolor = this.getColor();
           this.items[i].timetovisit = this.items[i].time_to_visit;
           this.items[i].category = this.path;
           
-          console.log(this.items[i].title);
-          console.log(this.items[i].rating);
-          console.log('Start_' + data.id_request);
+          //console.log(this.items[i].title);
+          //console.log(this.items[i].rating);
+          //console.log('Start_' + data.id_request);
+          
+
           if ( this.items[i].title == 'Start_' + data.id_request)
           {
              this.items[i].title = this.translate.instant('PORT_POINT');
@@ -154,7 +204,11 @@ createRating(rating)
           
         }
         
-        
+         
+         this.difficolta_str_pw = this.createDifficulty((Math.round(diff_tot/count)).toString());
+         this.timeToVisit_str_pw = Math.round(timeToVisit).toString();
+          
+
       });
 
 }

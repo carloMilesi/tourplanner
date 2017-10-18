@@ -31,16 +31,48 @@
       </ion-thumbnail>
 
       <h2>{{ item.title }} </h2>
-      <h4 *ngIf="item.description != undefined">{{ item.description.substr(0, 35) }}...</h4>
-    <div  *ngIf="item.rating != undefined" [innerHtml]="'<p>' + createRating(item.rating)+ '</p>'">
+      
+      
+      <div>
+      <ng-template [ngIf]="item.description != undefined && item.description.length >=35"><h4>{{ item.description.substr(0, 35) }}...</h4></ng-template>
+      <ng-template [ngIf]="item.description != undefined && item.description.length <35"><h4>{{ item.description }}</h4></ng-template>
+      </div>
+      
+      
+
+      <div  *ngIf="item.rating != undefined" [innerHtml]="'<p>' + createRating(item.rating)+ '</p>'">
       
     </div>
 
     </button>
-      }
+      
   </ion-list>
 
-  
+<ion-card>
+    <ion-item *ngIf="pathway">
+      <ion-icon name='stopwatch' item-start style="color: #d03e84"></ion-icon>
+      {{"PATHWAYS.YOUR_TIME" | translate}} 
+      <ion-badge item-end>{{pathway.duration}}</ion-badge>
+    </ion-item>
+
+    <ion-item *ngIf="pathway">
+      <ion-icon name='walk' item-start style="color: #55acee"></ion-icon>
+      {{"PATHWAYS.YOUR_TRAIN" | translate}} 
+      <ion-badge item-end color="secondary">{{difficolta_str}}</ion-badge>
+    </ion-item>
+    <ion-item *ngIf="timeToVisit_str_pw">
+      <ion-icon name='stopwatch' item-start style="color: #d03e84"></ion-icon>
+      {{"PATHWAYS.TIME_PATHWAY" | translate}} 
+      <ion-badge item-end>{{timeToVisit_str_pw}}</ion-badge>
+    </ion-item>
+
+    <ion-item *ngIf="difficolta_str_pw">
+      <ion-icon name='walk' item-start style="color: #55acee"></ion-icon>
+      {{"PATHWAYS.DIFF_PATHWAY" | translate}}
+      <ion-badge item-end color="secondary">{{difficolta_str_pw}}</ion-badge>
+    </ion-item>
+</ion-card>
+
 
 
 

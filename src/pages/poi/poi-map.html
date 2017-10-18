@@ -11,7 +11,15 @@
 
 
  <ion-content>
-<button ion-button block (click)="optimizePathway()">Optimize pathway</button>
+<button *ngIf="pathway" ion-button block (click)="optimizePathway()">Optimize pathway</button>
+
+<ion-item>
+<button *ngIf="pathway" ion-button secondary clear icon-left (click)="addItems('restaurants')"><ion-icon name="restaurant"></ion-icon> Restaurants</button> 
+<button *ngIf="pathway" ion-button secondary clear icon-right (click)="addItems('events')"><ion-icon name="bookmarks"></ion-icon> Events</button>
+
+<button *ngIf="pathway" ion-button secondary clear icon-right (click)="addItems('deals')"><ion-icon name="cloack"></ion-icon> Deals</button>
+</ion-item>
+
     <map-component #myMap ></map-component>
  
  
