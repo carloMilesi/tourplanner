@@ -18,7 +18,7 @@
         <h1>{{selectedItem.title}}</h1>
     </ion-col>
     <ion-col col-2 style="border: 0px solid #000">
-        <button ion-button clear (click)="openPathways($event, selectedItem)"> <ion-icon name="ios-star" ></ion-icon></button>
+      <ng-template [ngIf]="path != 'restaurants' && path != 'events'"><button ion-button clear (click)="openPathways($event, selectedItem)"> <ion-icon name="ios-star" ></ion-icon></button></ng-template>
     </ion-col>
   </ion-row>
 </ion-grid>

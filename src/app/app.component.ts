@@ -31,7 +31,7 @@ export class MyApp {
     
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'MENU_HOME', icon: 'md-home', component: HelloIonicPage },
+      { title: 'MENU_POI', icon: 'md-home', component: HelloIonicPage },
       //{ title: 'MENU_CATEGORIES', icon: 'md-locate', component: CategoriesListPage },
       { title: 'MENU_PATHWAYS', icon: 'logo-steam', component: PercorsiPage },
       { title: "MENU_SETTINGS", icon: 'md-settings', component: SettingsPage },

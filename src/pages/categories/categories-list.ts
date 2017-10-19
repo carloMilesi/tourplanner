@@ -19,8 +19,9 @@ public categories : any = [ {title : this.translate.instant('PAGE_MONUMENTS'), p
                             {title : this.translate.instant('PAGE_MUSEUMS'), path : "museums"},
                             {title : this.translate.instant('PAGE_ARCHEOLOGY'), path : "archeoSites"},
                             {title : this.translate.instant('PAGE_GARDENS'), path : "gardens"},
-                            {title : this.translate.instant('PAGE_EVENTS'), path : "events"},
-                            {title : this.translate.instant('PAGE_RESTAURANTS'), path : "restaurants"}];
+                            //{title : this.translate.instant('PAGE_EVENTS'), path : "events"},
+                            //{title : this.translate.instant('PAGE_RESTAURANTS'), path : "restaurants"}
+                          ];
 
   constructor(public navCtrl: NavController, navParams: NavParams,  public translate: TranslateService) {
     // If we navigated to this page, we will have an item available as a nav param

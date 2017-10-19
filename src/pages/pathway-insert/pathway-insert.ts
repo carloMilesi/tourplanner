@@ -28,7 +28,7 @@ dataInizio: AbstractControl;
 durata: AbstractControl;
 difficolta: AbstractControl;
 puntoPartenza: AbstractControl;
-difficolta_str: string = this.translate.instant('PATHWAYS.EASY');
+difficolta_str: string = this.translate.instant('PATHWAYS.LOW');
 
 _pathways: Array<any> = [];
 
@@ -87,7 +87,7 @@ ngOnInit()
 	this.formgroup.get('difficolta').valueChanges.subscribe(
 		(difficolta) => {
 			switch(difficolta) {
-               case 1:
+               case 0:
                  this.difficolta_str = this.translate.instant('PATHWAYS.LOW');
                break;
                case 25:
