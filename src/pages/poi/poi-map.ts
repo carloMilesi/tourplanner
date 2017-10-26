@@ -3,7 +3,7 @@ import { NavController, Platform, NavParams, ModalController } from 'ionic-angul
 import { PoiDetailsPage } from './poi-details';
 import { PoiService } from '../../services/poi.service';
 import {MapComponent} from "./map";
-
+import { LoadingController } from 'ionic-angular';
 
 @Component({
   selector: 'map-page',
@@ -24,7 +24,8 @@ export class MapPage {
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public poiService: PoiService,
-    public platform: Platform
+    public platform: Platform,
+    public loadingCtrl: LoadingController
   ) {
 
     console.log("Poi map constructor")
@@ -32,8 +33,6 @@ export class MapPage {
     this.path = navParams.get('path');
     this.pathway = navParams.get('pathway');
     
-    console.log(this.pathway); // map pathway points
-    console.log(this.path);  // map categories 
     
     this.platform.ready().then(() => {
 
@@ -41,7 +40,8 @@ export class MapPage {
         let origin = this.pathway.points[0];
         let destination = this.pathway.points[this.pathway.points.length-1];
         let waypts = this.pathway.points;
-        this.myMap.loadPois(this.pathway.points, "pathway");
+        
+        this.myMap.loadPois(this.pathway.points, "pathway", this.path);
         this.myMap.calculateAndDisplayRoute(origin, destination, waypts);
       } else {
         console.log("loading pois form url")
@@ -56,7 +56,7 @@ export class MapPage {
     this.poiService.load(url, pois => {
       this.points = pois;
       //console.log("points in load pois: " + JSON.stringify(this.points))
-      this.myMap.loadPois(pois, "pois");
+      this.myMap.loadPois(pois, "pois", this.path);
     })
 
   }
@@ -74,7 +74,14 @@ export class MapPage {
 
 
 optimizePathway(){
-      console.log(this.pathway);
+      
+  let loading = this.loadingCtrl.create({
+    spinner: 'circles'
+    //content: 'This will navigate to the next page and then dismiss after 3 seconds.'
+  });
+
+  loading.present();
+
       this.poiService.load_optimize('http://192.167.144.196:5010/v1/requestTrip/ ', this.pathway,
       (data) => {
         
@@ -82,10 +89,15 @@ optimizePathway(){
         let destination = data.Points[data.Points.length-1];
         let waypts = data.Points;
         //console.log(data.Points);
-        this.myMap.loadPois(data.Points, "pathway");
+        this.myMap.loadPois(data.Points, "pathway", this.path);
         this.myMap.calculateAndDisplayRoute(origin, destination, waypts);
         
       });
+
+      setTimeout(() => {
+        loading.dismiss();
+      }, 4000);
+
     }
 
 
@@ -101,7 +113,7 @@ optimizePathway(){
       //console.log(pois);
       //console.log("points in load pois: " + JSON.stringify(this.points))
       if (pois)
-        this.myMap.loadPois2(pois);
+        this.myMap.loadPois2(pois, category);
     })
     }
 

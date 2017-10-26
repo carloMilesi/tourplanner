@@ -171,65 +171,39 @@ if (this.puntoPartenza.value)
 console.log("unshift: " + this._pathways);
 console.log("saving: " + JSON.stringify(pathway));
 
-     //this.pathwaysService.add(pathway);
+     
+
+
     
+      //this.pathwaysService.insertPathway(pathway, this.alertConfirm);
 
- this.nativeStorage.getItem('pathways')
-	.then(
-	data => {
-		console.log(data);
-		if (Array.isArray(data))
-		{
-					data.push(pathway);
-					this.nativeStorage.setItem('pathways', data)
-				      .then(
-				        () => {console.log('Updated pathway add value!'); 
-                  this.alertConfirm(1);
+      this.pathwaysService.insertPathway(pathway, type => {
+        console.log(type);
+        console.log(this.alertCtrl);
+        let alert = this.alertCtrl.create({
+                          title: this.translate.instant('PATHWAYS.CONFIRM_ADD'),
+                          buttons: [
+                                {
+                                  text: this.translate.instant('PATHWAYS.ADD_POINT'),
+                                  handler: () => {
+                                     //this.navCtrl.remove(2,1);
+                                     this.viewCtrl.dismiss();
+                                     if (type == 1) // first insert
+                                       this.navCtrl.push(CategoriesListPage);
+                                     else if (type == 2)
+                                       this.navCtrl.pop();
+                                     
+                                  }
+                                }]
+                        });
+                        alert.present();
+      
+      
+      });
 
-              },
-				        error => console.error('Error storing item', error)
-				      );
-	     }
-	    else
-	    {	
-	    		    	this._pathways.unshift(pathway);
+  }
 
-					this.nativeStorage.setItem('pathways', this._pathways)
-				      .then(
-				        () => {console.log('Updated pathway! create value'); 
-                  this.alertConfirm(2);
-              },
-				        error => console.error('Error storing item', error)
-				      );
-	    }	
-	},
-	error => console.error(error)
-		);
-
-
-}
-
-
-alertConfirm(type)
-{
-   let alert = this.alertCtrl.create({
-                    title: this.translate.instant('PATHWAYS.CONFIRM_ADD'),
-                    buttons: [
-                          {
-                            text: this.translate.instant('PATHWAYS.ADD_POINT'),
-                            handler: () => {
-                               //this.navCtrl.remove(2,1);
-                               this.viewCtrl.dismiss();
-                               if (type == 1) // first insert
-                                 this.navCtrl.push(CategoriesListPage);
-                               else
-                                 this.navCtrl.pop();
-                            }
-                          }]
-                  });
-                  alert.present();
-
-}
+  
 
 
 }

@@ -35,7 +35,6 @@ export class PercorsiPage {
     public renderer: Renderer,
     public translate: TranslateService
   ) {
-
     this.path = navParams.get('_path');
     
     this.adding = navParams.get('adding');

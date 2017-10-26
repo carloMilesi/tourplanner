@@ -3,7 +3,7 @@ import { ModalController, NavController, NavParams } from 'ionic-angular';
 import { PoiRoot } from '../poi/poi';
 import { TranslateService } from 'ng2-translate';
 import { PoiService } from '../../services/poi.service';
-
+import { LoadingController } from 'ionic-angular';
 
 @Component({
   templateUrl: 'hello-ionic.html',
@@ -24,7 +24,8 @@ export class HelloIonicPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public translate: TranslateService,
-              public poiService: PoiService) {
+              public poiService: PoiService,
+              public loadingCtrl: LoadingController) {
 
       this.selectedItem = navParams.get('item');
       this.items = [];
@@ -34,6 +35,9 @@ export class HelloIonicPage {
       
 
   }
+
+
+
   
   
 /**
@@ -63,9 +67,38 @@ create category list and count items
 
 
   cardTapped(item) {
+   
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles'
+      //content: 'This will navigate to the next page and then dismiss after 3 seconds.'
+    });
+
+    loading.present();
+    
     this.navCtrl.push(PoiRoot, {
       path: item.path
-    });
+    })
+    .then(() => {
+      loading.dismiss();
+    })
+
+
+
+    /*
+    setTimeout(() => {
+      this.navCtrl.push(PoiRoot, {
+        path: item.path
+      });
+    }, 1000);
+
+    setTimeout(() => {
+      loading.dismiss();
+    }, 4000);
+    */
+    
+    
+    
+
   }
 
 

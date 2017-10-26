@@ -99,6 +99,114 @@ export class PathwaysService {
 
 
 
+insertPathway(pathway, _cb)
+{
+  this.nativeStorage.getItem('pathways')
+	.then(
+	data => {
+		console.log(data);
+		if (Array.isArray(data))
+		{
+					data.push(pathway);
+					this.nativeStorage.setItem('pathways', data)
+				      .then(
+				        () => {console.log('Updated pathway add value!'); 
+                  _cb(1);
+                 
+                
+
+              },
+				        error => console.error('Error storing item', error)
+				      );
+	     }
+	    else
+	    {	
+                let _pathways: any;
+                _pathways.unshift(pathway);
+
+					this.nativeStorage.setItem('pathways', _pathways)
+				      .then(
+				        () => {console.log('Updated pathway! create value'); 
+                _cb(2);
+                
+                
+                
+              },
+				        error => console.error('Error storing item', error)
+				      );
+	    }	
+	},
+	error => console.error(error)
+		);
+
+}
+
+
+
+deletePoint(item, pathway, _cb)
+{
+  if (pathway)
+  {
+    console.log(pathway._id);
+    console.log(item._id);
+    //console.log(this.pathway);
+    let new_pathway: any = [];
+   
+    this.nativeStorage.getItem('pathways')
+    .then(
+    data => {
+      if (Array.isArray(data))
+      {
+        
+        let arr_data: any = [];
+        arr_data.push(data);
+        console.log(arr_data);
+        
+        for (let i = 0; i < arr_data[0].length; i++) {
+          
+          if (arr_data[0][i]._id == pathway._id)
+          {
+            //console.log(arr_data[0][i]);
+            
+            for (let ii = 0; ii < arr_data[0][i].points.length; ii++) {
+              if (arr_data[0][i].points[ii]._id == item._id)
+              {
+               // console.log(arr_data[0][i].points[ii]);
+                arr_data[0][i].points.splice(ii, 1);
+                console.log(arr_data[0][i]);
+                new_pathway.push(arr_data[0][i]);
+                
+              }
+            }
+          }
+        
+        } 
+        console.log(new_pathway[0]);
+        
+        this.nativeStorage.setItem('pathways', arr_data[0])
+        .then(
+          () => {console.log('Updated pathway! create value'); 
+          _cb(new_pathway[0]);
+        },
+          error => console.error('Error storing item', error)
+        );
+
+
+      }
+    
+    },
+    error => console.error(error)
+      );
+
+
+
+    
+  }
+  console.log('delete point');
+}
+
+
+
 }
 
 

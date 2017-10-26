@@ -20,7 +20,7 @@
   <ion-list *ngIf="items.length> 0">
 
     <ion-item *ngFor="let item of items">
-      <span (click)="handleItem(event, item)">
+      <span (click)="handleItem(event, item)" (swipe)="removePathway(event, item)">
         <h1>{{item.title}} </h1>
       </span>
       <ion-icon *ngIf="!adding" ios="ios-close" md="md-close" (click)="removePathway(event, item)"  clear item-right></ion-icon>

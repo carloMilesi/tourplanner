@@ -1,15 +1,18 @@
 import { Component, ViewChild} from '@angular/core';
-import { Nav, ModalController, App, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Nav, ModalController, App, NavController, ViewController, NavParams, AlertController } from 'ionic-angular';
 import { TranslateService } from 'ng2-translate';
+import { NativeStorage } from '@ionic-native/native-storage';
+
 
 import {PoiDetailsPage} from './poi-details';
-import {PoiService} from '../../services/poi.service'
-
+import {PoiService} from '../../services/poi.service';
+import { LoadingController } from 'ionic-angular';
+import { PathwaysService } from '../../services/pathways.service';
+import { PoiRoot } from '../poi/poi';
 
 @Component({
   templateUrl: 'poi-list.html',
-  providers: [PoiService]
-
+  providers: [PoiService, PathwaysService]
 })
 export class PoiListPage {
    @ViewChild(Nav) nav: Nav;
@@ -24,13 +27,17 @@ export class PoiListPage {
   public difficolta_str_pw: string;
 
   constructor(
+      private viewCtrl: ViewController,
       public params: NavParams,
       public modalCtrl: ModalController,
       public alertCtrl: AlertController,
       public poiService: PoiService,
       private navCtrl: NavController,
       public app : App,
-      public translate: TranslateService
+      public translate: TranslateService,
+      private nativeStorage: NativeStorage,
+      public pathwaysService: PathwaysService,
+      public loadingCtrl: LoadingController
   ) {
     console.log("Poi list constructor")
 
@@ -42,14 +49,7 @@ export class PoiListPage {
       console.log(JSON.stringify(this.pathway));
       this.items = this.pathway.points;
     
-      console.log('-----------' + this.pathway.difficolta);
       this.difficolta_str = this.createDifficulty(this.pathway.difficolta);
-       
-
-
-
-
-
     }
     else if (this.pathway_opt)
     {
@@ -59,6 +59,9 @@ export class PoiListPage {
       this.loadPoi();
     }
   }
+
+ 
+
 
 /** 
 Load list of POI
@@ -146,6 +149,46 @@ createDifficulty(difficolta)
     //    item: item
     //  })
   }
+  
+ 
+  
+
+  deletePoint(event, item)
+  {
+    let confirm = this.alertCtrl.create({
+      title: this.translate.instant('PATHWAYS.POINT_ERASE_TITLE'), //'Nuovo Percorso',
+      message: this.translate.instant('PATHWAYS.POINT_ERASE_DESCRIPTION'), //"Inserisci il titolo del nuovo percorso",
+      buttons: [
+        {
+          text: this.translate.instant('PATHWAYS.NEW_CANCEL'),
+          handler: data => {
+            console.log('Cancel clicked');
+
+          }
+        },
+        {
+          text: this.translate.instant('PATHWAYS.REMOVE_SAVE'),
+          handler: data => {
+            //this.pathwaysService.deleteP(item, this.pathway);
+            
+            this.pathwaysService.deletePoint(item, this.pathway, arr => {
+              this.navCtrl.push(PoiRoot, {
+                pathway: arr,
+                editAdd: false
+              });
+              
+              //this.navCtrl.setRoot(this.navCtrl.getActive().component);
+            })
+            
+          }
+        }
+      ]
+    });
+    confirm.present();
+    
+    
+    
+  }
 
 
 
@@ -156,6 +199,15 @@ createDifficulty(difficolta)
 
   optimizePathway(){
       //console.log(this.pathway);
+      
+      let loading = this.loadingCtrl.create({
+        spinner: 'circles'
+        //content: 'This will navigate to the next page and then dismiss after 3 seconds.'
+      });
+  
+      loading.present();
+      
+      
       this.poiService.load_optimize('http://192.167.144.196:5010/v1/requestTrip/ ', this.pathway,
       (data) => {
         
@@ -209,8 +261,13 @@ createDifficulty(difficolta)
          this.timeToVisit_str_pw = Math.round(timeToVisit).toString();
           
 
-      });
-
+      })
+      
+  
+  setTimeout(() => {
+      loading.dismiss();
+    }, 4000);
+  
 }
 
 /*

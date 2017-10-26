@@ -65,8 +65,8 @@ export class MapComponent {
     }
   }
 
-  loadPois(pois, kindoflist) {
-  
+  loadPois(pois, kindoflist, category) {
+  console.log('++++++++++++++++++++++++++++ ' + category);
   if (kindoflist== "pathway"){
     this.pathway= true;
     }
@@ -89,7 +89,7 @@ export class MapComponent {
               animation: google.maps.Animation.DROP,
               position: new google.maps.LatLng(this.items[i].lat, this.items[i].lng),
             });
-            this.addInfoWindow(marker, this.items[i], null);
+            this.addInfoWindow(marker, this.items[i], category);
 
           }
         }
@@ -100,8 +100,8 @@ export class MapComponent {
 
 
 
-loadPois2(pois) {
-
+loadPois2(pois, category) {
+  console.log('+++++++--------++++++++++ ' + category);
   
     this.items = pois;
     this.getPointsBounds((bounds) => {
@@ -120,7 +120,7 @@ loadPois2(pois) {
               animation: google.maps.Animation.DROP,
               position: new google.maps.LatLng(this.items[i].lat, this.items[i].lng),
             });
-            this.addInfoWindow(marker, this.items[i], null);
+            this.addInfoWindow(marker, this.items[i], category);
 
           }
         }
@@ -160,7 +160,7 @@ loadPois2(pois) {
       angle += 360;
     }
 
-    console.log(Math.LN2);
+    //console.log(Math.LN2);
 
     let zoom = Math.round(Math.log(pixelWidth * 360 / angle / GLOBE_WIDTH) / Math.LN2);
     console.log(zoom);
@@ -179,19 +179,32 @@ Crea il popoup del marker
     let contentString: string;
     
     // marker extended description
-    if (content.rating && content.description)
+    if (content.description && content.description.length > 140)
     {
-          if (content.description.length > 140)
-            {
-                content.description = content.description.substr(0, 140) + '...';
-            }
-          contentString = '<div><h5>'+content.title+'</h5><div style="margin-bottom: 4px">'+this.createRating(content.rating)+'</div><img src="'+ content.thumbnail +'" style="height:120px; float: left; margin-right: 10px"><span>'+content.description+'</span></div>';
+        content.description = content.description.substr(0, 140) + '...';
     }
-    else // only title description
+ 
+    // restaurants and events
+    if (type && (type == 'restaurants' ||type == 'events'))
     {
-          contentString = '<div><h5>'+content+'</h5></div>';
+      if (type == 'restaurants')
+          contentString = '<div><h5>'+content.title+'</h5><div>'+content.address+'</div><div style="margin-bottom: 4px">'+this.createRating(content.rating)+'</div></div>';
+      if (type == 'events')
+          contentString = '<div><h5>'+content.title+'</h5><img src="'+ content.thumbnail +'" style="height:120px; float: left; margin-right: 10px"><span>'+content.description+'</span></div>';
+    }
+    else
+    {
+    
+      if (content.rating && content.description)
+        {
+              contentString = '<div><h5>'+content.title+'</h5><div style="margin-bottom: 4px">'+this.createRating(content.rating)+'</div><img src="'+ content.thumbnail +'" style="height:120px; float: left; margin-right: 10px"><span>'+content.description+'</span></div>';
         }
-
+        else // only title description
+        {
+              contentString = '<div><h5>'+content+'</h5></div>';
+        }
+      }
+  
     let infoWindow = new google.maps.InfoWindow({
       content: contentString
     });
