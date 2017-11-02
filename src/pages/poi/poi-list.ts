@@ -1,7 +1,6 @@
 import { Component, ViewChild} from '@angular/core';
 import { Nav, ModalController, App, NavController, ViewController, NavParams, AlertController } from 'ionic-angular';
 import { TranslateService } from 'ng2-translate';
-import { NativeStorage } from '@ionic-native/native-storage';
 
 
 import {PoiDetailsPage} from './poi-details';
@@ -35,7 +34,6 @@ export class PoiListPage {
       private navCtrl: NavController,
       public app : App,
       public translate: TranslateService,
-      private nativeStorage: NativeStorage,
       public pathwaysService: PathwaysService,
       public loadingCtrl: LoadingController
   ) {

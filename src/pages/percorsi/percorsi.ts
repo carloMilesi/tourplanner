@@ -62,7 +62,7 @@ refresh automatico della pagina
  }
 
 
-
+// TODO da togliere?
   ngOnInit() {
     this.platform.ready().then(() => {
 
@@ -79,6 +79,7 @@ load dei percorsi
     console.log("loading pathways")
     this.pathwaysService.getAll((paths) => {
       this.items = paths;
+      
     });
   }
 

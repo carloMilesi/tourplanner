@@ -53,12 +53,9 @@
     "REMOVE_SAVE": "Supprimer",
     "NO_SAVED": "Il n'y a pas itinéraire enregistré!",
     "DATE": "Data",
-    "START_POINT": "Punto di inizio",
     "DURATION": "Quanto tempo hai a disposizione?", 
     "DIFFICLTY": "Quanto sei allenato?",
     "VALIDATION1": "Campo obbligatorio",
-    "START_POINT": "Start point",
-    "END_POINT": "End point",
     "START_POINT": "Start point",
     "END_POINT": "End point",
     "LOW": "Bassa",
@@ -71,7 +68,10 @@
     "DIFF_PATHWAY": "Difficoltà del percorso",
     "TIME_PATHWAY": "Durata del percorso (min)",
     "YOUR_TRAIN": "La tua forma",
-    "YOUR_TIME": "Il tuo tempo a disposizione (min)"
+    "YOUR_TIME": "Il tuo tempo a disposizione (min)",
+    "POINT_ERASE_TITLE": "elimina POI",
+    "POINT_ERASE_DESCRIPTION": "Vuoi eliminare questo punto dal percorso",
+    "POINT_GET": "Nessun punto trovato"
   },
 
   "POI" : {

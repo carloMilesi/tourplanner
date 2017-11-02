@@ -3,7 +3,9 @@ import { NavController, Platform, NavParams, ModalController } from 'ionic-angul
 import { PoiDetailsPage } from './poi-details';
 import { PoiService } from '../../services/poi.service';
 import {MapComponent} from "./map";
+import { TranslateService } from 'ng2-translate';
 import { LoadingController } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'map-page',
@@ -25,7 +27,9 @@ export class MapPage {
     public modalCtrl: ModalController,
     public poiService: PoiService,
     public platform: Platform,
-    public loadingCtrl: LoadingController
+    public translate: TranslateService,
+    public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController
   ) {
 
     console.log("Poi map constructor")
@@ -104,17 +108,36 @@ optimizePathway(){
 
     addItems(category)
     {
+      
+      
+      
       let center_point: any = this.getCenter(this.pathway);
       //console.log(center_point);
 
       let url = 'http://seitre.crs4.it:3009/api/v1/'+ category +'?lat=' + center_point.lat + '&lng=' + center_point.lng;
     this.poiService.load(url, pois => {
+      
+      if (pois.length == 0)
+      { 
+        let toast = this.toastCtrl.create({
+          message: this.translate.instant('PATHWAYS.POINT_GET'),
+          duration: 3000
+        });
+        toast.present();
+      }
+      else
+      {
       this.points = pois;
-      //console.log(pois);
-      //console.log("points in load pois: " + JSON.stringify(this.points))
-      if (pois)
-        this.myMap.loadPois2(pois, category);
+        //console.log(pois);
+        //console.log("points in load pois: " + JSON.stringify(this.points))
+        if (pois)
+          this.myMap.loadPois2(pois, category);
+      }
+    
     })
+    
+
+    
     }
 
 
