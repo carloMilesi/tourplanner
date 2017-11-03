@@ -45,7 +45,7 @@ export class PathwaysService {
     console.log("index " + index)
     if (index > -1) {
       this.pathways.splice(index, 1)
-      this.pathways.push(pathway)
+      this.pathways.unshift(pathway)
       this.saveLocal();
     }
 
@@ -107,7 +107,7 @@ insertPathway(pathway, _cb)
 		console.log(data);
 		if (Array.isArray(data))
 		{
-					data.push(pathway);
+					data.unshift(pathway);
 					this.nativeStorage.setItem('pathways', data)
 				      .then(
 				        () => {console.log('Updated pathway add value!'); 
@@ -119,7 +119,7 @@ insertPathway(pathway, _cb)
 				        error => console.error('Error storing item', error)
 				      );
 	     }
-	    else
+	    else // first pathway
 	    {	
                 let _pathways: any;
                 _pathways.unshift(pathway);
@@ -159,7 +159,7 @@ deletePoint(item, pathway, _cb)
       {
         
         let arr_data: any = [];
-        arr_data.push(data);
+        arr_data.unshift(data);
         console.log(arr_data);
         
         for (let i = 0; i < arr_data[0].length; i++) {

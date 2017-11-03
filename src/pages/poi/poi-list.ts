@@ -210,11 +210,18 @@ createDifficulty(difficolta)
       (data) => {
         
         
+        if (data.Points.length < this.pathway.points.length + 2)
+        { 
+          // TODO ALERT
+          let alert = this.alertCtrl.create({
+            title: this.translate.instant('PATHWAYS.WARNING'),
+            subTitle: this.translate.instant('PATHWAYS.EXCLUDE_POINT'),
+            buttons: ['OK']
+          });
+          alert.present();
+        }
+
         this.items = data.Points;
-        
-        //console.log(this.items);
-        //console.log("++++++++++++++++++++++++++++");
-        
         
         let diff_tot: number = 0;
         let timeToVisit: number = 0;

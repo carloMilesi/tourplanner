@@ -71,7 +71,10 @@
     "YOUR_TIME": "Il tuo tempo a disposizione (min)",
     "POINT_ERASE_TITLE": "elimina POI",
     "POINT_ERASE_DESCRIPTION": "Vuoi eliminare questo punto dal percorso?",
-    "POINT_GET": "Nessun punto trovato"
+    "POINT_GET": "Nessun punto trovato",
+    "WARNING": "Attenzionen",
+    "EXCLUDE_POINT": "Alcuni punti non sono raggiungibili nel tempo indicato"
+  },
     
   },
 
