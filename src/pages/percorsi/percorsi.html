@@ -21,9 +21,14 @@
 
     <ion-item *ngFor="let item of items">
       <span (click)="handleItem(event, item)" (swipe)="removePathway(event, item)">
-        <h1>{{item.title}} <span>({{item.points.length}})</span></h1>
+        <h1 style="margin-bottom: 10px">{{item.title}}</h1>
+       <p>
+         
+          <ion-icon range-left  color="danger" name="pin" style="margin-right: 4px"></ion-icon><span style="margin-right: 10px">{{item.points.length}}</span>  
+          <ion-icon range-left  name="stopwatch" style="margin-right: 4px"></ion-icon><ion-badge color="secondary" style="margin-right: 10px">{{item.duration}}</ion-badge> 
+          <ion-icon range-left  name="walk" style="margin-right: 4px"></ion-icon><ion-badge style="margin-right: 10px">{{createDifficulty(item.difficolta)}}</ion-badge></p>
       </span>
-      <ion-icon *ngIf="!adding" ios="ios-close" md="md-close" (click)="removePathway(event, item)"  clear item-right></ion-icon>
+      <ion-icon *ngIf="!adding" name="close-circle" (click)="removePathway(event, item)"  clear item-right></ion-icon>
     </ion-item>
 
   </ion-list>

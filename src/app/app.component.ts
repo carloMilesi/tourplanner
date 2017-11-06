@@ -33,7 +33,7 @@ export class MyApp {
     this.pages = [
       { title: 'MENU_POI', icon: 'md-home', component: HelloIonicPage },
       //{ title: 'MENU_CATEGORIES', icon: 'md-locate', component: CategoriesListPage },
-      { title: 'MENU_PATHWAYS', icon: 'logo-steam', component: PercorsiPage },
+      { title: 'MENU_PATHWAYS', icon: 'navigate', component: PercorsiPage },
       { title: "MENU_SETTINGS", icon: 'md-settings', component: SettingsPage },
     ];
 

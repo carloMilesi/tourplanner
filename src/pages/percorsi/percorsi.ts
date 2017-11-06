@@ -277,4 +277,58 @@ ceazione guid fittizia
   }
 
 
+
+
+
+
+
+  createDifficulty(difficolta)
+  {
+      
+      let diff : string = '';
+  
+      if (difficolta < 25){
+        diff = this.translate.instant('PATHWAYS.LOW');
+      }
+       else if ((difficolta < 50)) {
+         diff = this.translate.instant('PATHWAYS.MEDIUM');
+       } 
+       else if ((difficolta < 75)) {
+         diff = this.translate.instant('PATHWAYS.GOOD');
+       }
+       else if ((difficolta < 100)) {
+         diff = this.translate.instant('PATHWAYS.HIGH');
+       }
+       else if ((difficolta = 100)) {
+         diff = this.translate.instant('PATHWAYS.VERYHIGH');
+       }
+  
+       return diff;
+  
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
