@@ -4,6 +4,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { PoiDetailsPage } from './poi-details';
 
 declare var google;
+declare var MarkerClusterer;
 
 @Component({
   selector: 'map-component',
@@ -26,10 +27,13 @@ export class MapComponent {
   private stepDisplay;
 
 
-  constructor(public nav: NavController, public platform: Platform, public zone: NgZone, public modalCtrl: ModalController) {
+  constructor(public nav: NavController
+    , public platform: Platform
+    , public zone: NgZone
+    , public modalCtrl: ModalController) 
+    {
     console.log("Map constructor")
     this.nav = nav;
-
   }
 
   ngAfterViewInit() {
@@ -60,7 +64,7 @@ export class MapComponent {
         animation: google.maps.Animation.DROP,
         position: new google.maps.LatLng(item.lat, item.lng),
       });
-
+      
       this.addInfoWindow(marker, item.title, null);
     }
   }
@@ -75,11 +79,12 @@ export class MapComponent {
     this.getPointsBounds((bounds) => {
       this.loadMap();
       this.map.fitBounds(bounds);
-      console.log("items count " + this.items.length);
+      
+      //console.log("items count " + this.items.length);
 
       if(kindoflist == "pois"){
-
-
+        console.log("poi points count " + this.items.length);
+/*
         for (let i = 0; i < this.items.length; i++) {
           if (this.items[i].lat && this.items[i].lng) {
             //console.log(this.items[i].title + ": " + this.items[i].lat + " - " + this.items[i].lng)
@@ -93,6 +98,36 @@ export class MapComponent {
 
           }
         }
+*/
+// ---------------------
+//var MarkerClusterer: any;
+
+let locations: any = [];
+let labels: any = [];
+
+        for (let i = 0; i < this.items.length; i++) {
+          if (this.items[i].lat && this.items[i].lng) {
+          
+            let marker = new google.maps.Marker({
+              map: this.map,
+              animation: google.maps.Animation.DROP,
+              position: new google.maps.LatLng(this.items[i].lat, this.items[i].lng),
+            });
+            this.addInfoWindow(marker, this.items[i], category);
+          
+            locations.push(marker);
+            
+          }
+        }
+
+
+        
+      
+        new MarkerClusterer(this.map, locations,
+          {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+
+    
       }
 
     })
@@ -101,16 +136,16 @@ export class MapComponent {
 
 
 loadPois2(pois, category) {
-  console.log('+++++++--------++++++++++ ' + category);
+  console.log('add poit to map +++++++--------++++++++++ ' + category);
   
     this.items = pois;
-    this.getPointsBounds((bounds) => {
+    //this.getPointsBounds((bounds) => {
       
-      this.map.fitBounds(bounds);
+      //this.map.fitBounds(bounds);
       //console.log("items count " + this.items.length);
 
       
-
+  /*
         for (let i = 0; i < this.items.length; i++) {
           if (this.items[i].lat && this.items[i].lng) {
             //console.log(this.items[i].title + ": " + this.items[i].lat + " - " + this.items[i].lng)
@@ -124,9 +159,35 @@ loadPois2(pois, category) {
 
           }
         }
-      
 
-    })
+*/
+
+        let locations: any = [];
+        let labels: any = [];
+        
+                for (let i = 0; i < this.items.length; i++) {
+                  if (this.items[i].lat && this.items[i].lng) {
+                  
+                    let marker = new google.maps.Marker({
+                      map: this.map,
+                      animation: google.maps.Animation.DROP,
+                      position: new google.maps.LatLng(this.items[i].lat, this.items[i].lng),
+                    });
+                    this.addInfoWindow(marker, this.items[i], category);
+                  
+                    locations.push(marker);
+                    
+                  }
+                }
+        
+        
+                
+              
+                new MarkerClusterer(this.map, locations,
+                  {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+     
+
+    //})
   }
 
 

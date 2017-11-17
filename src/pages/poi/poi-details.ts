@@ -1,5 +1,7 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { NavController, NavParams, ViewController, AlertController, ModalController } from 'ionic-angular';
+import { TranslateService } from 'ng2-translate';
+
 // import { Slides } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 
@@ -24,7 +26,8 @@ export class PoiDetailsPage {
     private navParams: NavParams,
     private viewCtrl: ViewController,  
     private alertCtrl: AlertController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public translate: TranslateService
 
   ) {
     this.selectedItem = navParams.get('item');
@@ -35,7 +38,10 @@ export class PoiDetailsPage {
   ionViewDidLoad() {
     this.map_details.setMapHeight("50%");
     this.map_details.loadMap(this.selectedItem);
-
+    
+    
+    this.selectedItem.category = this.translate.instant('PAGE_' + this.selectedItem.category.toUpperCase());
+    
   }
 
   dismiss(data) {

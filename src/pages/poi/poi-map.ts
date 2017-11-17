@@ -104,12 +104,10 @@ optimizePathway(){
 
     }
 
-
+// dipslay extra poi in the pathaway map
 
     addItems(category)
     {
-      
-      
       
       let center_point: any = this.getCenter(this.pathway);
       //console.log(center_point);
