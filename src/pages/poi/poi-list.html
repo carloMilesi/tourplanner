@@ -9,7 +9,7 @@
 
 <ion-content>
   
-<button ion-button block *ngIf="this.pathway" (click)="optimizePathway()">Optimize pathway</button>
+<button ion-button block *ngIf="this.pathway" (click)="optimizePathway()">{{optimizeContent}}</button>
 
   <ion-list>
 
@@ -59,13 +59,15 @@
       {{"PATHWAYS.YOUR_TRAIN" | translate}} 
       <ion-badge item-right color="secondary">{{difficolta_str}}</ion-badge>
     </ion-item>
-    <ion-item *ngIf="timeToVisit_str_pw">
+    
+    
+    <ion-item *ngIf="checkOptimize == 1 && timeToVisit_str_pw">
       <ion-icon name='stopwatch' item-start style="color: #d03e84"></ion-icon>
       {{"PATHWAYS.TIME_PATHWAY" | translate}} 
       <ion-badge item-right>{{timeToVisit_str_pw}}</ion-badge>
     </ion-item>
 
-    <ion-item *ngIf="difficolta_str_pw">
+    <ion-item *ngIf="checkOptimize == 1 && difficolta_str_pw">
       <ion-icon name='walk' item-start style="color: #55acee"></ion-icon>
       {{"PATHWAYS.DIFF_PATHWAY" | translate}}
       <ion-badge item-right color="secondary">{{difficolta_str_pw}}</ion-badge>

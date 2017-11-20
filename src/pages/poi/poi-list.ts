@@ -25,6 +25,9 @@ export class PoiListPage {
   public timeToVisit_str_pw: string;
   public difficolta_str_pw: string;
 
+  public checkOptimize: number = 1; // [0: enable optimization, 1 disable optimization]
+  public optimizeContent: string;
+
   constructor(
       private viewCtrl: ViewController,
       public params: NavParams,
@@ -44,16 +47,17 @@ export class PoiListPage {
     
 
     if(this.pathway){
+      // load pathway optimized or not
+      this.optimizePathway();
+      /*
+      this.optimizeContent = this.translate.instant('PATHWAYS.OPTIMIZE_BUTTON');
       console.log(JSON.stringify(this.pathway));
       this.items = this.pathway.points;
     
       this.difficolta_str = this.createDifficulty(this.pathway.difficolta);
+      */
     }
-    else if (this.pathway_opt)
-    {
-
-    }
-     else {
+    else {
       this.loadPoi();
     }
   }
@@ -197,6 +201,10 @@ createDifficulty(difficolta)
 
   optimizePathway(){
       //console.log(this.pathway);
+      let timeOut_value: number = 2000;
+      let optimize: number;
+      let optimizeLabel: string;
+      
       
       let loading = this.loadingCtrl.create({
         spinner: 'circles'
@@ -206,13 +214,17 @@ createDifficulty(difficolta)
       loading.present();
       
       
+      if (this.checkOptimize == 0)
+      {  
+        timeOut_value = 4000;
+        optimize = 1;
+        optimizeLabel = this.translate.instant('PATHWAYS.NO_OPTIMIZE_BUTTON');
+      
       this.poiService.load_optimize('http://192.167.144.196:5010/v1/requestTrip/ ', this.pathway,
       (data) => {
         
-        
         if (data.Points.length < this.pathway.points.length + 2)
         { 
-          // TODO ALERT
           let alert = this.alertCtrl.create({
             title: this.translate.instant('PATHWAYS.WARNING'),
             subTitle: this.translate.instant('PATHWAYS.EXCLUDE_POINT'),
@@ -267,12 +279,22 @@ createDifficulty(difficolta)
           
 
       })
-      
-  
+  }
+  else
+  {
+    optimize = 0;
+    optimizeLabel = this.translate.instant('PATHWAYS.OPTIMIZE_BUTTON');
+    this.items = this.pathway.points;
+    this.difficolta_str = this.createDifficulty(this.pathway.difficolta);
+    
+  }
+
   setTimeout(() => {
-      loading.dismiss();
-    }, 4000);
-  
+    this.checkOptimize = optimize;
+    this.optimizeContent =  optimizeLabel;
+    loading.dismiss();
+  }, timeOut_value);
+
 }
 
 /*

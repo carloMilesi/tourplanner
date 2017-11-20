@@ -120,9 +120,6 @@ let labels: any = [];
           }
         }
 
-
-        
-      
         new MarkerClusterer(this.map, locations,
           {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
@@ -179,9 +176,7 @@ loadPois2(pois, category) {
                     
                   }
                 }
-        
-        
-                
+          
               
                 new MarkerClusterer(this.map, locations,
                   {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
@@ -230,7 +225,7 @@ loadPois2(pois, category) {
 
 
 /**
-Crea il popoup del marker
+Create marker popup
 
 */
 
@@ -394,7 +389,8 @@ createRating(rating)
      if (waypts_titles[i].title.substring(0,5) == "Start")
      {
           if (i == 0 || i == myRoute.legs.length) {
-             icon = "https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png";
+             
+             icon = "img/logo_icon.png";
           }
           waypts_titles[i].title = "Cruise terminal";
         //icon = "https://chart.googleapis.com/chart?chst=d_map_spin&chld=3|0|green|12|arial|"+waypts_titles[i].title;
@@ -414,7 +410,7 @@ createRating(rating)
     //console.log(waypts_titles[i].title.substring(0,5));
     if (waypts_titles[i].title.substring(0,5) == "Stop_")
      {
-          icon = "https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png";
+          icon = "img/logo_icon.png";
           waypts_titles[i].title = "Cruise terminal";
         //icon = "https://chart.googleapis.com/chart?chst=d_map_spin&chld=3|0|green|12|arial|"+waypts_titles[i].title;
       }

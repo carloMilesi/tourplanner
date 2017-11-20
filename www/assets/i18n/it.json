@@ -73,7 +73,9 @@
     "POINT_ERASE_DESCRIPTION": "Vuoi eliminare questo punto dal percorso?",
     "POINT_GET": "Nessun punto trovato",
     "WARNING": "Attenzionen",
-    "EXCLUDE_POINT": "Alcuni punti non sono raggiungibili nel tempo indicato"
+    "EXCLUDE_POINT": "Alcuni punti non sono raggiungibili nel tempo indicato",
+    "OPTIMIZE_BUTTON": "Ottimizza percorso",
+    "NO_OPTIMIZE_BUTTON": "Vedi percorso originale"
   },
     
   },

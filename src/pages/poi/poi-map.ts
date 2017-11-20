@@ -19,6 +19,9 @@ export class MapPage {
   private points: Array<any> = [];
   private pathway: any = null;
   private path: string;
+  private checkOptimize: number = 1; // [0: enable optimization, 1 disable optimization]
+  public optimizeContent: string; 
+
 
 
   constructor(
@@ -36,18 +39,16 @@ export class MapPage {
     
     this.path = navParams.get('path');
     this.pathway = navParams.get('pathway');
-    
+    this.optimizeContent =  this.translate.instant('PATHWAYS.OPTIMIZE_BUTTON');
     
     this.platform.ready().then(() => {
 
       if (this.pathway) {
-        let origin = this.pathway.points[0];
-        let destination = this.pathway.points[this.pathway.points.length-1];
-        let waypts = this.pathway.points;
-        
-        this.myMap.loadPois(this.pathway.points, "pathway", this.path);
-        this.myMap.calculateAndDisplayRoute(origin, destination, waypts);
-      } else {
+        // load pathway optimized or not
+        this.optimizePathway();
+      } 
+      else 
+      {
         console.log("loading pois form url")
         this.loadPoi();
       }
@@ -77,34 +78,72 @@ export class MapPage {
 
 
 
-optimizePathway(){
+  optimizePathway(){
+    let loading = this.loadingCtrl.create({
+      spinner: 'circles'
+      //content: 'This will navigate to the next page and then dismiss after 3 seconds.'
+    });
+  
+    loading.present();
+    
+    let timeOut_value: number = 2000;
+    let optimize: number;
+    let optimizeLabel: string;
+    let p: any;
+    let origin: any;
+    let destination: any;
+    let waypts: any;
+  
+    if (this.checkOptimize == 0)
+    {
+      timeOut_value = 4000;
       
-  let loading = this.loadingCtrl.create({
-    spinner: 'circles'
-    //content: 'This will navigate to the next page and then dismiss after 3 seconds.'
-  });
-
-  loading.present();
-
+      optimize = 1;
+      optimizeLabel = this.translate.instant('PATHWAYS.NO_OPTIMIZE_BUTTON');  
+      
+      
       this.poiService.load_optimize('http://192.167.144.196:5010/v1/requestTrip/ ', this.pathway,
-      (data) => {
-        
-        let origin = data.Points[0];
-        let destination = data.Points[data.Points.length-1];
-        let waypts = data.Points;
-        //console.log(data.Points);
-        this.myMap.loadPois(data.Points, "pathway", this.path);
-        this.myMap.calculateAndDisplayRoute(origin, destination, waypts);
-        
-      });
-
-      setTimeout(() => {
-        loading.dismiss();
-      }, 4000);
-
+          (data) => {
+      
+            origin = data.Points[0];
+            destination = data.Points[data.Points.length-1];
+            waypts = data.Points;
+            p = data.Points;
+  
+           this.myMap.loadPois(p, "pathway", this.path);
+           this.myMap.calculateAndDisplayRoute(origin, destination, waypts);
+      
+  
+            });
+     
     }
+    else
+    {
+      optimize = 0;
+      optimizeLabel = this.translate.instant('PATHWAYS.OPTIMIZE_BUTTON');
+      
+      console.log(this.pathway);
+      origin = this.pathway.points[0];
+      destination = this.pathway.points[this.pathway.points.length-1];
+      waypts = this.pathway.points;
+    
+     p = this.pathway.points;
+  
+     this.myMap.loadPois(p, "pathway", this.path);
+     this.myMap.calculateAndDisplayRoute(origin, destination, waypts);
+      
+      
+      }
+ 
+    setTimeout(() => {
+      loading.dismiss();
+      this.checkOptimize = optimize;
+      this.optimizeContent =  optimizeLabel;
+    }, timeOut_value);
+ 
+}
 
-// dipslay extra poi in the pathaway map
+// dipslay extra poi (restaurants, events, ecc.. )in the pathaway map
 
     addItems(category)
     {

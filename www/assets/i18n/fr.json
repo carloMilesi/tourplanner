@@ -73,7 +73,9 @@
     "POINT_ERASE_DESCRIPTION": "Vuoi eliminare questo punto dal percorso",
     "POINT_GET": "Nessun punto trovato",
     "WARNING": "Attention",
-    "EXCLUDE_POINT": "Certains points ne peuvent être atteints dans le délai indiqué"
+    "EXCLUDE_POINT": "Certains points ne peuvent être atteints dans le délai indiqué",
+    "OPTIMIZE_BUTTON": "Optimize pathway",
+    "NO_OPTIMIZE_BUTTON": "View original pathway"
   },
 
   "POI" : {
