@@ -83,8 +83,9 @@ export class PoiService {
 
   coutItem()
   {
-    return this.http.get('http://156.148.14.147:3009/api/v1/count')
-        //.do((res: Response) => console.log(res))
+    //return this.http.get('http://156.148.14.147:3009/api/v1/count')
+    return this.http.get('http://smartapi.crs4.it/tourplanner/api/v1/count')
+    //.do((res: Response) => console.log(res))
         .map((res: Response) => res.json())
         .catch(this.catchError);
         

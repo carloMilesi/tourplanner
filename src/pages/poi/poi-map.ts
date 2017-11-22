@@ -16,6 +16,8 @@ import { ToastController } from 'ionic-angular';
 export class MapPage {
   @ViewChild('myMap') myMap;
 
+  //url_api = 'http://seitre.crs4.it:3009/api/v1/';
+  url_api = 'http://smartapi.crs4.it/tourplanner/api/v1/';
   private points: Array<any> = [];
   private pathway: any = null;
   private path: string;
@@ -57,7 +59,7 @@ export class MapPage {
 
 
   loadPoi(){
-    let url = 'http://seitre.crs4.it:3009/api/v1/' + this.path;
+    let url = this.url_api + this.path;
     this.poiService.load(url, pois => {
       this.points = pois;
       //console.log("points in load pois: " + JSON.stringify(this.points))
@@ -151,7 +153,7 @@ export class MapPage {
       let center_point: any = this.getCenter(this.pathway);
       //console.log(center_point);
 
-      let url = 'http://seitre.crs4.it:3009/api/v1/'+ category +'?lat=' + center_point.lat + '&lng=' + center_point.lng;
+      let url = this.url_api + category +'?lat=' + center_point.lat + '&lng=' + center_point.lng;
     this.poiService.load(url, pois => {
       
       if (pois.length == 0)
