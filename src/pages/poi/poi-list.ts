@@ -69,8 +69,9 @@ export class PoiListPage {
 Load list of POI
 */
   loadPoi(){
-    this.poiService.load('http://seitre.crs4.it:3009/api/v1/' + this.path,
-      (data) => {
+    //this.poiService.load('http://seitre.crs4.it:3009/api/v1/' + this.path,
+    this.poiService.load('http://smartapi.crs4.it/tourplanner/api/v1/' + this.path,  
+    (data) => {
         this.items = data;
         for(let i = 0; i < this.items.length; i++){
           this.items[i].bgcolor = this.getColor();
