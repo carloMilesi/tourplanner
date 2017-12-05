@@ -22,6 +22,7 @@ import { PercorsiPage } from '../pages/percorsi/percorsi';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { SettingsPage } from '../pages/settings/settings';
 
+
 import { HttpModule } from '@angular/http';
 import { Http } from '@angular/http';
 
@@ -29,13 +30,14 @@ import {
 TranslateModule,
 TranslateStaticLoader,
 TranslateLoader } from 'ng2-translate/ng2-translate';
+import { StarRatingComponent } from '../components/star-rating/star-rating';
 
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, 'assets/i18n', '.json');
 }
 
-@NgModule({
+@NgModule({ 
   declarations: [
     MyApp,
     HomePage,
@@ -49,7 +51,8 @@ export function createTranslateLoader(http: Http) {
     PercorsiPage,
     MapComponent,
     SettingsPage,
-    PathwayInsertPage
+    PathwayInsertPage,
+    StarRatingComponent
     
   ],
   imports: [

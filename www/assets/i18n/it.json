@@ -75,10 +75,11 @@
     "WARNING": "Attenzionen",
     "EXCLUDE_POINT": "Alcuni punti non sono raggiungibili nel tempo indicato",
     "OPTIMIZE_BUTTON": "Ottimizza percorso",
-    "NO_OPTIMIZE_BUTTON": "Vedi percorso originale"
+    "NO_OPTIMIZE_BUTTON": "Vedi percorso originale",
+    "POI_EXCLUDED": "PoI esclusi"
   },
     
-  },
+  
 
   "POI" : {
     "PAGE_TITLE": "Dettagli",

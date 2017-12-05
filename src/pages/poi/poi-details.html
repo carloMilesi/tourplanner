@@ -25,7 +25,8 @@
       <p>{{selectedItem.category}}</p>
   </ion-row>
   <ion-row>
-      <ion-col col-6 style="border: 0px solid #000" *ngIf="selectedItem.rating != undefined && selectedItem.rating != ''" [innerHtml]="map_details.createRating(selectedItem.rating)">
+      <ion-col col-6 style="border: 0px solid #000">
+        <star-rating [value]="selectedItem.rating"></star-rating>
       </ion-col>
       <ion-col col-6 style="border: 0px solid #000"> 
           <ng-template [ngIf]="path != 'restaurants' && path != 'events'">

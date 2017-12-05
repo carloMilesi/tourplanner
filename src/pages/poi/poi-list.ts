@@ -27,6 +27,7 @@ export class PoiListPage {
 
   public checkOptimize: number = 1; // [0: enable optimization, 1 disable optimization]
   public optimizeContent: string;
+  private itemsExtra: any;
 
   constructor(
       private viewCtrl: ViewController,
@@ -47,15 +48,8 @@ export class PoiListPage {
     
 
     if(this.pathway){
-      // load pathway optimized or not
       this.optimizePathway();
-      /*
-      this.optimizeContent = this.translate.instant('PATHWAYS.OPTIMIZE_BUTTON');
-      console.log(JSON.stringify(this.pathway));
-      this.items = this.pathway.points;
-    
-      this.difficolta_str = this.createDifficulty(this.pathway.difficolta);
-      */
+      
     }
     else {
       this.loadPoi();
@@ -72,7 +66,10 @@ Load list of POI
     //this.poiService.load('http://seitre.crs4.it:3009/api/v1/' + this.path,
     this.poiService.load('http://smartapi.crs4.it/tourplanner/api/v1/' + this.path,  
     (data) => {
-        this.items = data;
+        
+      console.log(data);
+      
+      this.items = data;
         for(let i = 0; i < this.items.length; i++){
           this.items[i].bgcolor = this.getColor();
           this.items[i].timetovisit = this.items[i].time_to_visit;
@@ -86,35 +83,6 @@ Load list of POI
 
   }
 
-
-
-
-createRating(rating)
-{
-  let rate_str:string = '';
-  let src_1: string = '<img src="img/if_star.png" height="20">';
-  let src_2: string = '<img src="img/if_star-e.png" height="20">';
-  
-  switch(rating) {
-               case 1:
-                 rate_str = src_1+ src_2 + src_2+ src_2 + src_2;
-               break;
-               case 2:
-                 rate_str = src_1+ src_1 + src_2+ src_2 + src_2;
-               break;
-               case 3:
-                 rate_str = src_1+ src_1 + src_1+ src_2 + src_2;
-               break;
-               case 4:
-                 rate_str = src_1+ src_1 + src_1+ src_1 + src_2;
-               break;
-               case 5:
-                 rate_str = src_1+ src_1 + src_1+ src_1 + src_1;
-               break;
-
-      }
-      return rate_str;
-}
 
 
 createDifficulty(difficolta)
@@ -145,6 +113,9 @@ createDifficulty(difficolta)
 
   itemTapped(event, item) {
     let _path: string =  this.path;
+    console.log('itemTapped');
+    console.log(item);
+    
     let modal = this.modalCtrl.create(PoiDetailsPage, {item, _path});
     modal.present();
      
@@ -214,7 +185,6 @@ createDifficulty(difficolta)
   
       loading.present();
       
-      
       if (this.checkOptimize == 0)
       {  
         timeOut_value = 4000;
@@ -274,6 +244,9 @@ createDifficulty(difficolta)
           
         }
         
+
+        // extra point
+        this.itemsExtra = this.pathwaysService.countExtraPoint(this.pathway.points, data.Points);
          
          this.difficolta_str_pw = this.createDifficulty((Math.round(diff_tot/count)).toString());
          this.timeToVisit_str_pw = Math.round(timeToVisit).toString();
@@ -292,6 +265,7 @@ createDifficulty(difficolta)
 
   setTimeout(() => {
     this.checkOptimize = optimize;
+    //console.log(this.checkOptimize);
     this.optimizeContent =  optimizeLabel;
     loading.dismiss();
   }, timeOut_value);

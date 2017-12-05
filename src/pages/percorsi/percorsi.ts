@@ -3,14 +3,11 @@ import { NavController, Platform, ViewController, NavParams, AlertController } f
 
 import { TranslateService } from 'ng2-translate';
 
-//import {NewItemPage} from './new-item';
 import { PoiRoot } from '../poi/poi';
 import { PathwaysService } from '../../services/pathways.service';
-import {stringify} from "@angular/core/src/util";
 
 import { PathwayInsertPage} from '../pathway-insert/pathway-insert';
 
-import { HelloIonicPage } from '../hello-ionic/hello-ionic';
 
 @Component({
   templateUrl: 'percorsi.html',

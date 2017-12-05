@@ -13,11 +13,8 @@
 
   <ion-list>
 
-    <!--<button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)"  (press)="onHold($event, item)">-->
-
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)" (swipe)="deletePoint(event, item)">
-      <!--click + press non funziona con la scroll-->
-
+      
       <ion-thumbnail item-left >
         
         
@@ -38,14 +35,43 @@
       </div>
       
       
-
-      <div  *ngIf="item.rating != undefined && item.rating != ''" [innerHtml]="'<p>' + createRating(item.rating)+ '</p>'">
+      <p><star-rating [value]="item.rating"></star-rating></p>
       
-    </div>
 
     </button>
       
   </ion-list>
+
+  <ion-list *ngIf="itemsExtra && checkOptimize == 1">
+    <ion-title>{{ "PATHWAYS.POI_EXCLUDED" | translate}}</ion-title>
+    <button ion-item *ngFor="let itemExtra of itemsExtra" (click)="itemTapped($event, itemExtra)" style="background-color: #dddddd">
+
+      <ion-thumbnail item-left >
+        
+        
+          <ng-template [ngIf]="itemExtra.thumbnail == '' || itemExtra.thumbnail == undefined"><div id="profileImage" class="profileImg" > {{ itemExtra.title.substr(0, 1) }}</div></ng-template>
+          <ng-template [ngIf]="itemExtra.thumbnail != '' && itemExtra.thumbnail != undefined"><img src="{{ itemExtra.thumbnail }}" style="height:100%"></ng-template>
+
+
+
+      </ion-thumbnail>
+
+      <h2>{{ itemExtra.title }} </h2>
+      
+      
+      <div>
+      <ng-template [ngIf]="itemExtra.description != undefined && itemExtra.description.length >=35"><h4>{{ itemExtra.description.substr(0, 35) }}...</h4></ng-template>
+      <ng-template [ngIf]="itemExtra.description != undefined && itemExtra.description.length <35"><h4>{{ itemExtra.description }}</h4></ng-template>
+      </div>
+      
+      
+      <p><star-rating [value]="itemExtra.rating"></star-rating></p>
+
+
+    </button>
+
+  </ion-list>
+
 
 <ion-card>
     <ion-item *ngIf="pathway">

@@ -69,8 +69,11 @@ export class MapComponent {
     }
   }
 
+
+// generate map and set multi point in the map -> clustering
+
   loadPois(pois, kindoflist, category) {
-  console.log('++++++++++++++++++++++++++++ ' + category);
+  
   if (kindoflist== "pathway"){
     this.pathway= true;
     }
@@ -80,27 +83,8 @@ export class MapComponent {
       this.loadMap();
       this.map.fitBounds(bounds);
       
-      //console.log("items count " + this.items.length);
-
       if(kindoflist == "pois"){
         console.log("poi points count " + this.items.length);
-/*
-        for (let i = 0; i < this.items.length; i++) {
-          if (this.items[i].lat && this.items[i].lng) {
-            //console.log(this.items[i].title + ": " + this.items[i].lat + " - " + this.items[i].lng)
-
-            let marker = new google.maps.Marker({
-              map: this.map,
-              animation: google.maps.Animation.DROP,
-              position: new google.maps.LatLng(this.items[i].lat, this.items[i].lng),
-            });
-            this.addInfoWindow(marker, this.items[i], category);
-
-          }
-        }
-*/
-// ---------------------
-//var MarkerClusterer: any;
 
 let locations: any = [];
 let labels: any = [];
@@ -131,34 +115,53 @@ let labels: any = [];
   }
 
 
+// set one single point in the map
+
+loadSinglePoi(pois)
+{
+  let marker = new google.maps.Marker({
+    map: this.map,
+    animation: google.maps.Animation.DROP,
+    position: new google.maps.LatLng(pois.lat, pois.lng),
+  });
+  
+
+}
+
+// set multi poit in the map
+
+loadMultiPois(pois, category, type)
+{
+  let customIcon: string;
+  
+  if (type = 'ex')
+    customIcon = 'img/marker_black.png';
+  
+  for (let i = 0; i < pois.length; i++) {
+    if (pois[i].lat && pois[i].lng) {
+      //console.log(this.items[i].title + ": " + this.items[i].lat + " - " + this.items[i].lng)
+
+      let marker = new google.maps.Marker({
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        position: new google.maps.LatLng(pois[i].lat, pois[i].lng),
+        label: 'X',
+        zIndex: -10000,
+        icon: customIcon
+      });
+      this.addInfoWindow(marker, pois[i], category);
+
+    }
+  }
+}
+
+
+// set multi point in the map -> clustering
 
 loadPois2(pois, category) {
-  console.log('add poit to map +++++++--------++++++++++ ' + category);
   
-    this.items = pois;
-    //this.getPointsBounds((bounds) => {
-      
-      //this.map.fitBounds(bounds);
-      //console.log("items count " + this.items.length);
-
-      
-  /*
-        for (let i = 0; i < this.items.length; i++) {
-          if (this.items[i].lat && this.items[i].lng) {
-            //console.log(this.items[i].title + ": " + this.items[i].lat + " - " + this.items[i].lng)
-
-            let marker = new google.maps.Marker({
-              map: this.map,
-              animation: google.maps.Animation.DROP,
-              position: new google.maps.LatLng(this.items[i].lat, this.items[i].lng),
-            });
-            this.addInfoWindow(marker, this.items[i], category);
-
-          }
-        }
-
-*/
-
+  this.items = pois;
+  
         let locations: any = [];
         let labels: any = [];
         
@@ -182,7 +185,7 @@ loadPois2(pois, category) {
                   {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
      
 
-    //})
+    
   }
 
 
@@ -209,7 +212,7 @@ loadPois2(pois, category) {
     let west = bound.northeast;
     let east = bound.southwest;
 
-    console.log(west + " - " + east);
+    //console.log(west + " - " + east);
 
     let angle = east - west;
     if (angle < 0) {
@@ -231,7 +234,7 @@ Create marker popup
 
   addInfoWindow(marker, content, type) {
 
-    console.log(content);
+    //console.log(content);
     let contentString: string;
     
     // marker extended description

@@ -17,7 +17,7 @@ export class CategoriesListPage {
 
 public categories : any = [ {title : this.translate.instant('PAGE_MONUMENTS'), path : "monuments"},
                             {title : this.translate.instant('PAGE_MUSEUMS'), path : "museums"},
-                            {title : this.translate.instant('PAGE_ARCHEOLOGY'), path : "archeoSites"},
+                            {title : this.translate.instant('PAGE_ARCHEOLOGY'), path : "archeology"},
                             {title : this.translate.instant('PAGE_GARDENS'), path : "gardens"},
                             //{title : this.translate.instant('PAGE_EVENTS'), path : "events"},
                             //{title : this.translate.instant('PAGE_RESTAURANTS'), path : "restaurants"}

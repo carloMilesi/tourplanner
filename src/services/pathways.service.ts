@@ -207,6 +207,46 @@ deletePoint(item, pathway, _cb)
 
 
 
+//count the point excluded
+
+countExtraPoint(pathway, pathway_opt)
+{
+  
+  let check: boolean = false;
+  let extraPoint: any = [];
+  
+  if (pathway.length > pathway_opt.length - 2)
+  {
+      for(let i = 0; i < pathway.length; i++){
+        
+        check = false;
+
+        for (let ii = 0; ii < pathway_opt.length; ii++)
+        {
+          
+            if (pathway_opt[ii].title == pathway[i].title)
+            {
+              check = true;
+              break;
+            }
+          
+        }
+
+        
+      if (check == false)
+      {
+        extraPoint.push(pathway[i]);
+      }
+  }
+  
+  return extraPoint;
+  }
+  else
+   return 0;
+}
+
+
+
 }
 
 

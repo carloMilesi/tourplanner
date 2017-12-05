@@ -6,11 +6,12 @@ import {MapComponent} from "./map";
 import { TranslateService } from 'ng2-translate';
 import { LoadingController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
+import { PathwaysService } from '../../services/pathways.service';
 
 @Component({
   selector: 'map-page',
   templateUrl: 'poi-map.html',
-  providers: [PoiService]
+  providers: [PoiService, PathwaysService]
 
 })
 export class MapPage {
@@ -34,7 +35,8 @@ export class MapPage {
     public platform: Platform,
     public translate: TranslateService,
     public loadingCtrl: LoadingController,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public pathwaysService: PathwaysService
   ) {
 
     console.log("Poi map constructor")
@@ -111,11 +113,21 @@ export class MapPage {
             destination = data.Points[data.Points.length-1];
             waypts = data.Points;
             p = data.Points;
-  
+           
+            
+
            this.myMap.loadPois(p, "pathway", this.path);
+          
+           // pathway
            this.myMap.calculateAndDisplayRoute(origin, destination, waypts);
       
-  
+           // extra point
+           let extraPoint = this.pathwaysService.countExtraPoint(this.pathway.points, data.Points);
+           if (extraPoint != 0)
+           {
+            this.myMap.loadMultiPois(extraPoint, '', 'ex');
+           } 
+
             });
      
     }
@@ -124,7 +136,7 @@ export class MapPage {
       optimize = 0;
       optimizeLabel = this.translate.instant('PATHWAYS.OPTIMIZE_BUTTON');
       
-      console.log(this.pathway);
+      //console.log(this.pathway);
       origin = this.pathway.points[0];
       destination = this.pathway.points[this.pathway.points.length-1];
       waypts = this.pathway.points;
@@ -145,14 +157,17 @@ export class MapPage {
  
 }
 
-// dipslay extra poi (restaurants, events, ecc.. )in the pathaway map
+
+
+// display extra poi (restaurants, events, ecc.. )in the pathaway map
 
     addItems(category)
     {
       
       let center_point: any = this.getCenter(this.pathway);
       //console.log(center_point);
-
+      
+      
       let url = this.url_api + category +'?lat=' + center_point.lat + '&lng=' + center_point.lng;
     this.poiService.load(url, pois => {
       
@@ -210,6 +225,9 @@ export class MapPage {
 
         let c_lat = (max_lat - min_lat)/2 + min_lat;
         let c_lng = (max_lng - min_lng)/2 + min_lng;
+        
+        // test
+        //this.myMap.loadSinglePoi({"lat": c_lat, "lng": c_lng});
 
         return {"lat": c_lat, "lng": c_lng};
     }

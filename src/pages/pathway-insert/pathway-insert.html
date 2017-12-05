@@ -41,30 +41,59 @@
       	<ion-option value="porto" selected>porto</ion-option>
       </ion-select>
     </ion-item>
+    
+    <ion-item>
+      <ion-label floating>Il tuo profilo</ion-label>
+      <ion-select  formControlName="profilo">
+        <ion-option value="0" selected>personalizzato</ion-option>
+        <ion-option value="1">cluster1</ion-option>
+        <ion-option value="2">cluster2</ion-option>
+        
+      </ion-select>
+    </ion-item>
     <br>
 
-    <ion-item>
-
-       <ion-label floating>{{ "PATHWAYS.DURATION" | translate}}</ion-label>
-      
-      <ion-range  min="30" max="240" step="30" formControlName="durata">
-	    <ion-icon range-left small name="stopwatch"></ion-icon>
-	    <ion-icon range-right name="stopwatch"></ion-icon>
-	  </ion-range>
-    </ion-item>
-    <ion-badge>{{durata.value}} min.</ion-badge>
-
-
-    <ion-item>
-      <ion-label floating>{{ "PATHWAYS.DIFFICLTY" | translate}}</ion-label>
-      <ion-range  min="0" max="100" step="25" color="secondary" formControlName="difficolta">
-	    <ion-icon range-left small name="walk"></ion-icon>
-	    <ion-icon range-right name="walk"></ion-icon>
-	  </ion-range>
-    </ion-item>
-    <ion-badge color="secondary">{{difficolta_str}}</ion-badge>
-
+    <div *ngIf="profilo.value == '0'">
     
+    <ion-item>
+      <ion-label floating>{{ "PATHWAYS.DURATION" | translate}}</ion-label>
+        <ion-range  min="30" max="240" step="30" formControlName="durata">
+        <ion-icon range-left small name="stopwatch"></ion-icon>
+        <ion-icon range-right name="stopwatch"></ion-icon>
+          </ion-range>
+        </ion-item>
+        <ion-badge>{{durata.value}} min.</ion-badge>
+
+        <ion-item>
+          <ion-label floating>{{ "PATHWAYS.DIFFICLTY" | translate}}</ion-label>
+          <ion-range  min="0" max="100" step="25" color="secondary" formControlName="difficolta">
+          <ion-icon range-left small name="walk"></ion-icon>
+          <ion-icon range-right name="walk"></ion-icon>
+        </ion-range>
+        </ion-item>
+        <ion-badge color="secondary">{{difficolta_str}}</ion-badge>
+  
+    </div>
+  
+    <div *ngIf="profilo.value != '0'">
+        <ion-card>
+            <ion-item>
+              <ion-icon name='stopwatch' item-start style="color: #d03e84"></ion-icon>
+              {{"PATHWAYS.YOUR_TIME" | translate}} 
+              <ion-badge item-right>{{profilo_arr.duration}}</ion-badge>
+            </ion-item>
+        
+            <ion-item>
+              <ion-icon name='walk' item-start style="color: #55acee"></ion-icon>
+              {{"PATHWAYS.YOUR_TRAIN" | translate}} 
+              <ion-badge item-right color="secondary">{{decode_difficulty(profilo_arr.difficulty)}}</ion-badge>
+            </ion-item>
+          </ion-card>
+    </div>
+    
+
+
+
   </ion-list>
   <input block type="submit" ion-button type="submit" value="save" [disabled]="!formgroup.valid">
   </form>

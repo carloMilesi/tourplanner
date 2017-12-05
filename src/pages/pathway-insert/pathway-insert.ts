@@ -3,7 +3,6 @@ import { DatePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import { NativeStorage } from '@ionic-native/native-storage';
-import {stringify} from "@angular/core/src/util";
 import { TranslateService } from 'ng2-translate';
 
 import { CategoriesListPage } from '../categories/categories-list';
@@ -24,6 +23,7 @@ export class PathwayInsertPage {
 
 formgroup: FormGroup;
 name: AbstractControl;
+profilo: AbstractControl;
 dataInizio: AbstractControl;
 durata: AbstractControl;
 difficolta: AbstractControl;
@@ -31,6 +31,7 @@ puntoPartenza: AbstractControl;
 difficolta_str: string = this.translate.instant('PATHWAYS.LOW');
 
 _pathways: Array<any> = [];
+profilo_arr: any;
 
   constructor(public navCtrl: NavController
     , public navParams: NavParams
@@ -52,6 +53,7 @@ _pathways: Array<any> = [];
          {
            name: ['', Validators.compose([Validators.required, Validators.maxLength(24)])],
            dataInizio: [new Date().toISOString(), Validators.required],
+           profilo: ['0'],
            puntoPartenza: ['porto'],
            durata: ['60'],
            difficolta: ['1']
@@ -61,12 +63,13 @@ _pathways: Array<any> = [];
 
 
       this.name = this.formgroup.controls['name'];
+      this.profilo = this.formgroup.controls['profilo'];
       this.dataInizio = this.formgroup.controls['dataInizio'];
       this.puntoPartenza = this.formgroup.controls['puntoPartenza'];
       this.difficolta = this.formgroup.controls['difficolta'];
       this.durata = this.formgroup.controls['durata'];
 
-   
+      
 this.nativeStorage.getItem('pathways')
 .then(
 data => console.log(data),
@@ -84,33 +87,44 @@ error => console.error(error)
 
 ngOnInit()
 {
-	this.formgroup.get('difficolta').valueChanges.subscribe(
+  this.formgroup.get('difficolta').valueChanges.subscribe(
 		(difficolta) => {
-			switch(difficolta) {
-               case 0:
-                 this.difficolta_str = this.translate.instant('PATHWAYS.LOW');
-               break;
-               case 25:
-               	this.difficolta_str = this.translate.instant('PATHWAYS.MEDIUM');
-               break;
-               case 50:
-               	this.difficolta_str = this.translate.instant('PATHWAYS.GOOD');
-               break;
-               case 75:
-                 this.difficolta_str = this.translate.instant('PATHWAYS.HIGH');
-               break;
-               case 100:
-                 this.difficolta_str = this.translate.instant('PATHWAYS.VERYHIGH');
-               break;
+      console.log(difficolta);
+      this.difficolta_str = this.decode_difficulty(difficolta);
+      }
+    )
+    
+    this.formgroup.get('profilo').valueChanges.subscribe(
+      (profilo) => {
+        
+                  if (this.profilo.value == '1')
+                  {
+                      this.profilo_arr = {
+                          difficulty: 50
+                        , duration : 210
+                        , monuments:1.4
+                        , museums: 1.2};
+                      
+                  }
+                  else if (this.profilo.value == '2')
+                  {
+                      this.profilo_arr = {
+                        difficulty: 75
+                      , duration: 90
+                      , monuments: 1.4
+                      , museums: 1.2};
+                  }
+                  else
+                  {
+                    this.profilo_arr = {};
+                  }
 
-			}
-			
+                    
+      
+      })
 
-		}
-		)
+
 }
-
-
 
 guid() {
     function s4() {
@@ -129,21 +143,39 @@ guid() {
 saveItem(fields) {
 	
     let date_start = this.datePipe.transform(new Date().toISOString(), 'yyyy-MM-dd');
+    let difficulty = this.difficolta.value;
+    let duration = this.durata.value;
+
+
+    let monuments: number = 1;
+    let gardens: number = 1;
+    let museums: number = 1;
+    let archeology: number = 1;
+
+    if (this.profilo.value != 0)
+    {
+      difficulty = this.profilo_arr.difficulty;
+      duration = this.profilo_arr.duration;
+      monuments = this.profilo_arr.monuments;
+      museums = this.profilo_arr.museums;
+    }
     
-
+    
   
-
      let pathway  = {
       _id: this.guid() ,
       dataIns: new Date().toISOString(),
+      
       title: this.name.value,
       date: date_start,
       puntoPartenza: this.puntoPartenza.value,
-      difficolta: this.difficolta.value,
-      duration: this.durata.value,
+      profile: this.profilo.value,
+      difficolta: difficulty,
+      duration: duration,
       mode: 0,
       start: {},
       stop: {},
+      category_rating: {Monuments: monuments, Gardens: gardens, Museums: museums, Archeology: archeology},
       points: []
     };
 
@@ -168,8 +200,8 @@ if (this.puntoPartenza.value)
     //this._pathways.unshift(pathway);
 
 
-console.log("unshift: " + this._pathways);
-console.log("saving: " + JSON.stringify(pathway));
+//console.log("unshift: " + this._pathways);
+//console.log("saving: " + JSON.stringify(pathway));
 
      
 
@@ -204,6 +236,33 @@ console.log("saving: " + JSON.stringify(pathway));
   }
 
   
+ 
+ decode_difficulty(difficolta)
+ {
+  
+  let diff : string;
+
+  switch(difficolta) {
+    case 0:
+      diff =  this.translate.instant('PATHWAYS.LOW');
+    break;
+    case 25:
+      diff =  this.translate.instant('PATHWAYS.MEDIUM');
+    break;
+    case 50:
+      diff =  this.translate.instant('PATHWAYS.GOOD');
+    break;
+    case 75:
+      diff =  this.translate.instant('PATHWAYS.HIGH');
+    break;
+    case 100:
+      diff =  this.translate.instant('PATHWAYS.VERYHIGH');
+    break;
+  }
+    
+  return diff;
+
+ } 
 
 
 }
