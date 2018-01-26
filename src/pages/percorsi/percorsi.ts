@@ -155,6 +155,7 @@ apertura form di inserimento
 
       } else {
         console.log(" non presente")
+        console.log(this.poi_selected);
         pathway.points.unshift(this.poi_selected); //json del percorso
         console.log("adding a point to pathway...");
         console.log(JSON.stringify(pathway));

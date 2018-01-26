@@ -78,9 +78,9 @@ Load list of POI
               this.items[i].description = this.items[i].address;
           
         }
+        
       });
-
-
+    
   }
 
 

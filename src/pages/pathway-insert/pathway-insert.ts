@@ -102,8 +102,8 @@ ngOnInit()
                       this.profilo_arr = {
                           difficulty: 50
                         , duration : 210
-                        , monuments:1.4
-                        , museums: 1.2};
+                        , monuments:4
+                        , museums: 2};
                       
                   }
                   else if (this.profilo.value == '2')
@@ -111,8 +111,8 @@ ngOnInit()
                       this.profilo_arr = {
                         difficulty: 75
                       , duration: 90
-                      , monuments: 1.4
-                      , museums: 1.2};
+                      , monuments: 5
+                      , museums: 4};
                   }
                   else
                   {
