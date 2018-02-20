@@ -27,7 +27,6 @@ export class PoiDetailsPage {
   ) {
     this.selectedItem = navParams.get('item');
     this.path = navParams.get('_path');
-    
   }
 
   ionViewDidLoad() {

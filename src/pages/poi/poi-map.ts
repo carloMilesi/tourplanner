@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, Platform, NavParams, ModalController } from 'ionic-angular';
 import { PoiDetailsPage } from './poi-details';
 import { PoiService } from '../../services/poi.service';
-import {MapComponent} from "./map";
 import { TranslateService } from 'ng2-translate';
 import { LoadingController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
@@ -17,8 +16,6 @@ import { PathwaysService } from '../../services/pathways.service';
 export class MapPage {
   @ViewChild('myMap') myMap;
 
-  //url_api = 'http://seitre.crs4.it:3009/api/v1/';
-  url_api = 'http://smartapi.crs4.it/tourplanner/api/v1/';
   private points: Array<any> = [];
   private pathway: any = null;
   private path: string;
@@ -61,8 +58,7 @@ export class MapPage {
 
 
   loadPoi(){
-    let url = this.url_api + this.path;
-    this.poiService.load(url, pois => {
+    this.poiService.load(this.path, pois => {
       this.points = pois;
       //console.log("points in load pois: " + JSON.stringify(this.points))
       this.myMap.loadPois(pois, "pois", this.path);
@@ -106,7 +102,7 @@ export class MapPage {
       optimizeLabel = this.translate.instant('PATHWAYS.NO_OPTIMIZE_BUTTON');  
       
       
-      this.poiService.load_optimize('http://192.167.144.196:5010/v1/requestTrip/ ', this.pathway,
+      this.poiService.load_optimize(this.pathway,
           (data) => {
       
             origin = data.Points[0];
@@ -168,8 +164,8 @@ export class MapPage {
       //console.log(center_point);
       
       
-      let url = this.url_api + category +'?lat=' + center_point.lat + '&lng=' + center_point.lng;
-    this.poiService.load(url, pois => {
+      let url_param = category +'?lat=' + center_point.lat + '&lng=' + center_point.lng;
+    this.poiService.load(url_param, pois => {
       
       if (pois.length == 0)
       { 

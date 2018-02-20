@@ -76,7 +76,7 @@ load dei percorsi
     console.log("loading pathways")
     this.pathwaysService.getAll((paths) => {
       this.items = paths;
-      
+      console.log(this.items);
     });
   }
 
@@ -303,6 +303,39 @@ ceazione guid fittizia
   
        return diff;
   
+  }
+
+
+  profileTranslate(id)
+  {
+    var profile = this.translate.instant('CUSTOM_PROFILE');
+    
+    switch (id)
+    {
+      case '1':
+      {
+        profile = this.translate.instant('cat1');
+        break;
+      }
+        case '2':
+      {
+        profile = this.translate.instant('cat2');
+        break;
+      }
+      case '3':
+      {
+        profile = this.translate.instant('cat3');
+        break;
+      }
+      case '4':
+      {
+        profile = this.translate.instant('cat4');
+        break;
+      }
+    }
+
+    return profile;
+
   }
 
 

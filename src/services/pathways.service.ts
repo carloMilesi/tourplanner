@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Platform } from 'ionic-angular';
+import { Http} from '@angular/http';
 
 import { NativeStorage } from '@ionic-native/native-storage';
 // import { Observable } from 'rxjs/Observable';
@@ -15,6 +16,7 @@ export class PathwaysService {
   constructor(
     private nativeStorage: NativeStorage
     , public platform: Platform
+    , private http: Http
 
   ) {
     console.log("Pathways service constructor");
@@ -244,6 +246,23 @@ countExtraPoint(pathway, pathway_opt)
   else
    return 0;
 }
+
+
+
+
+insert_OpenData(pathway)
+{
+  return new Promise((resolve, reject) => {
+      this.http.post('http://seitre.crs4.it:3009/api/v1/pathway', pathway)
+      .subscribe(res => {
+        resolve(1);
+      }, (err) => {
+        reject(0);
+      });
+
+    });
+}
+
 
 
 

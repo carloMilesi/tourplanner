@@ -4,7 +4,17 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <!--<ion-title>{{selectedItem.title}}</ion-title>-->
-    <ion-title>{{poiTitle | translate}}</ion-title>
+    <ion-title>{{poiTitle | translate}} </ion-title>
+  
+    <ion-buttons *ngIf="poiParams.pathway" end>
+      <button ion-button icon-only>
+       <ion-icon name="logo-facebook"></ion-icon>
+     </button>
+     <button ion-button icon-only (click)="insertOpenData()">
+        <ion-icon name="cloud-upload"></ion-icon>
+      </button> 
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 

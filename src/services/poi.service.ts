@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 
 
 
+
 @Injectable()
 export class PoiService {
   data: any;
@@ -14,8 +15,13 @@ export class PoiService {
     private http: Http
   ) { }
 
-  load(url, _cb?) {
-    this.http.get(url)
+
+  private proxy_url = 'http://seitre.crs4.it:3009/api/v1/';
+  //private proxy_url = 'http://smartapi.crs4.it/tourplanner/api/v1/';
+  private proxy_url_optimize = 'http://192.167.144.196:5010/v1/requestTrip/';
+
+  load(path, _cb?) {
+    this.http.get(this.proxy_url + path)
       .map(res => res.json())
       .subscribe(data => {
         // we've got back the raw data, now generate the core schedule data
@@ -27,9 +33,9 @@ export class PoiService {
 
   }
 
-  load_optimize(url, params, _cb?)
+  load_optimize(params, _cb?)
   {
-    this.http.post(url, params)
+    this.http.post(this.proxy_url_optimize, params)
       .map(res => res.json())
       .catch((err) => {
                 
@@ -83,20 +89,18 @@ export class PoiService {
 
   coutItem()
   {
-    //return this.http.get('http://156.148.14.147:3009/api/v1/count')
-    return this.http.get('http://smartapi.crs4.it/tourplanner/api/v1/count')
-    //.do((res: Response) => console.log(res))
+    return this.http.get(this.proxy_url + 'count')
         .map((res: Response) => res.json())
         .catch(this.catchError);
         
   }
 
-
+/*
   private getData(res: Response)
   {
     return res.json() || {};
   }
-
+*/
   private catchError(error: Response | any)
   {
     console.log(error);

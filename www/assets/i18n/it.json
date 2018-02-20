@@ -19,9 +19,11 @@
   "PAGE_ARCHEOLOGY": "Archeologia",
   "PAGE_GARDENS": "Giardini",
   "PAGE_EVENTS": "Eventi",
-  "PAGE_RESTAURANTS": "Ristoranti",
+  "PAGE_RESTAURANTS": "Ristoranti"
+  ,"PAGE_DEALS": "Offerte"
+  ,"PAGE_SHOPPING": "Shopping"
   
-  "num_items": "Presenze",
+  ,"num_items": "Presenze",
 
   "ADD_NEW": "Aggiungi",
   "PATHWAY": "Percorso",
@@ -33,6 +35,13 @@
   "gardens": "Giardini",
   "events": "Eventi",
   "restaurants": "Ristoranti",
+  
+  "PROFILE": "Il tuo profilo",
+  "CUSTOM_PROFILE": "Personalizzato",
+  "cat1": "Senior - Crociera addicted",
+  "cat2": "Crocersiti Fai da te",
+  "cat3": "Croceristi Deluxe",
+  "cat4": "Giovani - shopping and fun",
 
   "TEXT_NO_PATH": "Non esistono percorsi salvati!",
 
@@ -69,10 +78,13 @@
     "TIME_PATHWAY": "Durata del percorso (min)",
     "YOUR_TRAIN": "La tua forma fisica",
     "YOUR_TIME": "Il tuo tempo a disposizione (min)",
-    "POINT_ERASE_TITLE": "elimina POI",
+    "POINT_ERASE_TITLE": "Elimina POI",
     "POINT_ERASE_DESCRIPTION": "Vuoi eliminare questo punto dal percorso?",
+    "POINT_OP_TITLE": "Inserisci come Open Data",
+    "POINT_OP_DESCRIPTION": "Vuoi rendere pubblico il tuo percorso?",
+    "OP_SAVED": "Percorso salvato",
     "POINT_GET": "Nessun punto trovato",
-    "WARNING": "Attenzionen",
+    "WARNING": "Attenzione",
     "EXCLUDE_POINT": "Alcuni punti non sono raggiungibili nel tempo indicato",
     "OPTIMIZE_BUTTON": "Ottimizza percorso",
     "NO_OPTIMIZE_BUTTON": "Vedi percorso originale",

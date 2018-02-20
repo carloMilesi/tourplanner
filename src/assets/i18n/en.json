@@ -20,6 +20,8 @@
   "PAGE_GARDENS": "Gardens",
   "PAGE_EVENTS": "Events",
   "PAGE_RESTAURANTS": "Restaurants",
+  "PAGE_DEALS": "Deals",
+  "PAGE_SHOPPING": "Shopping",
   
 "NUM_ITEMS": "Listings",
 
@@ -33,6 +35,13 @@
   "gardens": "Gardens",
   "events": "Events",
   "restaurants": "Restaurants",
+
+  "PROFILE": "Your profile",
+  "CUSTOM_PROFILE": "Custom",
+  "cat1": "Senior",
+  "cat2": "Do it yourself",
+  "cat3": "Deluxe",
+  "cat4": "shopping and fun",
 
   "TEXT_NO_PATH": "There are no saved pathways!",
 
@@ -71,6 +80,9 @@
     "YOUR_TIME": "Your time available (min)",
     "POINT_ERASE_TITLE": "Delete POI",
     "POINT_ERASE_DESCRIPTION": "Do you want to delete this point?",
+    "POINT_OP_TITLE": "Insert as Open Data",
+    "POINT_OP_DESCRIPTION": "Do you want to public your pathway?",
+    "OP_SAVED": "Pathway saved",
     "POINT_GET": "No points found",
     "WARNING": "Warning",
     "EXCLUDE_POINT": "Some points can not be reached within the time indicated",

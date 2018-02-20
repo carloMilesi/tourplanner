@@ -18,22 +18,27 @@
         <h1>{{selectedItem.title}}</h1>
     </ion-col>
     <ion-col col-2 style="border: 0px solid #000"> 
-      <ng-template [ngIf]="path != 'restaurants' && path != 'events'"><button ion-button clear (click)="openPathways($event, selectedItem)"> <ion-icon name="md-add-circle"  color="blue" style="font-size: 40px;"></ion-icon></button></ng-template>
+      <ng-template [ngIf]="path != 'restaurants' && path != 'events' && path != 'deals'"><button ion-button clear (click)="openPathways($event, selectedItem)"> <ion-icon name="md-add-circle"  color="blue" style="font-size: 40px;"></ion-icon></button></ng-template>
     </ion-col>
   </ion-row>
   <ion-row>
       <p>{{selectedItem.category}}</p>
   </ion-row>
+  
+  <ng-template [ngIf]="path != 'deals'">
   <ion-row>
       <ion-col col-6 style="border: 0px solid #000">
         <star-rating [value]="selectedItem.rating"></star-rating>
       </ion-col>
-      <ion-col col-6 style="border: 0px solid #000"> 
-          <ng-template [ngIf]="path != 'restaurants' && path != 'events'">
+      <ion-col col-6 style="border: 0px solid #000">           
+        <ng-template [ngIf]="path != 'restaurants' && path != 'events' && path != 'deals' && path != 'shopping'">
+
             <ion-badge item-right color="secondary">{{selectedItem.timetovisit}} Min</ion-badge>
           </ng-template>
         </ion-col>
     </ion-row>
+  </ng-template>
+  
 </ion-grid>
 
 

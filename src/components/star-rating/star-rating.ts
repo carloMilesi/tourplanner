@@ -16,7 +16,7 @@ export class StarRatingComponent {
   
   
   constructor() {
-    console.log(this.value);
+    //console.log(this.value);
   }
 
 

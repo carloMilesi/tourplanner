@@ -100,19 +100,47 @@ ngOnInit()
                   if (this.profilo.value == '1')
                   {
                       this.profilo_arr = {
-                          difficulty: 50
-                        , duration : 210
-                        , monuments:4
-                        , museums: 2};
+                          difficulty: 25
+                        , duration : 180
+                        , monuments:3
+                        , museums: 3
+                        , gardens: 4
+                        , archeology: 2
+                        , shopping: 1};
                       
                   }
                   else if (this.profilo.value == '2')
                   {
                       this.profilo_arr = {
+                        difficulty: 50
+                      , duration: 240
+                      , monuments: 4
+                      , museums: 4
+                      , gardens: 5
+                      , archeology: 3
+                      , shopping: 2};
+                  }
+                  else if (this.profilo.value == '3')
+                  {
+                      this.profilo_arr = {
                         difficulty: 75
+                      , duration: 210
+                      , monuments: 4
+                      , museums: 4
+                      , gardens: 5
+                      , archeology: 2
+                      , shopping: 2};
+                  }
+                  else if (this.profilo.value == '4')
+                  {
+                      this.profilo_arr = {
+                        difficulty: 100
                       , duration: 90
-                      , monuments: 5
-                      , museums: 4};
+                      , monuments: 2
+                      , museums: 2
+                      , gardens: 5
+                      , archeology: 1
+                      , shopping: 4};
                   }
                   else
                   {
@@ -151,6 +179,7 @@ saveItem(fields) {
     let gardens: number = 1;
     let museums: number = 1;
     let archeology: number = 1;
+    let shopping: number = 1;
 
     if (this.profilo.value != 0)
     {
@@ -158,6 +187,7 @@ saveItem(fields) {
       duration = this.profilo_arr.duration;
       monuments = this.profilo_arr.monuments;
       museums = this.profilo_arr.museums;
+      shopping = this.profilo_arr.shopping;
     }
     
     
@@ -175,7 +205,7 @@ saveItem(fields) {
       mode: 0,
       start: {},
       stop: {},
-      category_rating: {Monuments: monuments, Gardens: gardens, Museums: museums, Archeology: archeology},
+      category_rating: {Monuments: monuments, Gardens: gardens, Museums: museums, Archeology: archeology, Shopping:shopping},
       points: []
     };
 

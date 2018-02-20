@@ -20,7 +20,6 @@ export class PoiListPage {
   private items: any;
   private pathway : any = null;
   public rating: string;
-  private pathway_opt : any = null;
   public difficolta_str: string;
   public timeToVisit_str_pw: string;
   public difficolta_str_pw: string;
@@ -41,7 +40,7 @@ export class PoiListPage {
       public pathwaysService: PathwaysService,
       public loadingCtrl: LoadingController
   ) {
-    console.log("Poi list constructor")
+    console.log("Poi list constructor  4")
 
     this.path = params.get('path');
     this.pathway = params.get('pathway');
@@ -60,11 +59,11 @@ export class PoiListPage {
 
 
 /** 
-Load list of POI
+Load list of categories POI
 */
   loadPoi(){
-    //this.poiService.load('http://seitre.crs4.it:3009/api/v1/' + this.path,
-    this.poiService.load('http://smartapi.crs4.it/tourplanner/api/v1/' + this.path,  
+    
+    this.poiService.load(this.path,
     (data) => {
         
       console.log(data);
@@ -170,9 +169,13 @@ createDifficulty(difficolta)
   getColor(){
     return "#" + Math.floor(Math.random()*16777215).toString(16);
   }
+  
+/**
+ * outputs the pois of the pathway, optimized or not (parameter checkOptimize)
+ */
 
   optimizePathway(){
-      //console.log(this.pathway);
+      
       let timeOut_value: number = 2000;
       let optimize: number;
       let optimizeLabel: string;
@@ -190,8 +193,8 @@ createDifficulty(difficolta)
         timeOut_value = 4000;
         optimize = 1;
         optimizeLabel = this.translate.instant('PATHWAYS.NO_OPTIMIZE_BUTTON');
-      
-      this.poiService.load_optimize('http://192.167.144.196:5010/v1/requestTrip/ ', this.pathway,
+      console.log(this.pathway);
+      this.poiService.load_optimize(this.pathway,
       (data) => {
         
         if (data.Points.length < this.pathway.points.length + 2)
@@ -282,5 +285,10 @@ createDifficulty(difficolta)
   }
 
 */
+
+
+
+
+
 
 }

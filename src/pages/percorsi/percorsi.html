@@ -24,9 +24,13 @@
         <h1 style="margin-bottom: 10px">{{item.title}}</h1>
        <p>
          
-          <ion-icon range-left  color="danger" name="pin" style="margin-right: 4px"></ion-icon><span style="margin-right: 10px">{{item.points.length}}</span>  
           <ion-icon range-left  name="stopwatch" style="margin-right: 4px"></ion-icon><ion-badge color="secondary" style="margin-right: 10px">{{item.duration}}</ion-badge> 
-          <ion-icon range-left  name="walk" style="margin-right: 4px"></ion-icon><ion-badge style="margin-right: 10px">{{createDifficulty(item.difficolta)}}</ion-badge></p>
+          <ion-icon range-left  name="walk" style="margin-right: 4px"></ion-icon><ion-badge style="margin-right: 10px">{{createDifficulty(item.difficolta)}}</ion-badge>
+        </p>
+        <p style="margin-top: 8px">
+          <ion-icon range-left  color="danger" name="pin" style="margin-right: 4px"></ion-icon><span style="margin-right: 10px">{{item.points.length}}</span>  
+          <ion-icon range-left  name="person" style="margin-right: 4px"></ion-icon><span style="margin-right: 10px">{{profileTranslate(item.profile)}}</span>
+        </p>
       </span>
       <ion-icon *ngIf="!adding" name="close-circle" (click)="removePathway(event, item)"  clear item-right></ion-icon>
     </ion-item>

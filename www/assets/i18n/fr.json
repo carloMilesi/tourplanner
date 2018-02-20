@@ -20,6 +20,8 @@
   "PAGE_GARDENS": "Jardins",
   "PAGE_EVENTS":"Événements",
   "PAGE_RESTAURANTS": "Restaurants",
+  "PAGE_DEALS": "Deals",
+  "PAGE_SHOPPING": "Shopping",
   
   "num_items": "Presenze",
 
@@ -33,6 +35,13 @@
   "gardens": "Jardins",
   "events": "Événements",
   "restaurants": "Restaurants",
+  
+  "PROFILE": "Your profile",
+  "CUSTOM_PROFILE": "Custom",
+  "cat1": "Senior",
+  "cat2": "Do it yourself",
+  "cat3": "Deluxe",
+  "cat4": "shopping and fun",
 
   "TEXT_NO_PATH": "Il n'y a pas de itinéraire sauvegardées!",
 
@@ -69,8 +78,11 @@
     "TIME_PATHWAY": "Durata del percorso (min)",
     "YOUR_TRAIN": "La tua forma",
     "YOUR_TIME": "Il tuo tempo a disposizione (min)",
-    "POINT_ERASE_TITLE": "elimina POI",
+    "POINT_ERASE_TITLE": "Elimina POI",
     "POINT_ERASE_DESCRIPTION": "Vuoi eliminare questo punto dal percorso",
+    "POINT_OP_TITLE": "Inserisci come Open Data",
+    "POINT_OP_DESCRIPTION": "Vuoi rendere pubblico il tuo percorso?",
+    "OP_SAVED": "Percorso salvato",
     "POINT_GET": "Nessun punto trovato",
     "WARNING": "Attention",
     "EXCLUDE_POINT": "Certains points ne peuvent être atteints dans le délai indiqué",

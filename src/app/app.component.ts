@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
-import { CategoriesListPage } from '../pages/categories/categories-list';
 import {PercorsiPage} from '../pages/percorsi/percorsi';
 import { TranslateService } from 'ng2-translate';
 

@@ -43,11 +43,13 @@
     </ion-item>
     
     <ion-item>
-      <ion-label floating>Il tuo profilo</ion-label>
+      <ion-label floating>{{ "PROFILE" | translate}}</ion-label>
       <ion-select  formControlName="profilo">
-        <ion-option value="0" selected>personalizzato</ion-option>
-        <ion-option value="1">cluster1</ion-option>
-        <ion-option value="2">cluster2</ion-option>
+        <ion-option value="0" selected>{{ "CUSTOM_PROFILE" | translate}}</ion-option>
+        <ion-option value="1">{{ "cat1" | translate}}</ion-option>
+        <ion-option value="2">{{ "cat2" | translate}}</ion-option>
+        <ion-option value="3">{{ "cat3" | translate}}</ion-option>
+        <ion-option value="4">{{ "cat4" | translate}}</ion-option>
         
       </ion-select>
     </ion-item>
@@ -89,6 +91,33 @@
               <ion-badge item-right color="secondary">{{decode_difficulty(profilo_arr.difficulty)}}</ion-badge>
             </ion-item>
           </ion-card>
+          
+          
+          <ion-card>
+            
+            <ion-item>
+              {{"PAGE_MONUMENTS" | translate}}
+              <ion-note item-right><icon-list [value]="profilo_arr.monuments"></icon-list></ion-note>
+            </ion-item>
+            <ion-item>
+              {{"PAGE_MUSEUMS" | translate}} 
+              <ion-note item-right><icon-list [value]="profilo_arr.museums"></icon-list></ion-note>
+            </ion-item>
+            <ion-item>
+              {{"PAGE_ARCHEOLOGY" | translate}}
+              <ion-note item-right><icon-list [value]="profilo_arr.archeology"></icon-list></ion-note>
+            </ion-item>
+            <ion-item>
+              {{"PAGE_GARDENS" | translate}}
+              <ion-note item-right><icon-list [value]="profilo_arr.gardens"></icon-list></ion-note> 
+            </ion-item>
+            <ion-item>
+              {{"PAGE_SHOPPING" | translate}}
+              <ion-note item-right><icon-list [value]="profilo_arr.shopping"></icon-list></ion-note> 
+            </ion-item>
+            
+          </ion-card>
+
     </div>
     
 

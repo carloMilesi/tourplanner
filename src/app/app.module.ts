@@ -31,6 +31,7 @@ TranslateModule,
 TranslateStaticLoader,
 TranslateLoader } from 'ng2-translate/ng2-translate';
 import { StarRatingComponent } from '../components/star-rating/star-rating';
+import { IconListComponent } from '../components/icon-list/icon-list';
 
 
 export function createTranslateLoader(http: Http) {
@@ -52,7 +53,8 @@ export function createTranslateLoader(http: Http) {
     MapComponent,
     SettingsPage,
     PathwayInsertPage,
-    StarRatingComponent
+    StarRatingComponent,
+    IconListComponent
     
   ],
   imports: [

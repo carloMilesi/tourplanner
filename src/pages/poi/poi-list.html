@@ -3,12 +3,18 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{ "TAB_LIST" | translate}}</ion-title>
+    <ion-title>{{ "TAB_LIST" | translate}}
+    </ion-title>
+   
   </ion-navbar>
 </ion-header>
 
+
+
 <ion-content>
-  
+ 
+    
+
 <button ion-button block *ngIf="this.pathway" (click)="optimizePathway()">{{optimizeContent}}</button>
 
   <ion-list>

@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Platform, ModalController, NavController } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
 import { PoiDetailsPage } from './poi-details';
 
 declare var google;
@@ -24,8 +23,7 @@ export class MapComponent {
   private routeResponse: any;
   private pathway = false;
   private markerArray = [];
-  private stepDisplay;
-
+  
 
   constructor(public nav: NavController
     , public platform: Platform
@@ -87,7 +85,6 @@ export class MapComponent {
         console.log("poi points count " + this.items.length);
 
 let locations: any = [];
-let labels: any = [];
 
         for (let i = 0; i < this.items.length; i++) {
           if (this.items[i].lat && this.items[i].lng) {
@@ -119,12 +116,13 @@ let labels: any = [];
 
 loadSinglePoi(pois)
 {
+  /*
   let marker = new google.maps.Marker({
     map: this.map,
     animation: google.maps.Animation.DROP,
     position: new google.maps.LatLng(pois.lat, pois.lng),
   });
-  
+  */
 
 }
 
@@ -163,7 +161,6 @@ loadPois2(pois, category) {
   this.items = pois;
   
         let locations: any = [];
-        let labels: any = [];
         
                 for (let i = 0; i < this.items.length; i++) {
                   if (this.items[i].lat && this.items[i].lng) {
