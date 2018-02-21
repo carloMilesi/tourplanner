@@ -18,7 +18,8 @@ export class PoiService {
 
   private proxy_url = 'http://seitre.crs4.it:3009/api/v1/';
   //private proxy_url = 'http://smartapi.crs4.it/tourplanner/api/v1/';
-  private proxy_url_optimize = 'http://192.167.144.196:5010/v1/requestTrip/';
+  //private proxy_url_optimize = 'http://192.167.144.196:5010/v1/requestTrip/';
+  private proxy_url_optimize = 'touristtrip.ddns.net5010';
 
   load(path, _cb?) {
     this.http.get(this.proxy_url + path)

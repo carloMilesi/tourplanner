@@ -254,10 +254,12 @@ insert_OpenData(pathway)
 {
   return new Promise((resolve, reject) => {
       this.http.post('http://seitre.crs4.it:3009/api/v1/pathway', pathway)
-      .subscribe(res => {
-        resolve(1);
+      .map(response => response.json())
+      .subscribe(result => {
+        
+        resolve(result.value);
       }, (err) => {
-        reject(0);
+        reject(-1);
       });
 
     });

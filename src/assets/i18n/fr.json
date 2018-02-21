@@ -82,6 +82,7 @@
     "POINT_ERASE_DESCRIPTION": "Vuoi eliminare questo punto dal percorso",
     "POINT_OP_TITLE": "Inserisci come Open Data",
     "POINT_OP_DESCRIPTION": "Vuoi rendere pubblico il tuo percorso?",
+    "POINT_OP_PRESENT": "Percorso già presente",
     "OP_SAVED": "Percorso salvato",
     "POINT_GET": "Nessun punto trovato",
     "WARNING": "Attention",

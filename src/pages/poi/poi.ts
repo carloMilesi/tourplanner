@@ -75,7 +75,6 @@ export class PoiRoot {
             this.pathwaysService.insert_OpenData(this.params.get('pathway'))
             .then( arr => {
               
-              
               if (arr == 1)  //ok
               {
                 let loading = this.loadingCtrl.create({
@@ -87,6 +86,25 @@ export class PoiRoot {
                     loading.dismiss();
                   }, 1000);
               }
+              else if (arr == 0) // record is present
+              {
+                let confirm2 = this.alertCtrl.create({
+                  title: this.translate.instant('PATHWAYS.POINT_OP_PRESENT'), 
+                  buttons: [
+                    {
+                      text: this.translate.instant('PATHWAYS.NEW_CANCEL'),
+                      handler: data => {
+                        console.log('Cancel clicked');
+                      }
+                      }]
+                    
+                  })
+                  confirm2.present();
+              }
+              else // ko
+              {
+
+              } 
               
               console.log(arr);
               
