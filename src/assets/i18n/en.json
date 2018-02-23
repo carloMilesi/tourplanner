@@ -71,6 +71,8 @@
     "MEDIUM": "Medium",
     "GOOD": "Good",
     "HIGH": "High",
+    "FROM": "From",
+    "TO": "To",
     "VERYHIGH": "Very high",
     "CONFIRM_ADD": "Pathway inserted!",
     "ADD_POINT": "Add points",

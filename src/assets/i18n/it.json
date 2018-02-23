@@ -71,6 +71,8 @@
     "MEDIUM": "media",
     "GOOD": "Buona",
     "HIGH": "Molto buona",
+    "FROM": "Dal",
+    "TO": "Al",
     "VERYHIGH": "Ottima",
     "CONFIRM_ADD": "Percorso inserito correttamente",
     "ADD_POINT": "Aggiungi punti",

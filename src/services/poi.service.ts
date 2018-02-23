@@ -76,7 +76,9 @@ export class PoiService {
             phone : data[i].data.phone,
             address: data[i].data.address,
             rating: data[i].rating,
-            time_to_visit: data[i].time_to_visit
+            time_to_visit: data[i].time_to_visit,
+            startDate: data[i].data.startDate,
+            endDate: data[i].data.endDate
         })
 
 

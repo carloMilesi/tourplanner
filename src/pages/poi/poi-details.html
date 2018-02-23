@@ -44,8 +44,13 @@
 
 
 
-  
+
   <p>{{selectedItem.description}}</p>
+
+<template [ngIf]="path && (path == 'events' || path == 'deals')">  
+<p >{{ "PATHWAYS.FROM" | translate}}: {{selectedItem.startDate | date: 'dd-MM-yyyy'}}, {{ "PATHWAYS.TO" | translate}}: {{selectedItem.endDate | date: 'dd-MM-yyyy'}}</p>
+</template>
+
   <map-component #details style="height: 50%"></map-component>
 
 </ion-content>
