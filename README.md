@@ -76,7 +76,7 @@ avviare la build sul device
   $ sudo ANDROID_HOME=/home/linux/Android/Sdk ionic cordova run android --device
 ```
 
-in questo caso le variabili di ambiente sono settate nella chiamata, il risultato sarà l'avviamento della app direttamente sul dispositivo.
+in questo caso le variabili di ambiente sono settate nella chiamata, il risultato sarà l'avviamento della app direttamente sul dispositivo. Il comando run esgue anche la build.
 
 
 ### Requisiti per installazione su Android ###
