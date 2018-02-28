@@ -70,7 +70,7 @@ aggiungere le variabile di ambiente ` HOME_ANDROID ` e ` PATH`  nel file ` ~/.ba
 
 
 
-avviare la build
+avviare la build sul device
 
 ```sh
   $ sudo ANDROID_HOME=/home/linux/Android/Sdk ionic cordova run android --device
