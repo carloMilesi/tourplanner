@@ -96,9 +96,9 @@ I seguenti requisiti sono richiesti da Ionic per il deploy del progetto su Andro
  * Google Repository 
  * Intel x86 Emulator Accellerator (per emulazione) 6.0.3
 
-### Compilazione e build del progetto IOS ###
+# Compilazione e build del progetto IOS #
 
-#### Step1: Certificate creation
+## Step1: Certificate creation
 * Create Apple developer Account
 * Add your Account to XCode: Menù: “Xcode” —> “preferences” —>”Account”
 * Go to Apple developer Portal to create a developer certificate.
@@ -114,30 +114,30 @@ I seguenti requisiti sono richiesti da Ionic per il deploy del progetto su Andro
 If you wish to edit the certificate (for example to add more devices), you can edit the provisioning profile in apple developer portal by clicking on it in the certificates list.
 
 
-#### Step2: Compile Ionic App
+## Step2: Compile Ionic App
 * Install ionic: 
-    ```sh 
-        npm install -g cordova ionic
-    ```
+```sh 
+    npm install -g cordova ionic
+```
 * Go to ionic project folder
 * Install dependencies: 
-    ```sh
-        npm install
-    ```
+```sh
+    npm install
+```
 * Add ios platform: 
-    ```sh
-        ionic cordova platform add ios
-    ```
+```sh
+    ionic cordova platform add ios
+```
 * App build:
-    ```sh
-        ionic cordova build ios
-    ```
+```sh
+    ionic cordova build ios
+```
  
 
-#### Step3: Deploy with Xcode
+## Step3: Deploy with Xcode
 You can deploy the app directly on the device through xcode on your development machine, or by generating an “.ipa” file to distribute the app on more devices.
 
-##### Direct Deploy
+### Direct Deploy
 * Go to ionic project folder
 * Go to folder platforms/ios/
 * Double click on a file with .xcworkspace extension named: <project_name>.xcworkspace
@@ -148,7 +148,7 @@ You can deploy the app directly on the device through xcode on your development 
 * Run it pressing the Run button
  
 
-##### Deploy with .ipa file
+### Deploy with .ipa file
 * Go to ionic project folder
 * Go to folder  platforms/ios/
 * Double click on a file with .xcworkspace extension named: <project_name>.xcworkspace
