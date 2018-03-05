@@ -116,22 +116,30 @@ If you wish to edit the certificate (for example to add more devices), you can e
 
 ## Step2: Compile Ionic App
 * Install ionic: 
+
 ```sh 
     npm install -g cordova ionic
 ```
+
 * Go to ionic project folder
 * Install dependencies: 
+
 ```sh
     npm install
 ```
+
 * Add ios platform: 
+
 ```sh
     ionic cordova platform add ios
 ```
+
 * App build:
+*
 ```sh
     ionic cordova build ios
 ```
+
  
 
 ## Step3: Deploy with Xcode
