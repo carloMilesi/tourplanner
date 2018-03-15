@@ -116,7 +116,7 @@ if (this._id)
                 {
                 text: this.translate.instant('PATHWAY'), // button pathway
                 handler: () => {
-                  this.viewCtrl.dismiss();
+                  //this.viewCtrl.dismiss(); ----------------------------------------
                    
                   //this.navController.remove(2,1);
                   
@@ -134,6 +134,13 @@ if (this._id)
                       }).then(() => {
                         //const index = this.navController.getActive().index;
                         console.log('push ' + this.navController.length());
+                        this.navController.remove(2,1)
+                        .then(() => {
+                         console.log('push push ' + this.navController.length());
+                        }
+                        , (err) => {console.log(err);}
+                        );
+                        //this.viewCtrl.dismiss();
                         //this.navController.remove(0, index);
                       }, (err) => {console.log('error push ' + err)}
                     );

@@ -133,12 +133,18 @@ export class PoiRoot {
          console.log('back ' + this.viewController.enableBack());
          console.log('first ' + this.viewController.isFirst());
          console.log('last ' + this.viewController.isLast());
-
-         this.navController.popToRoot()
+         
+         this.navController.pop()
+         //this.navController.popToRoot()
                                     .then(() => {
                                       //const index = this.navController.getActive().index;
+                                      this.viewController.dismiss();
                                       console.log('popRoot ' + this.navController.length());
-                                      //this.navController.remove(0, index);
+                                      /*
+                                      this.navController.remove(2, 1)
+                                      .then(() => {console.log('ok pop');}
+                                      , (err) => {console.log('ko pop');});
+                                      */
                                     }, (err) => {console.log('error pop ' + err)}
                                   );
 
