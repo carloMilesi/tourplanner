@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -22,9 +22,9 @@ export class MyApp {
     public platform: Platform, 
     public statusBar: StatusBar, 
     public splashScreen: SplashScreen,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private menuController: MenuController
 ) {
-
     this.initializeApp();
     this.translateService.setDefaultLang("en");
     
@@ -39,6 +39,12 @@ export class MyApp {
 
   }
 
+/*
+  ionViewDidEnter()
+  {
+    this.menuCtrl
+  }
+*/
   initializeApp() {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -49,6 +55,7 @@ export class MyApp {
     });
   }
 
+  
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
@@ -59,7 +66,7 @@ export class MyApp {
     if (this.splashScreen) {
       setTimeout(() => {
         this.splashScreen.hide();
-      }, 100);
+      }, 80);
     }
   }
 }

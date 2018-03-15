@@ -78,6 +78,7 @@ export class PathwaysService {
 
   }
 
+  // get all pathway
   init(_cb) {
     console.log("Initialization pathways array");
 
@@ -100,7 +101,133 @@ export class PathwaysService {
   }
 
 
+//get pathway by id
+getPathwayById(_id)
+{
+  return new Promise((resolve, reject) => {
+    
+    this.nativeStorage.getItem('pathways')
+    .then(data => {
+        console.log("Retreiving local storage pathways");
+        
+        if (Array.isArray(data))
+        {
+              let arr_data: any = [];
+              arr_data.unshift(data);
+              console.log(arr_data);
+              
+              for (let i = 0; i < arr_data[0].length; i++) {
+                
+                  if (arr_data[0][i]._id == _id)
+                  {
+                    //console.log(arr_data[0][i]);
+                    resolve(arr_data[0][i]);
+                  }
+                  else
+                    resolve([]);
+                }
+          }
+          else
+            resolve([]); 
+   },
+    (error) => {
+      console.error('Error retreiving local storage pathways')
+      console.log(JSON.stringify(error))
+      reject(error);
+      
+    });
+  });
 
+}
+
+
+// insert poi to pathway
+
+insertPoi(_id, poi)
+{
+        
+  return new Promise((resolve, reject) => {
+
+      this.getPathwayById(_id)
+          .then(pathway => {
+            //let p: any;
+            //p = pathway;
+            console.log('=> id');  
+            console.log(_id);
+            console.log('=> percorso');  
+            console.log(pathway);
+            console.log('=> poi da inserire');
+            console.log(poi);
+              let poiIndex = pathway['points'].filter(point => point.title === poi.title); // verifica se il punto è già presente
+              console.log('=> check presenza poi');
+              console.log(poiIndex.length);
+              if (poiIndex.length > 0) {
+                          resolve([]);
+                        }
+              else
+              {
+                pathway['points'].unshift(poi); //json del percorso
+                
+                console.log("updating pathways array for id " + pathway['_id'])
+                
+                this.nativeStorage.getItem('pathways')
+                          .then(
+                          (pathways) => {
+                            console.log("=> pathways");
+                            
+                            let a: any;
+                            a = pathway;
+                            let path = pathways.filter(p => p._id == a._id)[0];
+                            
+                            this.pathways = pathways;
+                            let index = this.pathways.indexOf(path);
+                            console.log('check presenza pathway index: ' + index);
+                            if (index > -1) {
+                              this.pathways.splice(index, 1)
+                              this.pathways.unshift(pathway);
+                              console.log(this.pathways);
+                              this.nativeStorage.setItem('pathways', this.pathways)
+                                    .then(
+                                    () => resolve(pathway),
+                                    error => console.error('Error while storing pathways', error)
+                                    );
+                              
+                            }
+                            else
+                              resolve([]);
+                            
+                          },
+                          (error) => {
+                            console.error('Error retreiving local storage pathways')
+                            console.log(JSON.stringify(error))
+                            reject([]);
+                            
+                          }
+                          );
+                
+                
+                
+                
+                
+                
+              }
+          },
+          (error) => {
+            console.error('Errore')
+            console.log(JSON.stringify(error));
+            resolve(error);
+          });
+
+  
+  
+  
+  
+  });
+
+}
+
+
+// insert pathway
 insertPathway(pathway, _cb)
 {
   this.nativeStorage.getItem('pathways')

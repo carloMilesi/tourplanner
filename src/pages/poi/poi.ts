@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController} from 'ionic-angular';
+import { NavController, ViewController, NavParams, AlertController, LoadingController} from 'ionic-angular';
 import { PoiListPage } from './poi-list';
 import { MapPage } from './poi-map';
 
 import { TranslateService } from 'ng2-translate';
 import { PathwaysService } from '../../services/pathways.service';
-
+import {PercorsiPage} from '../percorsi/percorsi';
 
 @Component({
   templateUrl: 'poi.html',
@@ -27,6 +27,7 @@ export class PoiRoot {
 
   constructor(
       private navController: NavController,
+      private viewController: ViewController,
       public params: NavParams,
       public pathwaysService: PathwaysService,
       public alertCtrl: AlertController,
@@ -44,8 +45,9 @@ export class PoiRoot {
       this.poiTitle  = params.get("path");
     else if (params.get("pathway"))
         this.poiTitle  = params.get("pathway").title;     
-  
-    this.poiParams = {pathway : params.get("pathway"), path : params.get("path") }; // i parametri sono passati nel template
+    
+        
+    this.poiParams = {pathway : params.get("pathway"), path : params.get("path"),  _id: params.get("_id")}; // i parametri sono passati nel template
     
     
     this.tab1 = PoiListPage;
@@ -115,6 +117,69 @@ export class PoiRoot {
       ]
     });
     confirm.present();
+    
+    
+  }
+
+  backPathwayPage()
+  {
+    //this.viewController.dismiss();
+         //popToRoot()
+    
+         console.log(this.navController.first());
+         console.log(this.navController.last());
+         console.log(this.navController.getViews());
+         console.log('lenght: ' + this.navController.length());
+         console.log('back ' + this.viewController.enableBack());
+         console.log('first ' + this.viewController.isFirst());
+         console.log('last ' + this.viewController.isLast());
+
+         this.navController.popToRoot()
+                                    .then(() => {
+                                      //const index = this.navController.getActive().index;
+                                      console.log('popRoot ' + this.navController.length());
+                                      //this.navController.remove(0, index);
+                                    }, (err) => {console.log('error pop ' + err)}
+                                  );
+
+
+                      //this.navController.remove(0, index);
+                    //}, (err) => {console.log('error remove ' + err)}
+         
+         /*
+         if (this.navController.length() > 2)
+          {
+                    this.navController.remove(this.navController.length(),1)
+                    .then(() => {
+                      const index = this.navController.getActive().index;
+                      
+                      this.navController.pop()
+                                    .then(() => {
+                                      //const index = this.navController.getActive().index;
+                                      
+                                      //this.navController.remove(0, index);
+                                    }, (err) => {console.log('error pop ' + err)}
+                                  );
+
+
+                      //this.navController.remove(0, index);
+                    }, (err) => {console.log('error remove ' + err)}
+                  );
+         }
+         */
+        /* 
+         this.navController.pop()
+         .then(() => {
+          const index = this.navController.getActive().index;
+          
+          //this.navController.remove(0, index);
+        }, (err) => {console.log(err)}
+      );
+      */   
+
+
+    //this.navController.push(PercorsiPage);
+    //this.navController.setRoot(PercorsiPage);
     
     
   }

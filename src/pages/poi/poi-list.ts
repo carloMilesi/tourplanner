@@ -1,5 +1,5 @@
 import { Component, ViewChild} from '@angular/core';
-import { Nav, ModalController, App, NavController, ViewController, NavParams, AlertController } from 'ionic-angular';
+import { Nav, ModalController, App, NavController, ViewController, NavParams, AlertController, MenuController } from 'ionic-angular';
 import { TranslateService } from 'ng2-translate';
 
 
@@ -38,9 +38,12 @@ export class PoiListPage {
       public app : App,
       public translate: TranslateService,
       public pathwaysService: PathwaysService,
-      public loadingCtrl: LoadingController
+      public loadingCtrl: LoadingController,
+      public menuController: MenuController
   ) {
     console.log("Poi list constructor  4")
+    
+    console.log(params.get('_id'));
 
     this.path = params.get('path');
     this.pathway = params.get('pathway');
@@ -115,7 +118,10 @@ createDifficulty(difficolta)
     console.log('itemTapped');
     console.log(item);
     
-    let modal = this.modalCtrl.create(PoiDetailsPage, {item, _path});
+    let _id: string = this.params.get('_id');
+    
+    console.log(_id);
+    let modal = this.modalCtrl.create(PoiDetailsPage, {item, _path, _id});
     modal.present();
      
     //this.app.getRootNav().push(PoiDetailsPage , {

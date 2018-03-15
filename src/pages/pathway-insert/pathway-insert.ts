@@ -190,10 +190,10 @@ saveItem(fields) {
       shopping = this.profilo_arr.shopping;
     }
     
-    
+    let _guid: string = this.guid();
   
      let pathway  = {
-      _id: this.guid() ,
+      _id: _guid ,
       dataIns: new Date().toISOString(),
       
       title: this.name.value,
@@ -251,7 +251,7 @@ if (this.puntoPartenza.value)
                                      //this.navCtrl.remove(2,1);
                                      this.viewCtrl.dismiss();
                                      if (type == 1) // first insert
-                                       this.navCtrl.push(CategoriesListPage);
+                                       this.navCtrl.push(CategoriesListPage, {_id: _guid});
                                      else if (type == 2)
                                        this.navCtrl.pop();
                                      

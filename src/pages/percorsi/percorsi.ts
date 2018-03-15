@@ -1,5 +1,5 @@
 import { Component, NgZone, Renderer } from '@angular/core';
-import { NavController, Platform, ViewController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, Platform, ViewController, NavParams, AlertController, MenuController } from 'ionic-angular';
 
 import { TranslateService } from 'ng2-translate';
 
@@ -30,12 +30,21 @@ export class PercorsiPage {
     public alertCtrl: AlertController,
     public pathwaysService: PathwaysService,
     public renderer: Renderer,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public menuController: MenuController
+    
   ) {
     this.path = navParams.get('_path');
     
     this.adding = navParams.get('adding');
+
+    console.log(navParams.get('================='));
+    console.log('_id pathaway - fast poi insert ' + navParams.get('_id'));
+    console.log(this.adding);
+     
     
+  
+  
     if (this.adding)
       this.renderer.setElementClass(viewCtrl.pageRef().nativeElement, 'my-popup', true);
 
@@ -67,6 +76,8 @@ refresh automatico della pagina
     });
   }
 
+
+  
 
 /**
 load dei percorsi
@@ -138,6 +149,8 @@ apertura form di inserimento
     this.viewCtrl.dismiss();
   }
 
+
+  // adding points to pathway
   handleItem(event, pathway) {
     
     if (this.adding) {

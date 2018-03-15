@@ -19,12 +19,16 @@ public categories : any = [ {title : this.translate.instant('PAGE_MONUMENTS'), p
                             {title : this.translate.instant('PAGE_MUSEUMS'), path : "museums"},
                             {title : this.translate.instant('PAGE_ARCHEOLOGY'), path : "archeology"},
                             {title : this.translate.instant('PAGE_GARDENS'), path : "gardens"},
+                            {title : this.translate.instant('PAGE_SHOPPING'), path : "shopping"}
                             //{title : this.translate.instant('PAGE_EVENTS'), path : "events"},
                             //{title : this.translate.instant('PAGE_RESTAURANTS'), path : "restaurants"}
                           ];
 
-  constructor(public navCtrl: NavController, navParams: NavParams,  public translate: TranslateService) {
-    // If we navigated to this page, we will have an item available as a nav param
+  constructor(public navCtrl: NavController
+    , public navParams: NavParams
+    ,  public translate: TranslateService) {
+    
+    
     this.selectedItem = navParams.get('item');
     this.items = [];
 
@@ -33,20 +37,7 @@ public categories : any = [ {title : this.translate.instant('PAGE_MONUMENTS'), p
     }
 
 
-    /*
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
-
-    for(let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
-
-     */
+    
   }
 
   itemTapped(event, item) {
@@ -55,6 +46,7 @@ public categories : any = [ {title : this.translate.instant('PAGE_MONUMENTS'), p
     // });
     this.navCtrl.push(PoiRoot, {
       path: item.path
+      , _id: this.navParams.get('_id')
     });
   }
 }
