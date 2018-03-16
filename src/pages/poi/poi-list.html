@@ -1,12 +1,17 @@
+
 <ion-header>
   <ion-navbar>
-    <button menuToggle>
+  <!--
+  
+      <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{ "TAB_LIST" | translate}}
+    
+    <ion-title>{{ "TAB_LIST" | translate}} 
     </ion-title>
-   
+ --> 
   </ion-navbar>
+
 </ion-header>
 
 
@@ -14,8 +19,9 @@
 <ion-content>
  
     
-
+<ion-item *ngIf="this.pathway">
 <button ion-button block *ngIf="this.pathway" (click)="optimizePathway()">{{optimizeContent}}</button>
+</ion-item>
 
   <ion-list>
 

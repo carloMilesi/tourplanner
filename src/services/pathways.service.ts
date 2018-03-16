@@ -152,8 +152,8 @@ insertPoi(_id, poi)
           .then(pathway => {
             //let p: any;
             //p = pathway;
-            console.log('=> id');  
-            console.log(_id);
+            console.log('============================ insertPoi');
+            console.log('=> id percorso: ' + _id);  
             console.log('=> percorso');  
             console.log(pathway);
             console.log('=> poi da inserire');

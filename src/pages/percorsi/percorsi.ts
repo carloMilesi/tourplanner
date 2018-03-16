@@ -50,7 +50,7 @@ export class PercorsiPage {
 
     if (navParams.get('poi')){
       this.poi_selected = navParams.get('poi');
-      this.poi_selected._id= this.guid(); ///assegna un id univoco ad ogni punto del percorso
+      this.poi_selected._id= this.guid(); ///assegna un id univoco ad ogni punto del percorso 
     }
 
 

@@ -77,8 +77,11 @@ export class PoiDetailsPage {
 */
 
 
+
 if (this._id)
 { 
+  
+  selectedItem._id = this.guid();  // aggiunge un guid al punto all'interno del percorso, analogo in percorsi.ts
   this.pathwaysService.insertPoi(this._id, selectedItem)
   .then(data => {
     console.log('=>risultato finale');
@@ -168,4 +171,16 @@ else
   }
 
 
+
+  guid() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+  }
+
+  
 }
