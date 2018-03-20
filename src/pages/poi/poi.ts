@@ -5,7 +5,6 @@ import { MapPage } from './poi-map';
 
 import { TranslateService } from 'ng2-translate';
 import { PathwaysService } from '../../services/pathways.service';
-import {PercorsiPage} from '../percorsi/percorsi';
 
 @Component({
   templateUrl: 'poi.html',

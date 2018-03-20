@@ -170,6 +170,7 @@ loadPois2(pois, category) {
                       animation: google.maps.Animation.DROP,
                       position: new google.maps.LatLng(this.items[i].lat, this.items[i].lng),
                     });
+                    console.log(this.items[i]);
                     this.addInfoWindow(marker, this.items[i], category);
                   
                     locations.push(marker);
@@ -231,6 +232,9 @@ Create marker popup
 
   addInfoWindow(marker, content, type) {
 
+    console.log(JSON.stringify(content.title));
+    
+    console.log(JSON.stringify(content));
     //console.log(content);
     let contentString: string;
     
@@ -239,14 +243,17 @@ Create marker popup
     {
         content.description = content.description.substr(0, 140) + '...';
     }
- 
+    
     // restaurants and events
-    if (type && (type == 'restaurants' ||type == 'events'))
+    if (type && (type == 'restaurants' ||type == 'events' || type == 'deals'))
     {
       if (type == 'restaurants')
           contentString = '<div><h5>'+content.title+'</h5><div>'+content.address+'</div><div style="margin-bottom: 4px">'+this.createRating(content.rating)+'</div></div>';
       if (type == 'events')
           contentString = '<div><h5>'+content.title+'</h5><img src="'+ content.thumbnail +'" style="height:120px; float: left; margin-right: 10px"><span>'+content.description+'</span></div>';
+      if (type == 'deals')
+          contentString = '<div><h5>'+content.title+'</h5><img src="'+ content.thumbnail +'" style="height:120px; float: left; margin-right: 10px"><span>'+content.description+'</span><span><br></span></div>';
+   
     }
     else
     {
