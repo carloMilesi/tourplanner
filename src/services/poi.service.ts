@@ -53,7 +53,7 @@ export class PoiService {
 
 
 
-      
+ // mapping dei metadata dei punti     
 
   dataToPoi(data){
     let res = [];
@@ -66,9 +66,12 @@ export class PoiService {
         thumbnail : data[i].image,
         photos : data[i].photo
       })*/
-        res.push({
+        
+      
+      res.push({
             title : data[i].data.title,
             description : data[i].data.description,
+            fk_category: data[i].fk_category,
             lat : data[i].data.latitude,
             lng : data[i].data.longitude,
             thumbnail : data[i].data.img,

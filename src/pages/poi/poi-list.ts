@@ -70,7 +70,7 @@ Load list of categories POI
     (data) => {
         
       console.log(data);
-      
+      // aggiunta metadata per l'optimizer
       this.items = data;
         for(let i = 0; i < this.items.length; i++){
           this.items[i].bgcolor = this.getColor();
