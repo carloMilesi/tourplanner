@@ -19,7 +19,6 @@ export class IconListComponent {
 
   createRating(rating)
   {
-    console.log(rating);
     
     let rate_str:string = '';
     
@@ -61,7 +60,7 @@ export class IconListComponent {
 
      }
         }
-        console.log(rate_str);
+        
         return '<div>aaaaaaaa</div><ion-icon name="heart" item-right style="color: red"></ion-icon>' + rate_str;
   }
 

@@ -81,7 +81,8 @@ export class PoiService {
             rating: data[i].rating,
             time_to_visit: data[i].time_to_visit,
             startDate: data[i].data.startDate,
-            endDate: data[i].data.endDate
+            endDate: data[i].data.endDate,
+            accessibility: data[i].accessibility
         })
 
 
