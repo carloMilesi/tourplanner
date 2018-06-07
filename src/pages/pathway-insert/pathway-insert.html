@@ -28,7 +28,7 @@
     
     <ion-item>
       <ion-label floating>{{ "PATHWAYS.DATE" | translate}}</ion-label>
-      <ion-datetime displayFormat="DD-MM-YYYY" pickerFormat="DD-MM-YYYY" formControlName="dataInizio"></ion-datetime>
+      <ion-datetime displayFormat="DD-MM-YYYY HH:mm a" pickerFormat="DD-MM-YYYY HH:mm" formControlName="dataInizio" ></ion-datetime>
     </ion-item>
     <ion-item *ngIf="dataInizio.hasError('required') && dataInizio.touched">
     <p>{{ "PATHWAYS.VALIDATION1" | translate}}</p>
