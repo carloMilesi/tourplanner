@@ -163,9 +163,18 @@ export class MapPage {
       let center_point: any = this.getCenter(this.pathway);
       //console.log(center_point);
       
-      
+
+
       let url_param = category +'?lat=' + center_point.lat + '&lng=' + center_point.lng;
-    this.poiService.load(url_param, pois => {
+    /*
+      if  (category == 'deals')
+      {
+        url_param = += '&data_inizio='+ this.pathway.date_start
+      }
+  */
+    
+    
+      this.poiService.load(url_param, pois => {
       
       if (pois.length == 0)
       { 

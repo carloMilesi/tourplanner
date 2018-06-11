@@ -30,6 +30,7 @@ difficolta: AbstractControl;
 puntoPartenza: AbstractControl;
 difficolta_str: string = this.translate.instant('PATHWAYS.LOW');
 
+
 _pathways: Array<any> = [];
 profilo_arr: any;
 
@@ -42,17 +43,24 @@ profilo_arr: any;
     , public translate: TranslateService
     , public alertCtrl: AlertController
     , private datePipe: DatePipe
-    ) {
+    
+   ) {
   
   /*
   ionViewDidLoad() {
     console.log('ionViewDidLoad PathwayInsertPage');
   */
+ 
+ 
+  let today_date = new Date().toISOString();
+if (this.dst(new Date())) {
+  today_date = this.calculateTime('+2');
+}
 
-  this.formgroup = formbuilder.group(
+ this.formgroup = formbuilder.group(
          {
            name: ['', Validators.compose([Validators.required, Validators.maxLength(24)])],
-           dataInizio: [new Date().toISOString(), Validators.required],
+           dataInizio: [today_date, Validators.required],
            profilo: ['0'],
            puntoPartenza: ['porto'],
            durata: ['60'],
@@ -170,9 +178,28 @@ guid() {
 
 saveItem(fields) {
 	
-    let date_start = this.datePipe.transform(new Date().toISOString(), 'yyyy-MM-dd');
+    let date_start: string;
     let difficulty = this.difficolta.value;
     let duration = this.durata.value;
+    
+    console.log(this.dataInizio.value);
+    // gestione elemento datetime ionic se non selezionato rende una stringa
+   
+   try
+    {
+      //let date_p = JSON.parse(this.dataInizio.value);
+      date_start =  this.dataInizio.value.year + '-'+this.dataInizio.value.month + '-'+this.dataInizio.value.day + ' '+this.dataInizio.value.hour + ':'+this.dataInizio.value.minute;
+      date_start = this.datePipe.transform(date_start,  'yyyy-MM-dd HH:mm');
+      
+      }
+    catch (ex)
+    {
+      //console.log(ex);
+       
+      date_start = this.datePipe.transform(Date().toString(),  'yyyy-MM-dd HH:mm');
+      }
+    
+console.log(date_start);
 
 
     let monuments: number = 1;
@@ -293,6 +320,33 @@ if (this.puntoPartenza.value)
   return diff;
 
  } 
+
+
+// gestione della data  --------------------------------------------------------------------- //
+
+ calculateTime(offset: any) {
+  // create Date object for current location
+  let d = new Date();
+
+  // create new Date object for different city
+  // using supplied offset
+  let nd = new Date(d.getTime() + (3600000 * offset));
+
+  return nd.toISOString();
+}
+
+// Determine if the client uses DST
+stdTimezoneOffset(today: any) {
+  let jan = new Date(today.getFullYear(), 0, 1);
+  let jul = new Date(today.getFullYear(), 6, 1);
+  return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+}
+
+dst(today: any) {
+  return today.getTimezoneOffset() < this.stdTimezoneOffset(today);
+}
+
+// ------------------------------------------------------------------------------------- //
 
 
 }

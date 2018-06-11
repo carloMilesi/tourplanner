@@ -6,6 +6,8 @@ import { MapPage } from './poi-map';
 import { TranslateService } from 'ng2-translate';
 import { PathwaysService } from '../../services/pathways.service';
 
+import { SocialSharing } from '@ionic-native/social-sharing';
+
 @Component({
   templateUrl: 'poi.html',
   providers: [PathwaysService]
@@ -31,7 +33,8 @@ export class PoiRoot {
       public pathwaysService: PathwaysService,
       public alertCtrl: AlertController,
       public loadingCtrl: LoadingController,
-      public translate: TranslateService
+      public translate: TranslateService,
+      private socialSharing: SocialSharing
 ) {
     console.log("Poi root constructor")
     console.log("item param: " + JSON.stringify(params.get('path')))
@@ -188,5 +191,55 @@ export class PoiRoot {
     
     
   }
+
+  smsShare() {
+    this.socialSharing.shareViaSMS("shareViaSMS", "cagliari2020").then(() => {
+      console.log("shareViaSMS: Success");
+    }).catch(() => {
+      console.error("shareViaSMS: failed");
+    });
+  }
+  whatsappShare() {
+    this.socialSharing.shareViaWhatsApp("shareViaWhatsApp", 'img/ristoranti.jpg', null).then(() => {
+      console.log("shareViaWhatsApp: Success");
+    }).catch(() => {
+      console.error("shareViaWhatsApp: failed");
+    });
+  }
+
+  facebookShare() {
+    
+    let data_path  = this.params.get('pathway');
+    
+    for (let i=0; i<data_path.points.length; i++){ 
+     
+      data_path.points[i].description = '';
+      data_path.points[i].thumbnail = '';
+      data_path.points[i].bgcolor = '';
+      data_path.points[i]._id = '';
+      console.log(data_path.points[i]);
+       }
+       console.log("*****************************************************");
+       console.log(data_path);
+       let link = "http://smartapi.crs4.it/tourplanner/pathway.html?path="+encodeURIComponent( JSON.stringify(data_path));
+       console.log(link);
+    
+       //link = "https://www.getyourguide.it/-l4357/?dev=a&cmp=bing&campaign_id=326332106&adgroup_id=1256742007121053&target_id=kwd-78546522531437:loc-93&match_type=p%20&ad_id=78546418511985&msclkid=9cdf40dc4757110923ad1bca1af9ebff&loc_physical_ms=1861&feed_item_id=&keyword=parlamento&partner_id=CD951&utm_medium=paid_search&utm_source=bing&utm_campaign=united%20kingdom%3A35%7Ccore%7Cit%7Call&utm_term=parlamento";
+
+       //this.socialSharing.shareViaFacebook("Hai inserito un nuovo percorso con l'app di Cagliari port 2020!",null, "https://www.google.com/search?safe=active&client=firefox-b-ab&ei=t18OW5DGLsbTgAbL_7TgDQ&q=googlemaps+create+pathway&oq=googlemaps+create+pathway&gs_l=psy-ab.12...0.0.0.1116288.0.0.0.0.0.0.0.0..0.0....0...1c..64.psy-ab..0.0.0....0.1et3WGKzw8c").then(() => {
+    
+      this.socialSharing.shareViaFacebook("Hai inserito un nuovo percorso con l'app di Cagliari port 2020!" ,null, link).then(() => {
+    
+   
+    console.log("shareViaFacebook: Success");
+      //JSON.stringify(this.params.get('pathway'):
+
+    }).catch((err) => {
+      console.error("shareViaFacebook: failed");
+      console.log(err);
+    });
+  }
+
+
 
 }

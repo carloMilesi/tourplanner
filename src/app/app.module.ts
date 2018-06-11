@@ -26,6 +26,8 @@ import { SettingsPage } from '../pages/settings/settings';
 import { HttpModule } from '@angular/http';
 import { Http } from '@angular/http';
 
+import { SocialSharing } from '@ionic-native/social-sharing';
+
 import {
 TranslateModule,
 TranslateStaticLoader,
@@ -90,7 +92,8 @@ export function createTranslateLoader(http: Http) {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     NativeStorage,
-    Geolocation
+    Geolocation,
+    SocialSharing
   ]
 })
 export class AppModule {}

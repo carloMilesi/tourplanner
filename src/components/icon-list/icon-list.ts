@@ -61,7 +61,7 @@ export class IconListComponent {
      }
         }
         
-        return '<div>aaaaaaaa</div><ion-icon name="heart" item-right style="color: red"></ion-icon>' + rate_str;
+        return '<div></div><ion-icon name="heart" item-right style="color: red"></ion-icon>' + rate_str;
   }
 
 }
