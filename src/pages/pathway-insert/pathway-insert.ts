@@ -178,11 +178,11 @@ guid() {
 
 saveItem(fields) {
 	
-    let date_start: string;
+    let date_start:  any;
+    let d_start: any;
     let difficulty = this.difficolta.value;
     let duration = this.durata.value;
     
-    console.log(this.dataInizio.value);
     // gestione elemento datetime ionic se non selezionato rende una stringa
    
    try
@@ -191,16 +191,23 @@ saveItem(fields) {
       date_start =  this.dataInizio.value.year + '-'+this.dataInizio.value.month + '-'+this.dataInizio.value.day + ' '+this.dataInizio.value.hour + ':'+this.dataInizio.value.minute;
       date_start = this.datePipe.transform(date_start,  'yyyy-MM-dd HH:mm');
       
-      }
+
+      //console.log(new Date(date_start + (3600000 * this.dataInizio.value.tzOffset)));
+      
+      //date_start = this.datePipe.transform(date_start,  'yyyy-MM-dd HH:mm');
+      d_start = new Date(date_start); 
+      
+    }
     catch (ex)
     {
-      //console.log(ex);
-       
-      date_start = this.datePipe.transform(Date().toString(),  'yyyy-MM-dd HH:mm');
+     //date_start = this.datePipe.transform(Date().toString(),  'yyyy-MM-dd HH:mm');
+      d_start = new Date(this.dataInizio.value) ;
+      d_start = new Date(d_start.getTime() - (3600000 * 2));
       }
     
-console.log(date_start);
+//console.log('data_start: '+ this.dataInizio.value + '  ' + d_start.toISOString() + '');
 
+      
 
     let monuments: number = 1;
     let gardens: number = 1;
@@ -224,7 +231,7 @@ console.log(date_start);
       dataIns: new Date().toISOString(),
       
       title: this.name.value,
-      date: date_start,
+      date: d_start.toISOString(),
       puntoPartenza: this.puntoPartenza.value,
       profile: this.profilo.value,
       difficolta: difficulty,

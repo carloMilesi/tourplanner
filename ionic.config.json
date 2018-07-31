@@ -1,6 +1,5 @@
 {
   "name": "TourPlanner",
-  "app_id": "",
   "integrations": {
     "cordova": {}
   },

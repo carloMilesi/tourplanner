@@ -30,6 +30,7 @@
         <p style="margin-top: 8px">
           <ion-icon range-left  color="danger" name="pin" style="margin-right: 4px"></ion-icon><span style="margin-right: 10px">{{item.points.length}}</span>  
           <ion-icon range-left  name="person" style="margin-right: 4px"></ion-icon><span style="margin-right: 10px">{{profileTranslate(item.profile)}}</span>
+          <ion-icon range-left  name="calendar" style="margin-right: 4px"></ion-icon><span style="margin-right: 10px">{{item.date |  date: 'dd-MM-yyyy  HH:mm'}}</span>
         </p>
       </span>
       <ion-icon *ngIf="!adding" name="close-circle" (click)="removePathway(event, item)"  clear item-right></ion-icon>
