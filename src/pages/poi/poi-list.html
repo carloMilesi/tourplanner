@@ -18,31 +18,45 @@
 
 <ion-content>
  
+
     
+        
 <ion-item *ngIf="this.pathway">
-<button ion-button block *ngIf="this.pathway" (click)="optimizePathway()">{{optimizeContent}}</button>
+    <ion-row>
+      <ion-col col-6>
+          <button *ngIf="pathway" ion-button    (click)="optimizePathway(1)"><ion-icon name="walk" style="margin-right: 4px"></ion-icon> <span style="font-size: 12px">{{optimizeContent}}</span></button>
+      </ion-col>
+      <ion-col col-6>
+          <button *ngIf="pathway" ion-button   (click)="optimizePathway(2)" style="background-color: #fe7800;  "><ion-icon name="bus" style="margin-right: 4px"></ion-icon><span style="font-size: 12px">{{optimizeContent}}</span></button>
+    </ion-col>
+    </ion-row>
 </ion-item>
 
   <ion-list>
 
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)" (swipe)="deletePoint(event, item)">
+    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)" (swipe)="deletePoint(event, item)" [ngStyle]="{'background-color': item.fermata? '#fe7800' : ''}">
       
       <ion-thumbnail item-left >
         
-        
+          <ng-template [ngIf]="(item.fermata == 'CTM') "><img src="img/ctm_big.png" style="height:20%"></ng-template>
           <ng-template [ngIf]="(item.title == 'Cagliari port') &&  (item.thumbnail == '' || item.thumbnail === undefined)"><img src="img/cp_logo.png" style="height:100%"></ng-template>
-          <ng-template [ngIf]="(item.title != 'Cagliari port') &&  (item.thumbnail == '' || item.thumbnail === undefined)"><div id="profileImage" class="profileImg" [ngStyle]="{'backgroundColor': item.bgcolor}"> {{ item.title.substr(0, 1) }}</div></ng-template>
+          <ng-template [ngIf]="(item.title != 'Cagliari port') && (item.fermata === undefined)  &&  (item.thumbnail == '' || item.thumbnail === undefined)"><div id="profileImage" class="profileImg" [ngStyle]="{'backgroundColor': item.bgcolor}"> {{ item.title.substr(0, 1) }}</div></ng-template>
           <ng-template [ngIf]="item.thumbnail != '' && item.thumbnail != undefined"><img src="{{ item.thumbnail }}" style="height:100%"></ng-template>
 
 
 
       </ion-thumbnail>
-
-      <h2>{{ item.title }} </h2>
       
+      <h2>
+        <ng-template [ngIf]="(item.fermata == 'CTM') ">{{ "line" | translate}} {{item.linea}} </ng-template>
+        <ng-template [ngIf]="(!item.fermata) "> {{ item.title }} </ng-template>
+      </h2>
+       
+       
       
       <div>
-      <ng-template [ngIf]="item.description != undefined && item.description.length >=35"><h4>{{ item.description.substr(0, 35) }}...</h4></ng-template>
+          <ng-template [ngIf]="(item.fermata == 'CTM') "><h4>{{ "bus_stop" | translate}} {{item.title}}</h4></ng-template>
+        <ng-template [ngIf]="item.description != undefined && item.description.length >=35"><h4>{{ item.description.substr(0, 35) }}...</h4></ng-template>
       <ng-template [ngIf]="item.description != undefined && item.description.length <35"><h4>{{ item.description }}</h4></ng-template>
       </div>
       

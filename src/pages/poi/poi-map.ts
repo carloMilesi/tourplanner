@@ -46,7 +46,7 @@ export class MapPage {
 
       if (this.pathway) {
         // load pathway optimized or not
-        this.optimizePathway();
+        this.optimizePathway(1);
       } 
       else 
       {
@@ -78,7 +78,7 @@ export class MapPage {
 
 
 
-  optimizePathway(){
+  optimizePathway(_type){
     let loading = this.loadingCtrl.create({
       spinner: 'circles'
       //content: 'This will navigate to the next page and then dismiss after 3 seconds.'
@@ -93,38 +93,54 @@ export class MapPage {
     let origin: any;
     let destination: any;
     let waypts: any;
-  
+    
+    timeOut_value = 1000;
+
     if (this.checkOptimize == 0)
     {
-      timeOut_value = 4000;
-      
       optimize = 1;
       optimizeLabel = this.translate.instant('PATHWAYS.NO_OPTIMIZE_BUTTON');  
       
-      
-      this.poiService.load_optimize(this.pathway,
+      this.poiService.load_optimize(_type, this.pathway,
           (data) => {
-      
-            origin = data.Points[0];
-            destination = data.Points[data.Points.length-1];
-            waypts = data.Points;
-            p = data.Points;
-           
-            
+                 if (!data.error)
+                {
+                              origin = data.Points[0];
+                              destination = data.Points[data.Points.length-1];
+                              waypts = data.Points;
+                              p = data.Points;
+                            
+                              
+                            this.myMap.loadPois(p, "pathway", this.path);
+                            
+                            // pathway
+                            this.myMap.calculateAndDisplayRoute(origin, destination, waypts);
+                        
+                            // extra point
+                            let extraPoint = this.pathwaysService.countExtraPoint(this.pathway.points, data.Points);
+                            if (extraPoint != 0)
+                            {
+                              this.myMap.loadMultiPois(extraPoint, '', 'ex');
+                            }
+                            
+                            
+                            setTimeout(() => {
+                              loading.dismiss();
+                              this.checkOptimize = optimize;
+                              this.optimizeContent =  optimizeLabel;
+                            }, 1000);
 
-           this.myMap.loadPois(p, "pathway", this.path);
-          
-           // pathway
-           this.myMap.calculateAndDisplayRoute(origin, destination, waypts);
-      
-           // extra point
-           let extraPoint = this.pathwaysService.countExtraPoint(this.pathway.points, data.Points);
-           if (extraPoint != 0)
-           {
-            this.myMap.loadMultiPois(extraPoint, '', 'ex');
-           } 
 
-            });
+                  }
+                  else
+                  {
+                            console.log(data.error);
+                            optimize = 0;
+                            optimizeLabel = this.translate.instant('PATHWAYS.NO_OPTIMIZE_BUTTON');
+                            loading.dismiss();
+                            
+                  }
+            })
      
     }
     else
@@ -141,16 +157,25 @@ export class MapPage {
   
      this.myMap.loadPois(p, "pathway", this.path);
      this.myMap.calculateAndDisplayRoute(origin, destination, waypts);
-      
+    
+     setTimeout(() => {
+      loading.dismiss();
+      this.checkOptimize = optimize;
+      this.optimizeContent =  optimizeLabel;
+    }, 1000); 
+
+
       
       }
  
+   /*   
     setTimeout(() => {
       loading.dismiss();
       this.checkOptimize = optimize;
       this.optimizeContent =  optimizeLabel;
     }, timeOut_value);
- 
+ */
+
 }
 
 

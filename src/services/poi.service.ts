@@ -18,7 +18,8 @@ export class PoiService {
 
   //private proxy_url = 'http://seitre.crs4.it:3009/api/v1/';
   private proxy_url = 'http://smartapi.crs4.it/tourplanner/api/v1/';
-  private proxy_url_optimize = 'http://192.167.144.196:5010/v1/requestTrip/';
+  private proxy_url_optimize = 'http://192.167.149.139:5010/v1/requestTrip/';   //walk
+  private proxy_url_optimize_mixed= 'http://192.167.149.139:5010/v2/requestTrip/'; //wolk and bus
   //private proxy_url_optimize = 'touristtrip.ddns.net5010';
 
   load(path, _cb?) {
@@ -34,9 +35,15 @@ export class PoiService {
 
   }
 
-  load_optimize(params, _cb?)
+  load_optimize(opt_type, params, _cb?)
   {
-    this.http.post(this.proxy_url_optimize, params)
+    let url_optimize = this.proxy_url_optimize;
+    
+    if (opt_type == 2)
+      url_optimize = this.proxy_url_optimize_mixed;
+     
+    
+    this.http.post(url_optimize, params)
       .map(res => res.json())
       .catch((err) => {
                 
@@ -68,6 +75,14 @@ export class PoiService {
       })*/
         
       
+    // bus stop poi
+    let fk_category = data[i].fk_category;
+
+    if (data[i].fermata == 'CTM')
+      {
+        fk_category = 100;
+       }
+    
       res.push({
             title : data[i].data.title,
             description : data[i].data.description,

@@ -42,9 +42,11 @@ export class PoiDetailsPage {
     this.map_details.setMapHeight("50%");
     this.map_details.loadMap(this.selectedItem);
     
+    console.log('-------------------------');
     console.log(this.path);
     console.log(this.selectedItem);
-    this.selectedItem.category = this.translate.instant('PAGE_' + this.selectedItem.category.toUpperCase());
+    if (this.selectedItem.category)
+      this.selectedItem.category = this.translate.instant('PAGE_' + this.selectedItem.category.toUpperCase());
     
   }
 

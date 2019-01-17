@@ -14,9 +14,19 @@
 
   <ion-grid>
   <ion-row>
+      <ng-template [ngIf]="selectedItem.fermata  && selectedItem.fermata != undefined">  
     <ion-col col-10 style="border: 0px solid #000">
-        <h1>{{selectedItem.title}}</h1>
+        <ion-col col-10 style="border: 0px solid #000">
+            <h1><img src='img/ctm.png' style='float: left; margin-right: 10px'>CTM {{ "line" | translate}}: {{selectedItem.linea}}</h1>
+            <p>{{ "bus_stop" | translate}} {{selectedItem.title}}</p>
+        </ion-col>
     </ion-col>
+    </ng-template>
+    <ng-template [ngIf]="!selectedItem.fermata  || selectedItem.fermata == undefined">  
+        <ion-col col-10 style="border: 0px solid #000">
+            <h1>{{selectedItem.title}}</h1>
+        </ion-col>
+        </ng-template>
     <ion-col col-2 style="border: 0px solid #000"> 
       <ng-template [ngIf]="path && (path != 'restaurants' && path != 'events' && path != 'deals')"><button ion-button clear (click)="openPathways($event, selectedItem)"> <ion-icon name="md-add-circle"  color="blue" style="font-size: 40px;"></ion-icon></button></ng-template>
     </ion-col>
@@ -25,7 +35,7 @@
       <p>{{selectedItem.category}}</p>
   </ion-row>
   
-  <ng-template [ngIf]="path != 'deals'">
+  <ng-template [ngIf]="path !== 'deals' && path != undefined">
   <ion-row>
       <ion-col col-6 style="border: 0px solid #000">
         <star-rating [value]="selectedItem.rating"></star-rating>
@@ -49,9 +59,9 @@
 
   <p>{{selectedItem.description}}</p>
 
-<template [ngIf]="path && (path == 'events' || path == 'deals')">  
+<ng-template [ngIf]="path && (path == 'events' || path == 'deals')">  
 <p >{{ "PATHWAYS.FROM" | translate}}: {{selectedItem.startDate | date: 'dd-MM-yyyy'}}, {{ "PATHWAYS.TO" | translate}}: {{selectedItem.endDate | date: 'dd-MM-yyyy'}}</p>
-</template>
+</ng-template>
 
   <map-component #details style="height: 50%"></map-component>
 

@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Platform, ModalController, NavController } from 'ionic-angular';
 import { PoiDetailsPage } from './poi-details';
+import { TranslateService } from 'ng2-translate';
 
 declare var google;
 declare var MarkerClusterer;
@@ -28,7 +29,8 @@ export class MapComponent {
   constructor(public nav: NavController
     , public platform: Platform
     , public zone: NgZone
-    , public modalCtrl: ModalController) 
+    , public modalCtrl: ModalController
+    ,  public translate: TranslateService,) 
     {
     console.log("Map constructor")
     this.nav = nav;
@@ -88,7 +90,7 @@ let locations: any = [];
 
         for (let i = 0; i < this.items.length; i++) {
           if (this.items[i].lat && this.items[i].lng) {
-          
+         
             let marker = new google.maps.Marker({
               map: this.map,
               animation: google.maps.Animation.DROP,
@@ -199,7 +201,7 @@ loadPois2(pois, category) {
       if (this.items[i].lat && this.items[i].lng)
         bound.extend(new google.maps.LatLng(this.items[i].lat, this.items[i].lng));
 
-    console.log("center of the map: " + bound.getCenter().toString());
+    //console.log("center of the map: " + bound.getCenter().toString());
     // let zoom = this.getMapZoom(bound);
     _cb(bound);
   }
@@ -232,10 +234,7 @@ Create marker popup
 
   addInfoWindow(marker, content, type) {
 
-    console.log(JSON.stringify(content.title));
     
-    console.log(JSON.stringify(content));
-    //console.log(content);
     let contentString: string;
     
     // marker extended description
@@ -253,7 +252,8 @@ Create marker popup
           contentString = '<div><h5>'+content.title+'</h5><img src="'+ content.thumbnail +'" style="height:120px; float: left; margin-right: 10px"><span>'+content.description+'</span></div>';
       if (type == 'deals')
           contentString = '<div><h5>'+content.title+'</h5><img src="'+ content.thumbnail +'" style="height:120px; float: left; margin-right: 10px"><span>'+content.description+'</span><span><br></span></div>';
-   
+      if (type == 'map_optimize') //points in optimized map
+          contentString = content;
     }
     else
     {
@@ -316,7 +316,7 @@ createRating(rating)
   calculateAndDisplayRoute(origin, destination ,waypts){
 
     console.log("FUNCTION calculateAndDisplayRoute ");
-
+    console.log(waypts);
     /**
      * waypoints[]specifies an array of DirectionsWaypoints.
      * Waypoints alter a route by routing it through the specified location(s).
@@ -336,7 +336,7 @@ createRating(rating)
     //tutti i title
     for (let i in waypts){
       if(waypts[i].lat && waypts[i].lng){
-        waypoints_titles.push({ title : waypts[i].title});
+        waypoints_titles.push({ title : waypts[i].title, fk_category:  waypts[i].fk_category, linea: waypts[i].linea});
       }
     }
 
@@ -359,20 +359,20 @@ createRating(rating)
         provideRouteAlternatives: false,
         travelMode: 'WALKING'
       };
-      //console.log("routeRequest: " + JSON.stringify(routeRequest));
+      
       this.directionsService.route(routeRequest, (response, status) => {
-        //console.log('status directionservice.route: ' + status);
+        
 
         if (status === 'OK') {
           this.directionsDisplay.setDirections(response);
-          //console.log(JSON.stringify(response));
+          
           this.showSteps(response, waypoints_titles);
         } else {
           window.alert('Directions request failed due to ' + status);
         }
 
       });
-      //console.log("route response: " + this.routeResponse);
+      
     }
   }
 
@@ -384,24 +384,28 @@ createRating(rating)
     var myRoute = directionResult.routes[0];
     var icon : string; 
     
+    
     for (var i = 0; i < myRoute.legs.length; i++) {
-      
+     
       icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000";
 
-      //let icon = "https://chart.googleapis.com/chart?chst=d_bubble_icon_text_big&chld=glyphish_walk|edge_bl|"+waypts_titles[i].title+"|4C9E21|000000";
-      //console.log(icon);
-      //console.log(waypts_titles[i].title.substring(0,5));
-      //console.log(waypts_titles[i].title);
-     
-     if (waypts_titles[i].title.substring(0,5) == "Start")
+      
+
+     if (waypts_titles[i].title.substring(0,5) == "Start") //port start
      {
           if (i == 0 || i == myRoute.legs.length) {
-             
              icon = "img/logo_icon.png";
           }
-          waypts_titles[i].title = "Cruise terminal";
-        //icon = "https://chart.googleapis.com/chart?chst=d_map_spin&chld=3|0|green|12|arial|"+waypts_titles[i].title;
+          waypts_titles[i].title = "<div><h5>Cruise terminal</h5></div>";
       }
+      else if (waypts_titles[i].fk_category == undefined || waypts_titles[i].fk_category == 100) // ctm icon
+      {
+        console.log('CTM');
+        icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|FE7900|FFFFFF";
+        waypts_titles[i].title = "<div><h5><img src='img/ctm.png' style='float: left; margin-right: 10px'>CTM " + this.translate.instant('line') + " " + waypts_titles[i].linea + "</h5></div><span>"+ this.translate.instant('bus_stop') + ": " + waypts_titles[i].title +"</span>";
+      }
+      
+
       var marker = new google.maps.Marker({
         position: myRoute.legs[i].start_location,
         animation: google.maps.Animation.DROP,
@@ -409,29 +413,38 @@ createRating(rating)
         icon: icon
       });
       this.addInfoWindow(marker, waypts_titles[i].title, null);
-      //console.log(waypts_titles[i].title);
       this.markerArray.push(marker);
     }
     
-    //console.log(waypts_titles[i].title);
-    //console.log(waypts_titles[i].title.substring(0,5));
-    if (waypts_titles[i].title.substring(0,5) == "Stop_")
+  
+ // menage last point of the pathway
+    
+    if (waypts_titles[i].title.substring(0,5) == "Stop_")  //port stop
      {
           icon = "img/logo_icon.png";
-          waypts_titles[i].title = "Cruise terminal";
-        //icon = "https://chart.googleapis.com/chart?chst=d_map_spin&chld=3|0|green|12|arial|"+waypts_titles[i].title;
+          waypts_titles[i].title = "<div><h5>Cruise terminal</h5></div>";
       }
-      else
-          icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000";
-
+      else //last POI
+      {
+        if (waypts_titles[i].fk_category == undefined || waypts_titles[i].fk_category == 100) // ctm icon, this case is not real
+      {
+        icon = "https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|FE7900|FFFFFF";
+        waypts_titles[i].title = "<div><h5><img src='img/ctm.png' style='float: left; margin-right: 10px'>CTM " + this.translate.instant('line') + " " + waypts_titles[i].linea + "</h5></div><span>"+ this.translate.instant('bus_stop') + ": " + waypts_titles[i].title +"</span>";
+      }
+      else  
+      {
+      icon ="https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000";
+        waypts_titles[i].title = "<div><h5>" + waypts_titles[i].title + "</h5></div>";
+      }
+      }
 
     var marker = new google.maps.Marker({
       position: myRoute.legs[i - 1].end_location,
       animation: google.maps.Animation.DROP,
       map: this.map,
-      icon: icon //"https://chart.googleapis.com/chart?chst=d_fnote&chld=balloon|1|000000|h|"+waypts_titles[i].title //"https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=" + (i+1) + "|4C9E21|000000" //"https://chart.googleapis.com/chart?chst=d_map_pin_icon&chld=flag|ADDE63"
+      icon: icon 
     });
-    this.addInfoWindow(marker, waypts_titles[i].title, null);
+    this.addInfoWindow(marker, waypts_titles[i].title, 'map_optimize');
     //console.log(waypts_titles[i].title);
     this.markerArray.push(marker);
   }

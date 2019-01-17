@@ -36,6 +36,9 @@
   "events": "Événements",
   "restaurants": "Restaurants",
   
+  "bus_stop": "Bus stop",
+  "Line": "Line",
+  
   "PROFILE": "Your profile",
   "CUSTOM_PROFILE": "Custom",
   "cat1": "Senior",
@@ -90,7 +93,7 @@
     "WARNING": "Attention",
     "EXCLUDE_POINT": "Certains points ne peuvent être atteints dans le délai indiqué",
     "OPTIMIZE_BUTTON": "Optimize pathway",
-    "NO_OPTIMIZE_BUTTON": "View original pathway",
+    "NO_OPTIMIZE_BUTTON": "View original path",
     "POI_EXCLUDED": "Excluded PoI"
   },
 

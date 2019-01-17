@@ -36,6 +36,9 @@
   "events": "Eventi",
   "restaurants": "Ristoranti",
   
+  "bus_stop": "Fermata",
+  "Line": "Linea",
+
   "PROFILE": "Il tuo profilo",
   "CUSTOM_PROFILE": "Personalizzato",
   "cat1": "Senior - Crociera addicted",
@@ -90,7 +93,7 @@
     "WARNING": "Attenzione",
     "EXCLUDE_POINT": "Alcuni punti non sono raggiungibili nel tempo indicato",
     "OPTIMIZE_BUTTON": "Ottimizza percorso",
-    "NO_OPTIMIZE_BUTTON": "Vedi percorso originale",
+    "NO_OPTIMIZE_BUTTON": "Vedi originale",
     "POI_EXCLUDED": "PoI esclusi"
   },
     

@@ -50,7 +50,7 @@ export class PoiListPage {
     
 
     if(this.pathway){
-      this.optimizePathway();
+      this.optimizePathway(1);
       
     }
     else {
@@ -180,7 +180,7 @@ createDifficulty(difficolta)
  * outputs the pois of the pathway, optimized or not (parameter checkOptimize)
  */
 
-  optimizePathway(){
+  optimizePathway(_type){
       
       let timeOut_value: number = 2000;
       let optimize: number;
@@ -196,11 +196,10 @@ createDifficulty(difficolta)
       
       if (this.checkOptimize == 0)
       {  
-        timeOut_value = 4000;
         optimize = 1;
         optimizeLabel = this.translate.instant('PATHWAYS.NO_OPTIMIZE_BUTTON');
-      console.log(this.pathway);
-      this.poiService.load_optimize(this.pathway,
+      
+      this.poiService.load_optimize(_type,this.pathway,
       (data) => {
         
         if (data.Points.length < this.pathway.points.length + 2)
@@ -232,11 +231,6 @@ createDifficulty(difficolta)
           this.items[i].timetovisit = this.items[i].time_to_visit;
           this.items[i].category = this.path;
           
-          //console.log(this.items[i].title);
-          //console.log(this.items[i].rating);
-          //console.log('Start_' + data.id_request);
-          
-
           if ( this.items[i].title == 'Start_' + data.id_request)
           {
              this.items[i].title = this.translate.instant('PORT_POINT');
@@ -261,6 +255,14 @@ createDifficulty(difficolta)
          this.timeToVisit_str_pw = Math.round(timeToVisit).toString();
           
 
+         setTimeout(() => {
+          this.checkOptimize = optimize;
+          //console.log(this.checkOptimize);
+          this.optimizeContent =  optimizeLabel;
+          loading.dismiss();
+        }, 1000);
+
+
       })
   }
   else
@@ -269,16 +271,24 @@ createDifficulty(difficolta)
     optimizeLabel = this.translate.instant('PATHWAYS.OPTIMIZE_BUTTON');
     this.items = this.pathway.points;
     this.difficolta_str = this.createDifficulty(this.pathway.difficolta);
+
+    setTimeout(() => {
+      this.checkOptimize = optimize;
+      //console.log(this.checkOptimize);
+      this.optimizeContent =  optimizeLabel;
+      loading.dismiss();
+    }, timeOut_value);
     
   }
 
+  /*
   setTimeout(() => {
     this.checkOptimize = optimize;
     //console.log(this.checkOptimize);
     this.optimizeContent =  optimizeLabel;
     loading.dismiss();
   }, timeOut_value);
-
+ */
 }
 
 /*
